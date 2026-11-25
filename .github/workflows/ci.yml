@@ -18,7 +18,11 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: engine
+      # The 4-core Ubuntu runner lost contact when the heavy flop tests ran in parallel (twice);
+      # run its tests one at a time. Each test still uses all cores internally.
       - run: cargo test --release --no-default-features --manifest-path engine/Cargo.toml
+        env:
+          RUST_TEST_THREADS: ${{ matrix.os == 'ubuntu-latest' && '1' || '4' }}
 
   python:
     runs-on: ${{ matrix.os }}
