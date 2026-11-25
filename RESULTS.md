@@ -70,6 +70,7 @@ Each row is a pre-registered experiment with its own write-up in `records/`.
 | TRANSLATE | a different off-tree bet translation | the stand-in reading failed its pre-registered adoption rule | not adopted ([docs/translation-and-exploitability.md](docs/translation-and-exploitability.md)) |
 | preflop-open F1/F2 | handle small preflop opens better (F2: patch the strategy; F1: retrain with them in the grid) | F2 was worse in all four LBR arms; F1 was *more* exploitable against 2 bb and 2.5 bb opens (+34.5 and +21.2 bb/100) and lost head to head (PR -4.8 mbb/hand) | neither adopted (`records/preflop-open`) |
 | D3 | a better flop net from another 1,000,008 turn-start rows | labelling paused at about 500 shards (501 at the second look) by choice; the look read CONTINUE (-7.10% vs a -4% bar) | in progress (`records/d3`, `records/d3-sweep`) |
+| VAD-SCOUT | do VAD-CFR / WOP-CFR (arXiv 2602.16928) or HS-DCFR schedules beat the live DCFR at 100 and 400 iterations? (12 river and turn spots, exact exploitability) | VAD/WOP 1.1-1.9x *worse* than live; HS-DCFR gains only at 100 iterations (about 0.88-0.90x) and loses at 400; no arm met the pass rule | not adopted (`records/vad-scout`) |
 
 ## 4. Validation (the ladder under all of it)
 
