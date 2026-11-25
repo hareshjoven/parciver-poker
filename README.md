@@ -13,7 +13,7 @@ parciver play kuhn                    # nothing else to install, instant
 parciver play leduc --peek            # watch the exact equilibrium it solved a moment ago
 ```
 
-and, after the one-time ~0.7 GB download of the real blueprint (see [Play](#play); the release assets are not published yet, so until they are, `fetch-blueprint` reports that no download location is set):
+and, after the one-time ~0.7 GB download of the real blueprint (see [Play](#play)):
 
 ```bash
 parciver fetch-blueprint
@@ -66,7 +66,7 @@ Three tiers, from "works in ten seconds" to "the full system":
    [RESULTS.md](RESULTS.md): see [ARCHITECTURE.md](ARCHITECTURE.md) and `scripts/slumbot_run.py`. Needs an
    NVIDIA GPU and `pip install -e ".[gpu]"`.
 
-`parciver fetch-blueprint` (available once the release assets are published; until then the command reports that no download location is set) downloads the blueprint tables (1.55 GB unpacked, ~0.7 GB to download) from the
+`parciver fetch-blueprint` downloads the blueprint tables (1.55 GB unpacked, ~0.7 GB to download) from the
 project's GitHub release, decompresses them on the fly and **verifies a SHA-256 of every file before
 installing it**. The tables are numeric data read by the Rust engine; nothing downloaded is ever executed.
 They go to `~/.parciver` (or `$PARCIVER_HOME`).

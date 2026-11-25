@@ -1,6 +1,6 @@
 {
   "version": "blueprint-v1",
-  "base_url": null,
+  "base_url": "https://github.com/hareshjoven/parciver-poker/releases/download/blueprint-v1",
   "blueprint": "v2-8B (200 bb), the blueprint behind the SLUMBOT-2 match in RESULTS.md",
   "files": [
     {
