@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · HU exploitation spine (nlhe_small)</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  /* S3.1 experiment-view extras (kept out of the shared blueprint style.css) */
+  #stat-verdict { font-family: var(--mono); font-size: clamp(18px,2.2vw,25px); font-weight: 560; letter-spacing:-.04em; color:var(--ink); }
+  .v-ship { color: var(--green) !important; }
+  .v-fail { color: var(--red)   !important; }
+  .v-run  { color: var(--accent) !important; }
+  .legend { display:flex; gap:12px; flex-wrap:wrap; }
+  .legend .li { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-2); }
+  .legend .li i { width:9px; height:9px; border-radius:1px; }
+  .legend .li i.hollow { background:transparent !important; border:1.5px solid var(--ink-3); }
+  .note-box { color: var(--ink-2); font-size:13px; padding:7px 2px 0; line-height:1.55; }
+  table.qtab { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12px; }
+  table.qtab th, table.qtab td { text-align:right; padding:6px 8px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  table.qtab th:first-child, table.qtab td:first-child { text-align:left; }
+  table.qtab th { color:var(--ink-3); font-weight:600; text-transform:uppercase; letter-spacing:.06em; font-size:11px; position:sticky; top:0; background:var(--panel); }
+  table.qtab tr.fit td:first-child { color:var(--accent); }
+  table.qtab tr.held td:first-child { color:var(--amber); }
+  table.qtab tr.eqrow td:first-child { color:var(--ink-3); }
+  table.qtab tr.hiddenrow td:first-child { color:var(--accent-2); }
+  table.qtab td.bad { color:var(--red); }
+  .tab-wrap { max-height:300px; overflow:auto; }
+  .gates-list { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .gates-list li { display:flex; align-items:center; gap:9px; font-size:13px; color:var(--ink); padding:5px 0; border-bottom:1px solid var(--border); }
+  .gates-list .b { width:15px; height:15px; border-radius:2px; border:1px solid currentColor; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex:0 0 auto; }
+  .gates-list .b.ok { background:transparent; color:var(--green); }
+  .gates-list .b.no { background:transparent; color:var(--red); }
+  .gates-list .b.wait { background:transparent; color:var(--ink-3); }
+  .kpi-row { display:flex; gap:20px; flex-wrap:wrap; margin:4px 0 2px; }
+  .kpi-row .kx { display:flex; flex-direction:column; }
+  .kpi-row .kl { color:var(--ink-3); font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
+  .kpi-row .kv { color:var(--ink); font-family:var(--mono); font-size:16px; }
+  .kpi-row .kv.good { color:var(--green); }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <span class="chip cs"></span><span class="chip ch"></span>
+        <span class="chip cd"></span><span class="chip cc"></span>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">parciver</div>
+        <div class="brand-sub" id="game-name">S3.1 · HU exploitation spine — waiting…</div>
+      </div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">S3.1 verdict</div>
+      <div id="stat-verdict" class="v-run">—</div>
+      <div class="hs-sub"><span id="stat-role">confidence-scheduled, safety-gated single-opponent exploitation · exact controls</span></div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">mean HELD-OUT exploit gain</div>
+      <div class="hs-value mono" id="stat-gain">—</div>
+      <div class="hs-sub">of an available <span id="stat-ceil" class="mono">—</span> ceiling · anchor expl <span id="stat-expl" class="mono">—</span></div>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">game</span><span class="v mono">nlhe_small · 456 infosets</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+      <div class="meta-row"><span class="k">scale S</span><span class="v mono" id="stat-S">—</span></div>
+      <div class="meta-row"><span class="k">δ_sub / tol / budget</span><span class="v mono" id="stat-thr">—</span></div>
+      <div class="meta-row"><span class="k">elapsed</span><span class="v mono" id="stat-elapsed">00:00</span></div>
+      <div class="meta-row" id="config-chips"></div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <section class="panel span-6 tall" id="p-frontier">
+      <div class="panel-head">
+        <h2>Captured vs available EV · exact-BR frontier</h2>
+        <div class="legend">
+          <span class="li"><i style="background:var(--accent)"></i>fit</span>
+          <span class="li"><i style="background:var(--amber)"></i>held</span>
+          <span class="li"><i style="background:var(--accent-2)"></i>hidden</span>
+          <span class="li"><i class="hollow"></i>eq</span>
+        </div>
+      </div>
+      <div class="canvas-wrap" style="height:330px"><canvas id="c-frontier"></canvas></div>
+      <div class="note-box">Each point is an opponent: x = the exact best-response ceiling gain over the anchor; y = the spine's realized gain. The dashed diagonal is full capture; the horizontal line is δ_sub. Amber denotes the evaluation set; the protocol above distinguishes historical exploratory cases from locked confirmation cases. The legacy <b>board_blind</b> label means hole-blind: it retains the public board and has a small, nonzero model signal. This is not proof of indistinguishability.</div>
+    </section>
+
+    <section class="panel span-6 tall" id="p-alpha">
+      <div class="panel-head">
+        <h2>The α schedule · α<sub>conf</sub> vs α<sub>safe</sub></h2>
+        <div class="legend"><span class="li"><i style="background:var(--accent)"></i>α used</span><span class="li"><i style="background:var(--amber)"></i>α_conf (confidence)</span><span class="li"><i style="background:var(--red)"></i>α_safe (safety cap)</span></div>
+      </div>
+      <div class="canvas-wrap" style="height:330px"><canvas id="c-alpha"></canvas></div>
+      <div class="note-box">α = min(α<sub>conf</sub>, α<sub>safe</sub>). Confidence (amber) switches the deviation OFF against opponents that look equilibrium-like; the safety cap (red) is the largest α whose EXACT worst-case exploitability stays within budget. The used α (blue) is their min — the spine only deviates when it both detects a leak AND can do so safely.</div>
+    </section>
+
+    <section class="panel span-7" id="p-safety">
+      <div class="panel-head"><h2>Safety-budget headroom · exact exploitability increase</h2><div class="panel-kpi mono" id="kpi-safety">—</div></div>
+      <div class="canvas-wrap short" style="height:210px"><canvas id="c-safety"></canvas></div>
+      <div class="note-box">Per opponent: the exact increase in two-seat mean exploitability (bar) against the budget (dashed line). New regression runs calibrate on FIT opponents only. With the opponent seat fixed, Hero's worst-case loss increase is twice this mean increase. These controls are exact for reduced NLHE; they do not establish safety in the full 100bb game.</div>
+    </section>
+
+    <section class="panel span-5" id="p-gates">
+      <div class="panel-head"><h2>Pre-registered gates</h2></div>
+      <div class="kpi-row">
+        <div class="kx"><span class="kl">held-out gain</span><span class="kv good" id="k-gain">—</span></div>
+        <div class="kx"><span class="kl">max eq |gain|</span><span class="kv" id="k-eq">—</span></div>
+        <div class="kx"><span class="kl">max Δexpl</span><span class="kv" id="k-dexpl">—</span></div>
+      </div>
+      <ul class="gates-list" id="gates-list"></ul>
+    </section>
+
+    <section class="panel span-12" id="p-table">
+      <div class="panel-head"><h2>Per-opponent detail</h2></div>
+      <div class="tab-wrap"><table class="qtab" id="qtab"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <section class="panel span-12" id="p-log">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+
+  </main>
+</div>
+
+<div id="done-overlay" class="overlay" hidden>
+  <div class="done-card">
+    <div class="done-badge" id="done-badge">✓</div>
+    <h1 id="done-title">S3.1 complete</h1>
+    <p id="done-sub"></p>
+    <div class="done-stats" id="done-stats"></div>
+    <button id="done-dismiss">Dismiss</button>
+  </div>
+</div>
+
+<script src="/static/experiment3.js"></script>
+</body>
+</html>

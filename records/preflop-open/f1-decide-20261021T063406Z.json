@@ -1,0 +1,524 @@
+{
+  "stamp": "20261021T063406Z",
+  "pins": {
+    "commit": "2f1e30523478106252e00de71acfcd94947d6eb2",
+    "code": [
+      "3249cb36dd8503a91906b844ca3bf752d5dbe353",
+      "ca9f093eef75dec471d6e8dac8780dc3f813b8c9",
+      "cef839dc452e4f54aa74d899ce18f0bfea1da7b9",
+      "a23a8a8e86ce34bb691c747f91ebba086cdc3805",
+      "976232826d17165c03885df9009441b8fed52569",
+      "88b55fad6b0d7014d1da4e20c76d06a1560d2354",
+      "5dfe9ce16d7c818657b20d915d2ce2b2f505c242",
+      "37e916010ab2b2c2757709f7ff03e89b9fb94656",
+      "516b406f077c5140dd58b33b7745ffd04c9b6b0c",
+      "d377fcfc2ba350421df54dcab795eb3d2d6d0a87"
+    ],
+    "engine": "906227B41D658E880EC7F4CBEF595F8E9661599AE2C10E802965EBF2D33089C7",
+    "engine_identity": "906227B41D658E88+5AD0B211E9C7D830",
+    "engine_path": "runs\\f1-engine\\site\\parciver_engine\\parciver_engine.cp312-win_amd64.pyd",
+    "engine_build": {
+      "commit": "d188bd08ab62913e5ce0f860989bead431c70ac9",
+      "engine_trees": [
+        "3249cb36dd8503a91906b844ca3bf752d5dbe353",
+        "ca9f093eef75dec471d6e8dac8780dc3f813b8c9",
+        "cef839dc452e4f54aa74d899ce18f0bfea1da7b9"
+      ],
+      "wheel": "parciver_engine-0.1.0-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "A8A69C4C8317A6C0B0A778B5E1B35510FAEEB4A12946AD3909A0A8F272E1B974",
+      "pyd": "site\\parciver_engine\\parciver_engine.cp312-win_amd64.pyd",
+      "pyd_sha256": "906227B41D658E880EC7F4CBEF595F8E9661599AE2C10E802965EBF2D33089C7",
+      "cargo_lock_sha256": "9A8F0F5A0B9E2A20FC94F0207EB056BBB15237D750B2E8CF7345A80C3E21254D",
+      "built_utc": "2026-10-20T16:04:16Z"
+    },
+    "live_not_required": [
+      "20261013T051931029828Z-live-flopsym.json"
+    ],
+    "abstraction_sha256": {
+      "flop_buckets.npy": "0F578E1EE3A693B7405AABED021D49102DDC40190C19E8DB2ADAC2443A469A76",
+      "turn_buckets.npy": "D8F0A30BDCE200B591B60D38C6EE3434F33AA89B55D8BB71B3DFBBB188A47C5D",
+      "river_buckets.npy": "7F15923BBCD88B30ABCA7A811B80A2623117772958043556EC5D577715B0BD09"
+    },
+    "base": "v2-2B",
+    "base_blueprint": "runs\\blueprint-20260927-141645\\blueprint.bin",
+    "base_sha256": "1976A53CF253971FEC20D7C03BFB2DC6A1D4D31DFE07296F8F02809C239DA4D1",
+    "fix_blueprint": "runs\\f1-stageA\\blueprint.bin",
+    "fix_sha256": "DDB06447E14E139D577DC9F1F606C3A322BA4EED3DA7703DBC6ACA79376854EC"
+  },
+  "deals": 100000,
+  "seed": 410101,
+  "stakes": {
+    "sb": 50,
+    "bb": 100,
+    "stack": 20000
+  },
+  "peek": false,
+  "sizes": "fixed",
+  "search": null,
+  "opener_bp": "v2-2B root (decide_inner), OPEN_STREAM draw",
+  "arms": {
+    "base-std": {
+      "bot": "base",
+      "open_to": 0,
+      "opener": null,
+      "peek": false,
+      "lbr": {
+        "mean": 269.07725,
+        "lo": 256.9860488670964,
+        "hi": 281.1684511329036,
+        "status": "UP"
+      },
+      "open_counts": [
+        0,
+        0,
+        0
+      ],
+      "seconds": 280.4
+    },
+    "fix-std": {
+      "bot": "fix",
+      "open_to": 0,
+      "opener": null,
+      "peek": false,
+      "lbr": {
+        "mean": 276.83225,
+        "lo": 264.76522516282944,
+        "hi": 288.89927483717054,
+        "status": "UP"
+      },
+      "open_counts": [
+        0,
+        0,
+        0
+      ],
+      "seconds": 273.6
+    },
+    "base-300-all": {
+      "bot": "base",
+      "open_to": 300,
+      "opener": "all",
+      "peek": false,
+      "lbr": {
+        "mean": 272.42725,
+        "lo": 259.3320469451256,
+        "hi": 285.5224530548744,
+        "status": "UP"
+      },
+      "open_counts": [
+        100000,
+        39195,
+        16493
+      ],
+      "seconds": 222.8
+    },
+    "fix-300-all": {
+      "bot": "fix",
+      "open_to": 300,
+      "opener": "all",
+      "peek": false,
+      "lbr": {
+        "mean": 265.91125,
+        "lo": 253.00909622930445,
+        "hi": 278.8134037706955,
+        "status": "UP"
+      },
+      "open_counts": [
+        100000,
+        38911,
+        15528
+      ],
+      "seconds": 231.1
+    },
+    "base-300-bp": {
+      "bot": "base",
+      "open_to": 300,
+      "opener": "bp",
+      "peek": false,
+      "lbr": {
+        "mean": 262.995,
+        "lo": 250.3890925672151,
+        "hi": 275.6009074327849,
+        "status": "UP"
+      },
+      "open_counts": [
+        61271,
+        24227,
+        9937
+      ],
+      "seconds": 236.7
+    },
+    "fix-300-bp": {
+      "bot": "fix",
+      "open_to": 300,
+      "opener": "bp",
+      "peek": false,
+      "lbr": {
+        "mean": 258.9785,
+        "lo": 246.51229633221993,
+        "hi": 271.44470366778006,
+        "status": "UP"
+      },
+      "open_counts": [
+        61271,
+        24056,
+        9400
+      ],
+      "seconds": 237.5
+    },
+    "base-200-all": {
+      "bot": "base",
+      "open_to": 200,
+      "opener": "all",
+      "peek": false,
+      "lbr": {
+        "mean": 241.04174999999998,
+        "lo": 229.1865831401884,
+        "hi": 252.89691685981157,
+        "status": "UP"
+      },
+      "open_counts": [
+        100000,
+        39195,
+        16493
+      ],
+      "seconds": 225.8
+    },
+    "fix-200-all": {
+      "bot": "fix",
+      "open_to": 200,
+      "opener": "all",
+      "peek": false,
+      "lbr": {
+        "mean": 275.51325,
+        "lo": 262.819915549922,
+        "hi": 288.2065844500781,
+        "status": "UP"
+      },
+      "open_counts": [
+        100000,
+        14940,
+        19934
+      ],
+      "seconds": 261.0
+    },
+    "base-200-bp": {
+      "bot": "base",
+      "open_to": 200,
+      "opener": "bp",
+      "peek": false,
+      "lbr": {
+        "mean": 241.4675,
+        "lo": 229.63939625884333,
+        "hi": 253.29560374115667,
+        "status": "UP"
+      },
+      "open_counts": [
+        61271,
+        24227,
+        9937
+      ],
+      "seconds": 236.7
+    },
+    "fix-200-bp": {
+      "bot": "fix",
+      "open_to": 200,
+      "opener": "bp",
+      "peek": false,
+      "lbr": {
+        "mean": 265.43100000000004,
+        "lo": 253.14306405939462,
+        "hi": 277.71893594060543,
+        "status": "UP"
+      },
+      "open_counts": [
+        61271,
+        9314,
+        11962
+      ],
+      "seconds": 255.1
+    },
+    "base-250-all": {
+      "bot": "base",
+      "open_to": 250,
+      "opener": "all",
+      "peek": false,
+      "lbr": {
+        "mean": 254.51825000000002,
+        "lo": 242.0791700380342,
+        "hi": 266.95732996196585,
+        "status": "UP"
+      },
+      "open_counts": [
+        100000,
+        39195,
+        16493
+      ],
+      "seconds": 227.7
+    },
+    "fix-250-all": {
+      "bot": "fix",
+      "open_to": 250,
+      "opener": "all",
+      "peek": false,
+      "lbr": {
+        "mean": 275.6695,
+        "lo": 262.8136552518231,
+        "hi": 288.52534474817696,
+        "status": "UP"
+      },
+      "open_counts": [
+        100000,
+        28739,
+        17594
+      ],
+      "seconds": 240.1
+    },
+    "base-250-bp": {
+      "bot": "base",
+      "open_to": 250,
+      "opener": "bp",
+      "peek": false,
+      "lbr": {
+        "mean": 250.42425000000003,
+        "lo": 238.2139535015654,
+        "hi": 262.63454649843464,
+        "status": "UP"
+      },
+      "open_counts": [
+        61271,
+        24227,
+        9937
+      ],
+      "seconds": 234.6
+    },
+    "fix-250-bp": {
+      "bot": "fix",
+      "open_to": 250,
+      "opener": "bp",
+      "peek": false,
+      "lbr": {
+        "mean": 270.7815,
+        "lo": 258.3030451492294,
+        "hi": 283.2599548507706,
+        "status": "UP"
+      },
+      "open_counts": [
+        61271,
+        17816,
+        10596
+      ],
+      "seconds": 245.1
+    }
+  },
+  "gates": {
+    "G0-base-std": true,
+    "G0-base-300-all": true,
+    "G0-base-300-bp": true,
+    "G0-base-200-all": true,
+    "G0-base-200-bp": true,
+    "G0-base-250-all": true,
+    "G0-base-250-bp": true,
+    "G3": true,
+    "G5": true
+  },
+  "delta_fix_minus_base": {
+    "std": {
+      "total": {
+        "mean": 7.754999999999999,
+        "lo": -6.575636999406816,
+        "hi": 22.085636999406816,
+        "status": "FLAT"
+      },
+      "postflop": {
+        "mean": 7.521999999999999,
+        "lo": -6.807411084568234,
+        "hi": 21.851411084568234,
+        "status": "FLAT"
+      },
+      "preflop_ended": {
+        "mean": 0.233,
+        "lo": 0.0366225000795643,
+        "hi": 0.4293774999204357,
+        "status": "UP"
+      }
+    },
+    "300-all": {
+      "total": {
+        "mean": -6.516,
+        "lo": -21.301279547095156,
+        "hi": 8.269279547095156,
+        "status": "FLAT"
+      },
+      "postflop": {
+        "mean": -6.407,
+        "lo": -21.191106401866328,
+        "hi": 8.377106401866328,
+        "status": "FLAT"
+      },
+      "preflop_ended": {
+        "mean": -0.109,
+        "lo": -0.3083738615738552,
+        "hi": 0.09037386157385523,
+        "status": "FLAT"
+      }
+    },
+    "300-bp": {
+      "total": {
+        "mean": -4.0165,
+        "lo": -18.49254732442149,
+        "hi": 10.45954732442149,
+        "status": "FLAT"
+      },
+      "postflop": {
+        "mean": -3.964,
+        "lo": -18.438695097700766,
+        "hi": 10.510695097700765,
+        "status": "FLAT"
+      },
+      "preflop_ended": {
+        "mean": -0.0525,
+        "lo": -0.2507297986338851,
+        "hi": 0.14572979863388513,
+        "status": "FLAT"
+      }
+    },
+    "200-all": {
+      "total": {
+        "mean": 34.4715,
+        "lo": 20.03340195328302,
+        "hi": 48.90959804671698,
+        "status": "UP"
+      },
+      "postflop": {
+        "mean": 46.466,
+        "lo": 32.024535071196,
+        "hi": 60.907464928804,
+        "status": "UP"
+      },
+      "preflop_ended": {
+        "mean": -11.9945,
+        "lo": -12.127925710318955,
+        "hi": -11.861074289681046,
+        "status": "DOWN"
+      }
+    },
+    "200-bp": {
+      "total": {
+        "mean": 23.9635,
+        "lo": 9.739240188223354,
+        "hi": 38.187759811776644,
+        "status": "UP"
+      },
+      "postflop": {
+        "mean": 31.287,
+        "lo": 17.060068625604053,
+        "hi": 45.513931374395945,
+        "status": "UP"
+      },
+      "preflop_ended": {
+        "mean": -7.323499999999999,
+        "lo": -7.434900540914167,
+        "hi": -7.212099459085832,
+        "status": "DOWN"
+      }
+    },
+    "250-all": {
+      "total": {
+        "mean": 21.151249999999997,
+        "lo": 6.557507903576694,
+        "hi": 35.7449920964233,
+        "status": "UP"
+      },
+      "postflop": {
+        "mean": 26.24625,
+        "lo": 11.650768529212428,
+        "hi": 40.84173147078757,
+        "status": "UP"
+      },
+      "preflop_ended": {
+        "mean": -5.095000000000001,
+        "lo": -5.190597652087857,
+        "hi": -4.999402347912144,
+        "status": "DOWN"
+      }
+    },
+    "250-bp": {
+      "total": {
+        "mean": 20.35725,
+        "lo": 5.9468732395921275,
+        "hi": 34.76762676040787,
+        "status": "UP"
+      },
+      "postflop": {
+        "mean": 23.42975,
+        "lo": 9.018011801339794,
+        "hi": 37.8414881986602,
+        "status": "UP"
+      },
+      "preflop_ended": {
+        "mean": -3.0725,
+        "lo": -3.1495933781189374,
+        "hi": -2.995406621881062,
+        "status": "DOWN"
+      }
+    }
+  },
+  "price_vs_300": {
+    "base-200-all": {
+      "mean": -31.3855,
+      "lo": -36.26288022423423,
+      "hi": -26.50811977576577,
+      "status": "DOWN"
+    },
+    "fix-200-all": {
+      "mean": 9.602,
+      "lo": -1.1264042750399188,
+      "hi": 20.330404275039918,
+      "status": "FLAT"
+    },
+    "base-200-bp": {
+      "mean": -21.5275,
+      "lo": -25.529559926645835,
+      "hi": -17.525440073354165,
+      "status": "DOWN"
+    },
+    "fix-200-bp": {
+      "mean": 6.4525,
+      "lo": -2.10944087458675,
+      "hi": 15.01444087458675,
+      "status": "FLAT"
+    },
+    "base-250-all": {
+      "mean": -17.909,
+      "lo": -21.471918867726526,
+      "hi": -14.346081132273472,
+      "status": "DOWN"
+    },
+    "fix-250-all": {
+      "mean": 9.75825,
+      "lo": -0.707952731540578,
+      "hi": 20.22445273154058,
+      "status": "FLAT"
+    },
+    "base-250-bp": {
+      "mean": -12.57075,
+      "lo": -15.49000732571482,
+      "hi": -9.65149267428518,
+      "status": "DOWN"
+    },
+    "fix-250-bp": {
+      "mean": 11.802999999999999,
+      "lo": 3.3865155656732906,
+      "hi": 20.21948443432671,
+      "status": "UP"
+    }
+  },
+  "rule": {
+    "a": false,
+    "a_prime": false,
+    "b": true,
+    "c_d": "checked separately (F1-PREREG.md)"
+  },
+  "verdict": "complete",
+  "seconds": 3408.4
+}

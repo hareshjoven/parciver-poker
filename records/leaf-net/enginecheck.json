@@ -1,0 +1,29 @@
+{
+  "spots": [
+    6,
+    14
+  ],
+  "fields": [
+    "br",
+    "expl",
+    "lo",
+    "hi",
+    "value",
+    "profile",
+    "iters",
+    "curve",
+    "isomorphism",
+    "frozen"
+  ],
+  "differ": {
+    "6": [],
+    "14": []
+  },
+  "passed": true,
+  "baseline": "sym",
+  "engine": "e58c7292d100642762cd4fc920b2651316121cdc3995599ba7e1bbbe61c747b7",
+  "files": {
+    "m1-v-sym.json": "e6b0a3279a99f0aa17c31e089c18d8d3d84f80b8be9f78951b8c8dab2350482f",
+    "m1-x-sym.npz": "631493eefe6f8cde1411a4b8e419ee2b3df6865b0f7e5850c0730fc79588e175"
+  }
+}

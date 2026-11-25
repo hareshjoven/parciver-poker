@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Rust
+target/
+
+# Trained artifacts and run output (fetched or produced locally; never committed)
+*.blueprint
+*.abstraction
+*.npz
+*.npy
+*.pt
+*.ckpt
+data/
+runs/
+checkpoints/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Unpacked copies of the Slumbot hand logs (records/*/hands.jsonl.xz is the shipped form)
+records/slumbot/hands.jsonl
+records/slumbot-2/hands.jsonl
+
+# Local secrets
+.gtow_key

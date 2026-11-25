@@ -1,0 +1,50 @@
+{
+  "union": {
+    "fingerprint": "7d5a77c30aaad5d6",
+    "rows_over_10pct": 0,
+    "train": {
+      "rows": 951466,
+      "boards": 15621
+    },
+    "select": {
+      "rows": 23728,
+      "boards": 400
+    },
+    "gate": {
+      "rows": 24814,
+      "boards": 406
+    }
+  },
+  "d1": {
+    "fingerprint": "8df0fc79620a1820",
+    "rows_over_10pct": 0,
+    "train": {
+      "rows": 475432,
+      "boards": 15555
+    },
+    "select": {
+      "rows": 12058,
+      "boards": 398
+    },
+    "gate": {
+      "rows": 12514,
+      "boards": 404
+    }
+  },
+  "d1b": {
+    "fingerprint": "870e6a2fb7e1c2fb",
+    "rows_over_10pct": 0,
+    "train": {
+      "rows": 476034,
+      "boards": 15550
+    },
+    "select": {
+      "rows": 11670,
+      "boards": 398
+    },
+    "gate": {
+      "rows": 12300,
+      "boards": 405
+    }
+  }
+}

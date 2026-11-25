@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · M2</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --armA: #8ab4f8; --hot: #f28b82; --ok: #81c995; --amber: #f9ab00; }
+  .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; }
+  @media (max-width: 1180px) { .span-4, .span-6, .span-8 { grid-column: span 12; } }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 80rem; }
+  .canvas-wrap.tall { height: 300px; } .canvas-wrap.mid { height: 220px; }
+  .verdict { margin-top: 6px; font: 600 22px var(--mono); }
+  .verdict.yes { color: var(--ok); } .verdict.no { color: var(--hot); } .verdict.wait { color: var(--ink-3); font-weight: 400; font-size: 13px; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font: 12px/1.5 var(--mono); margin-top: 10px; }
+  .kv .k { color: var(--ink-3); } .kv .v { text-align: right; }
+  .ci { position: relative; height: 34px; margin: 14px 0 4px; border-bottom: 1px solid var(--border); }
+  .ci .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--ink-3); }
+  .ci .band { position: absolute; top: 10px; height: 14px; border-radius: 3px; background: var(--armA); opacity: .35; }
+  .ci .pt { position: absolute; top: 7px; width: 4px; height: 20px; margin-left: -2px; border-radius: 2px; background: var(--armA); }
+  .banner { display: none; margin-top: 14px; padding: 10px 14px; border: 1px solid var(--hot); border-radius: 4px; color: var(--hot); font: 13px var(--sans); }
+  .banner.on { display: block; }
+  .tip { position: fixed; z-index: 50; }
+  .brand, .brand-text { min-width: 0; overflow: hidden; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · FLOPSEARCH M2 · does the flop search win head to head?</div><div class="brand-sub" id="sub">connecting…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">flop+turn − turn</div><div class="hs-value" id="stat-mean">—</div><div class="hs-sub" id="stat-mean-sub">bb/100 so far</div></div>
+    <div class="hero-stat"><div class="hs-label">deals played</div><div class="hs-value" id="stat-deals">—</div><div class="hs-sub" id="stat-deals-sub">—</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">pace</span><span class="v mono" id="stat-pace">—</span></div>
+      <div class="meta-row"><span class="k">gpu · cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <div class="banner" id="banner"></div>
+  <main class="grid">
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Cumulative result · v2-2B with flop + turn search vs v2-2B with turn search</h2><div class="legend"><span class="li"><i style="background:var(--armA)"></i>mean ± 1.96 se</span></div></div>
+      <div class="canvas-wrap tall"><canvas id="c-cum"></canvas></div>
+      <p class="note">bb/100 from the flop searcher's side, mirrored deals (both seats). Above 0 = the flop search wins. The band is the per-deal 95% interval, a preview; M2 reads 50 blocks at 10,000 deals.</p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Condition (b) · not DOWN</h2></div>
+      <div class="verdict wait" id="verdict">waiting for 100 deals</div>
+      <div class="ci" id="ci"></div>
+      <div class="kv" id="kv"></div>
+      <p class="note">(a) holds (M1: −2.13% of the pot [−3.06, −1.20]). ADOPT iff (b): the 50-block 95% t interval at 10,000 deals is not entirely below 0. Before the last deal this panel decides nothing.</p>
+    </section>
+
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Each chunk of 250 deals</h2></div>
+      <div class="canvas-wrap mid"><canvas id="c-bars"></canvas></div>
+      <p class="note">The chunk's own mean, bb/100. Poker is noisy: single chunks swing by hundreds.</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Flop search latency</h2><span class="panel-kpi mono" id="lat-kpi">—</span></div>
+      <div class="canvas-wrap mid"><canvas id="c-hist"></canvas></div>
+      <p class="note">Seconds per flop solve (500 iterations, net leaves), inside the GPU lock. The dashed line is LIVESEARCH's 2 s budget; D4 records it as a cost, not a gate.</p>
+    </section>
+
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Pace and solves per deal</h2><div class="legend"><span class="li"><i style="background:var(--armA)"></i>s/deal</span><span class="li"><i style="background:var(--amber)"></i>flop</span><span class="li"><i style="background:var(--ok)"></i>turn</span><span class="li"><i style="background:var(--hot)"></i>river</span></div></div>
+      <div class="canvas-wrap mid"><canvas id="c-pace"></canvas></div>
+      <p class="note">Per chunk. Solves per deal: both arms' turn and river searches share one GPU solver; only the flop searcher sends flop jobs.</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">M2 complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<div class="tip" id="tip" hidden></div>
+<script src="/static/m2.js"></script>
+</body>
+</html>

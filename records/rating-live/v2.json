@@ -1,0 +1,65 @@
+{
+  "run": "v2",
+  "seed": 721000,
+  "deals": 2000,
+  "chunk": 250,
+  "search": {
+    "from_turn": true,
+    "turn_iters": 100,
+    "river_iters": 200
+  },
+  "identity": {
+    "a0": null,
+    "a2": "1976a53cf253971fec20d7c03bfb2dc6a1d4d31dfe07296f8f02809c239da4d1",
+    "abstraction": "data\\abstraction",
+    "chunk": 250,
+    "deals": 2000,
+    "engine": "e58c7292d100642762cd4fc920b2651316121cdc3995599ba7e1bbbe61c747b7",
+    "run": "v2",
+    "script": "ab4de942a09208b7f39667c2e8c077e1ec9979fb5d28b229c9402bd66b54c2c9",
+    "search": {
+      "from_turn": true,
+      "river_iters": 200,
+      "turn_iters": 100
+    },
+    "seed": 721000,
+    "stakes": [
+      50,
+      100,
+      20000
+    ],
+    "threads": 4
+  },
+  "git_at_start": "3dbef8c1ca79b9c074e0544d20c77ceeb8a516c2",
+  "deals_done": 2000,
+  "aivat_mass_error": 4.440892098500626e-16,
+  "zero_share_u": 0.7125,
+  "zero_share_aivat": 0.5585,
+  "mean_u": 0.37028,
+  "sd_u": 15.280685796154582,
+  "cv": {
+    "mean": 0.45258681818181806,
+    "sd": 14.37869198321923,
+    "diff_mean": 0.08230681818181813,
+    "diff_se": 0.09822280581591311,
+    "z": 0.8379603646843041,
+    "r": 0.8854276284280542,
+    "r_ci": [
+      0.7959325189281526,
+      0.950167621145055
+    ]
+  },
+  "aivat": {
+    "mean": 0.2966612866990922,
+    "sd": 9.396354175041118,
+    "diff_mean": -0.07361871330090779,
+    "diff_se": 0.2529988058645034,
+    "z": -0.2909844299436543,
+    "r": 0.3781229738167452,
+    "r_ci": [
+      0.26849394145582794,
+      0.5498575561644596
+    ]
+  },
+  "passed": true
+}

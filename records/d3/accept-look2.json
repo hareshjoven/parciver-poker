@@ -1,0 +1,110 @@
+{
+  "check": "A1-A3",
+  "profile": "d1c",
+  "verdict": "PARTIAL",
+  "A1": true,
+  "A2": true,
+  "A3": true,
+  "generate_json": {
+    "terminals": "q4",
+    "workers": 1,
+    "iters": 500,
+    "gamma": 5,
+    "plus": false,
+    "samples": 1000008,
+    "shard": 1000,
+    "seed": 700007,
+    "dtype": "float32",
+    "units": "pots per unit of opponent range mass; ranges as stored (float32)",
+    "code": "archive/<worktree>",
+    "layout": "interleave-1:1",
+    "harvest": "d1519f23ef6b4d7fb65fdddc5115d1b07269f35f2c53ce9264bb311ecaeee019",
+    "harvest_rows": 499968,
+    "resumed": [
+      "archive/<worktree>"
+    ]
+  },
+  "settings_clash": {},
+  "shards_expected": 1001,
+  "shards_missing": 500,
+  "missing_first": [
+    501,
+    502,
+    503,
+    504,
+    505,
+    506,
+    507,
+    508,
+    509,
+    510,
+    511,
+    512,
+    513,
+    514,
+    515,
+    516,
+    517,
+    518,
+    519,
+    520
+  ],
+  "A1_bad": [],
+  "A2_nonfinite_shards": [],
+  "zero_sum_tol": 1e-05,
+  "whole": {
+    "rows": 501000,
+    "finite": true,
+    "zero_sum_max": 3.049908865182527e-07,
+    "zero_sum_over_tol": 0,
+    "expl_mean_pct": 0.24550759141861236,
+    "expl_median_pct": 0.1327527250414588,
+    "expl_p99_pct": 2.2055740419907606,
+    "share_over_3pct": 0.0014970059880239522,
+    "share_over_10pct": 1.3972055888223553e-05
+  },
+  "parts": {
+    "cloud": {
+      "rows": 0,
+      "finite": true,
+      "zero_sum_max": null,
+      "zero_sum_over_tol": 0,
+      "expl_mean_pct": null,
+      "expl_median_pct": null,
+      "expl_p99_pct": null,
+      "share_over_3pct": null,
+      "share_over_10pct": null
+    },
+    "pc": {
+      "rows": 501000,
+      "finite": true,
+      "zero_sum_max": 3.049908865182527e-07,
+      "zero_sum_over_tol": 0,
+      "expl_mean_pct": 0.24550759141861236,
+      "expl_median_pct": 0.1327527250414588,
+      "expl_p99_pct": 2.2055740419907606,
+      "share_over_3pct": 0.0014970059880239522,
+      "share_over_10pct": 1.3972055888223553e-05
+    }
+  },
+  "sources": {
+    "0": {
+      "rows": 125250,
+      "expl_mean_pct": 0.3705032808102687,
+      "share_over_10pct": 1.596806387225549e-05
+    },
+    "1": {
+      "rows": 125250,
+      "expl_mean_pct": 0.2815000642771634,
+      "share_over_10pct": 3.9920159680638724e-05
+    },
+    "2": {
+      "rows": 250500,
+      "expl_mean_pct": 0.16501351029350872,
+      "share_over_10pct": 0.0
+    }
+  },
+  "d1": null,
+  "seconds": 49.8,
+  "when": "2026-11-16 21:41:38"
+}

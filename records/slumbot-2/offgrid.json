@@ -1,0 +1,85 @@
+{
+  "searched_flop_decisions": 33039,
+  "facing_a_bet": 9092,
+  "off_grid": 492,
+  "off_grid_share_of_all": 0.014891491873240716,
+  "off_grid_share_of_facing": 0.05411350637923449,
+  "record_check": {
+    "checked": 33039,
+    "disagree": 0
+  },
+  "seconds": {
+    "all-in": {
+      "n": 8,
+      "median": 1.8226,
+      "p95": 2.0656299999999996,
+      "mean": 1.6703875,
+      "max": 2.1609
+    },
+    "no bet to answer": {
+      "n": 23947,
+      "median": 2.3888,
+      "p95": 2.68244,
+      "mean": 2.366417864450662,
+      "max": 3.1569
+    },
+    "off the grid": {
+      "n": 492,
+      "median": 1.9665,
+      "p95": 2.39457,
+      "mean": 2.085696544715447,
+      "max": 2.5657
+    },
+    "on the grid": {
+      "n": 8592,
+      "median": 2.05815,
+      "p95": 2.5572,
+      "mean": 2.0748213221601493,
+      "max": 3.1011
+    }
+  },
+  "seconds_first_flop_decision": {
+    "no bet to answer": {
+      "n": 23947,
+      "median": 2.3888,
+      "p95": 2.68244,
+      "mean": 2.366417864450662,
+      "max": 3.1569
+    },
+    "on the grid": {
+      "n": 2279,
+      "median": 2.4289,
+      "p95": 2.71077,
+      "mean": 2.4084483984203597,
+      "max": 3.1011
+    }
+  },
+  "seconds_later_flop_decision": {
+    "all-in": {
+      "n": 8,
+      "median": 1.8226,
+      "p95": 2.0656299999999996,
+      "mean": 1.6703875,
+      "max": 2.1609
+    },
+    "off the grid": {
+      "n": 492,
+      "median": 1.9665,
+      "p95": 2.39457,
+      "mean": 2.085696544715447,
+      "max": 2.5657
+    },
+    "on the grid": {
+      "n": 6313,
+      "median": 1.9026,
+      "p95": 2.12064,
+      "mean": 1.9543815776968163,
+      "max": 2.6668
+    }
+  },
+  "off_grid_pot_fraction": {
+    "min": 0.5,
+    "median": 0.5,
+    "max": 0.5
+  }
+}

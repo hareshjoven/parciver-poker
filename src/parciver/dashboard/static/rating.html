@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · rating</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --ok: var(--green); --stale: var(--ink-3); --bad: var(--red); }
+  .span-8 { grid-column: span 8; } .span-6 { grid-column: span 6; }
+  @media (max-width: 1180px) { .span-8, .span-6 { grid-column: span 12; } }
+  .brand-text { min-width: 0; }
+  .pr-big { font: 600 clamp(34px, 4.4vw, 52px)/1 var(--mono); letter-spacing: -.04em; color: var(--ink); }
+  .pr-big.none { color: var(--ink-3); font-size: 26px; }
+  .chip { display: inline-block; padding: 1px 7px; border-radius: 3px; font: 600 10px var(--sans); letter-spacing: .07em;
+          text-transform: uppercase; border: 1px solid currentColor; vertical-align: middle; }
+  .chip.VERIFIED { color: var(--ok); } .chip.STALE { color: var(--stale); } .chip.INVALID { color: var(--bad); }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 72rem; }
+  .tbl-wrap { overflow: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .tbl th, .tbl td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child { text-align: left; }
+  .tbl th { color: var(--ink-3); text-transform: uppercase; font-size: 11px; font-weight: 500; }
+  .tbl td.dim { color: var(--ink-3); }
+  .tbl tr.head td { background: var(--panel-2); font-weight: 600; }
+  .tbl tr.anchor td:first-child { color: var(--ink-2); }
+  .tbl tr.stale td { color: var(--stale); }
+  .tbl td.why { color: var(--ink-3); text-align: left; white-space: normal; font-family: var(--sans); max-width: 30rem; }
+  .wbars { display: flex; flex-direction: column; gap: 8px; }
+  .wrow { display: grid; grid-template-columns: 44px 1fr 56px; gap: 10px; align-items: center; font: 12px var(--mono); color: var(--ink-2); }
+  .wtrack { height: 12px; background: var(--bg); border-radius: 2px; overflow: hidden; }
+  .wtrack div { height: 100%; background: var(--accent); }
+  .checks { margin: 14px 0 0; padding: 0; list-style: none; font-size: 12px; display: flex; flex-direction: column; gap: 5px; }
+  .checks li { display: grid; grid-template-columns: 54px 1fr; gap: 8px; color: var(--ink-2); }
+  .checks .ok { color: var(--ok); font-weight: 600; } .checks .fail { color: var(--bad); font-weight: 600; } .checks .rep { color: var(--ink-3); }
+  .mx td.c { font-variant-numeric: tabular-nums; }
+  .canvas-wrap { position: relative; height: 300px; }
+  .canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+  .prog-what { font: 12px var(--mono); color: var(--ink-2); margin-bottom: 6px; }
+  .empty { color: var(--ink-3); font-size: 13px; padding: 8px 0; }
+  .tip { position: fixed; z-index: 50; pointer-events: none; background: var(--panel-2); border: 1px solid var(--border-2);
+         padding: 6px 8px; border-radius: 4px; font: 12px var(--mono); color: var(--ink); max-width: 320px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · rating</div><div class="brand-sub" id="sub">waiting for data…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">parciver rating · current bot</div><div class="pr-big none" id="pr">—</div><div class="hs-sub" id="pr-sub">no verified rating yet</div></div>
+    <div class="hero-stat"><div class="hs-label">exploitability guard (LBR, lower is better)</div><div class="hs-value" id="lbr">—</div><div class="hs-sub" id="lbr-sub">shown beside the rating, never folded into it</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">pool</span><span class="v mono" id="m-pool">—</span></div>
+      <div class="meta-row"><span class="k">engine+code</span><span class="v mono" id="m-id">—</span></div>
+      <div class="meta-row"><span class="k">built</span><span class="v mono" id="m-built">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="m-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <main class="grid">
+    <section class="panel span-12" id="flight">
+      <div class="panel-head"><h2>Match in flight</h2><span class="panel-kpi mono" id="flight-kpi">—</span></div>
+      <div class="prog-what" id="flight-what">idle</div>
+      <div class="run-progress"><div id="flight-bar"></div></div>
+    </section>
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Rating of every configuration (95% interval)</h2><div class="legend">
+        <span class="lg"><i class="sw" style="background:var(--ok)"></i>verified</span>
+        <span class="lg"><i class="sw" style="background:var(--stale)"></i>stale</span>
+        <span class="lg"><i class="sw" style="background:var(--bad)"></i>invalid</span></div></div>
+      <div class="canvas-wrap"><canvas id="chart"></canvas></div>
+      <p class="note">1 point = 1 mbb/hand (0.1 bb/100). 1500 = the v1 100bb blueprint (A0), fixed forever. A rating is how much more the configuration wins than A0 does against the same anchors on the same cards, each anchor weighted by the pool's Nash averaging.</p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Anchor weights (Nash averaging)</h2><span class="panel-kpi mono" id="cal-state">—</span></div>
+      <div class="wbars" id="weights"><div class="empty">no calibration</div></div>
+      <ul class="checks" id="checks"></ul>
+      <p class="note">Weights are the maximum-entropy Nash equilibrium of the anchors' own meta-game: copies of an anchor split one weight, so the pool cannot be stacked.</p>
+    </section>
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Every receipt · recomputed from per-deal results</h2><span class="panel-kpi mono" id="tbl-kpi">—</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="tbl"><thead></thead><tbody></tbody></table></div>
+      <p class="note">VERIFIED: replayed bit-identically under the current engine and rating code (every anchor match in full, plus one LBR chunk; every new receipt is replayed as soon as it is written). STALE (grey): not replayed under them yet (run <span class="mono">rating.py verify</span>), or a pool-wide check is pending (pool-v2's C6: <span class="mono">rating.py crosscheck</span>; a file in receipts/ that cannot be read). INVALID: a hash, file, seed, protocol or replay mismatch, or a failed pool-wide check (the calibration's re-derivation, the reference, C6); it gets no rating. The headline (★) is the newest VERIFIED receipt of the current bot's configuration (blueprint content + search + translation, not its label).</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Anchor meta-game (row vs column, mbb/hand)</h2></div>
+      <div class="tbl-wrap"><table class="tbl mx" id="mx"><thead></thead><tbody></tbody></table></div>
+      <p class="note">Calibration matches, mirrored seeded deals; ± is one standard error.</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Selected configuration vs each anchor</h2><span class="panel-kpi mono" id="sel-kpi">—</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="sel"><thead></thead><tbody></tbody></table></div>
+      <p class="note">Click a row above to select it. Paired difference = this configuration minus A0 against the anchor, deal by deal on identical cards.</p>
+    </section>
+  </main>
+</div>
+<div class="tip" id="tip" hidden></div>
+<script src="/static/rating.js"></script>
+</body>
+</html>

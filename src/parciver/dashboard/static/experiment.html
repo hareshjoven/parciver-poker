@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · rich-bait decider</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  /* §35.A experiment-view extras (kept out of the shared blueprint style.css) */
+  #stat-verdict { font-family: var(--mono); font-size: clamp(18px,2.2vw,25px); font-weight: 560; letter-spacing:-.04em; color:var(--ink); }
+  .v-null  { color: var(--green) !important; }
+  .v-menu  { color: var(--amber) !important; }
+  .v-run   { color: var(--accent) !important; }
+  .v-fail  { color: var(--red)   !important; }
+  .fam-legend { display:flex; gap:10px; flex-wrap:wrap; }
+  .fam-legend .li i { width:11px; height:11px; border-radius:3px; }
+  .tier-key { display:flex; gap:12px; flex-wrap:wrap; }
+  .tier-key .li { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-2); }
+  .tier-key .li i { width:9px; height:9px; border-radius:50%; }
+  .note-box { color: var(--ink-2); font-size:13px; padding:7px 2px 0; line-height:1.55; }
+  .kpi-row { display:flex; gap:18px; flex-wrap:wrap; margin-top:2px; }
+  .kpi-row .kx { display:flex; flex-direction:column; }
+  .kpi-row .kl { color:var(--ink-3); font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
+  .kpi-row .kv { color:var(--ink); font-family:var(--mono); font-size:16px; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <span class="chip cs"></span><span class="chip ch"></span>
+        <span class="chip cd"></span><span class="chip cc"></span>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">parciver</div>
+        <div class="brand-sub" id="game-name">§35.A rich-bait decider — waiting…</div>
+      </div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">verdict</div>
+      <div id="stat-verdict" class="v-run">—</div>
+      <div class="hs-sub"><span id="stat-role">—</span></div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">max headroom · held (vs δ)</div>
+      <div class="hs-value mono" id="stat-headroom">—</div>
+      <div class="hs-sub">δ = <span id="stat-delta" class="mono">—</span> · game-units / 2-block window</div>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+      <div class="meta-row"><span class="k">state</span><span class="v mono" id="stat-state">—</span></div>
+      <div class="meta-row"><span class="k">candidates</span><span class="v mono" id="stat-cands">—</span></div>
+      <div class="meta-row"><span class="k">elapsed</span><span class="v mono" id="stat-elapsed">00:00</span></div>
+      <div class="meta-row" id="config-chips"></div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <section class="panel span-6 tall" id="p-frontier">
+      <div class="panel-head">
+        <h2>EV vs exact-BR frontier · <span id="frontier-fam" class="mono" style="text-transform:none;color:var(--ink)">—</span></h2>
+        <div class="tier-key" id="tier-key"></div>
+      </div>
+      <div class="canvas-wrap" style="height:340px"><canvas id="c-frontier"></canvas></div>
+      <div class="note-box">Each point is a candidate bait: x = its immediate EV, y = the exact BR-value against the opponents ρ then produces. The dashed line is the myopic BR's 2-block total; the solid line is myopic + δ. A point <b>above</b> the solid line is capturable shaping headroom.</div>
+    </section>
+
+    <section class="panel span-6 tall" id="p-headroom">
+      <div class="panel-head">
+        <h2>1-step headroom by opponent family</h2>
+        <div class="fam-legend"><span class="li"><i style="background:var(--green)"></i>≤ δ (null holds)</span><span class="li"><i style="background:var(--raise)"></i>&gt; δ (shaping edge)</span></div>
+      </div>
+      <div class="canvas-wrap" style="height:340px"><canvas id="c-headroom"></canvas></div>
+    </section>
+
+    <section class="panel span-12" id="p-traj" hidden>
+      <div class="panel-head">
+        <h2>Opponents learning over time · <span id="traj-fam" class="mono" style="text-transform:none;color:var(--ink)">—</span></h2>
+        <div class="tier-key" id="traj-key"></div>
+      </div>
+      <div class="canvas-wrap" style="height:260px"><canvas id="c-traj"></canvas></div>
+      <div class="note-box">No-regret learners adapting to the joint field, block by block (§35.B). Left axis: Hero's realised EV vs the exact-BR ceiling. Right axis (0–1): each opponent's aggression and the <b>opp→opp coupling</b> — how far a 2-step dense successor diverges from the star model, the channel A5−A4 exploits.</div>
+    </section>
+
+    <section class="panel span-4" id="p-ablation">
+      <div class="panel-head"><h2>Ceiling tightening · ablation</h2></div>
+      <div class="canvas-wrap short" style="height:180px"><canvas id="c-ablation"></canvas></div>
+      <div class="note-box">Headroom found after each search tier (pure → +mixed → +coord). Bigger jump = the 5-archetype menu was the binding limit.</div>
+    </section>
+
+    <section class="panel span-4" id="p-screen">
+      <div class="panel-head"><h2>Future-exploitability screen</h2></div>
+      <div class="canvas-wrap short" style="height:180px"><canvas id="c-screen"></canvas></div>
+      <div class="note-box">max reachable BR-value − myopic's. ≤ 0 ⇒ BR already leaves opponents maximally exploitable (no bait can pay).</div>
+    </section>
+
+    <section class="panel span-4" id="p-progress">
+      <div class="panel-head"><h2>Search progress</h2><div class="panel-kpi mono" id="kpi-best">—</div></div>
+      <div class="canvas-wrap short" style="height:180px"><canvas id="c-progress"></canvas></div>
+      <div class="kpi-row">
+        <div class="kx"><span class="kl">distinct successors</span><span class="kv" id="kpi-succ">—</span></div>
+        <div class="kx"><span class="kl">families &gt; δ (held)</span><span class="kv" id="kpi-nfam">—</span></div>
+      </div>
+    </section>
+
+    <section class="panel span-12" id="p-decomp">
+      <div class="panel-head"><h2>Multiplayer decomposition · A5 − A4 (the H2 signal)</h2><div class="panel-kpi mono" id="kpi-a5a4">—</div></div>
+      <div class="canvas-wrap short" style="height:170px"><canvas id="c-decomp"></canvas></div>
+      <div class="note-box" id="decomp-note">Runs only if headroom &gt; δ appears (MENU-ARTIFACT). Decomposes the rich-menu ceiling into single-opponent shaping (star model, A4) vs the inter-opponent externality A5 − A4 &gt; 0 — the multiplayer edge H2 bets on.</div>
+    </section>
+
+    <section class="panel span-12" id="p-log">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+
+  </main>
+</div>
+
+<div id="done-overlay" class="overlay" hidden>
+  <div class="done-card">
+    <div class="done-badge" id="done-badge">✓</div>
+    <h1 id="done-title">Decider complete</h1>
+    <p id="done-sub"></p>
+    <div class="done-stats" id="done-stats"></div>
+    <button id="done-dismiss">Dismiss</button>
+  </div>
+</div>
+
+<script src="/static/experiment.js"></script>
+</body>
+</html>

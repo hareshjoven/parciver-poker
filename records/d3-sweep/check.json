@@ -1,0 +1,142 @@
+{
+  "passed": true,
+  "history": {
+    "rows": true,
+    "history": true,
+    "config": true,
+    "options_off": true,
+    "equal": true
+  },
+  "rescored": {
+    "d2b-w2048-wd0.1": {
+      "scores": {
+        "all": {
+          "rows": 23728,
+          "loss": 0.011798965392366745,
+          "mae": 4.1596077382564545,
+          "rw_loss": 0.0029022393389262725
+        },
+        "real": {
+          "rows": 11864,
+          "loss": 0.002216822379196486,
+          "mae": 2.447381243109703,
+          "rw_loss": 0.0008723823843801436
+        },
+        "random": {
+          "rows": 11864,
+          "loss": 0.021381108084001496,
+          "mae": 5.871834233403206,
+          "rw_loss": 0.004932096153899616
+        }
+      },
+      "equal": {
+        "all": true,
+        "real": true,
+        "random": true
+      }
+    },
+    "d2b-seed1": {
+      "scores": {
+        "all": {
+          "rows": 23728,
+          "loss": 0.011936810236883902,
+          "mae": 4.169369488954544,
+          "rw_loss": 0.0029274264808344785
+        },
+        "real": {
+          "rows": 11864,
+          "loss": 0.0022133768046939204,
+          "mae": 2.4567969143390656,
+          "rw_loss": 0.0008858961483528957
+        },
+        "random": {
+          "rows": 11864,
+          "loss": 0.02166024463368041,
+          "mae": 5.881942436099052,
+          "rw_loss": 0.004968956881218458
+        }
+      },
+      "equal": {
+        "all": true,
+        "real": true,
+        "random": true
+      }
+    }
+  },
+  "control": {
+    "d2b-w2048-wd0.1": {
+      "all": 0.011798965392366745,
+      "real": 0.002216822379196486,
+      "random": 0.021381108084001496
+    },
+    "d2b-seed1": {
+      "all": 0.011936810236883902,
+      "real": 0.0022133768046939204,
+      "random": 0.02166024463368041
+    }
+  },
+  "commit": "cc31f489a1af1bc834b2a774c01c4eda5ab77844",
+  "trees": {
+    "src": "8c131948d1804b029c9ed97cd7608645f4f3b1de",
+    "scripts": "3aa3e5bf1bc6efbd79e4b64265e30dafe9d64e56"
+  },
+  "union": "7d5a77c30aaad5d6",
+  "train_rows": 951466,
+  "pools": 2,
+  "epochs_compared": 3,
+  "check_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.13190978971020928,
+      "val_loss": 0.09445346824558538,
+      "val_mae": 21.901197731494904,
+      "seconds": 16.3
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.06689076999138141,
+      "val_loss": 0.04978316262695971,
+      "val_mae": 15.006497502326965,
+      "seconds": 32.6
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.038807889510845316,
+      "val_loss": 0.03530805591626981,
+      "val_mae": 11.09006181359291,
+      "seconds": 47.4
+    }
+  ],
+  "n1_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.13190978971020928,
+      "val_loss": 0.09445346824558538,
+      "val_mae": 21.901197731494904,
+      "seconds": 13.4
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.06689076999138141,
+      "val_loss": 0.04978316262695971,
+      "val_mae": 15.006497502326965,
+      "seconds": 26.8
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.038807889510845316,
+      "val_loss": 0.03530805591626981,
+      "val_mae": 11.09006181359291,
+      "seconds": 39.8
+    }
+  ],
+  "d2b_selection_sha256": "c731896a06f2d930f0f201d87ab188ebb1576b2db4106fc7c91b96f540546fc6",
+  "seconds": 100.3,
+  "free_commit_before": 28.304706573486328,
+  "free_commit_after": 25.716888427734375,
+  "gpu_looks": 3,
+  "gpu_unknown": 0,
+  "peak_working_set": 23.09,
+  "peak_commit": 31.76,
+  "private": 21.02
+}

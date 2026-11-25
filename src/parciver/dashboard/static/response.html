@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · response convergence</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --s-anchor: #3987e5; --s-nit: #d95926; --s-station: #199e70; }
+  .rc-table-wrap { overflow: auto; max-height: 460px; }
+  .rc-table { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .rc-table th, .rc-table td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .rc-table th:nth-child(2), .rc-table td:nth-child(2) { text-align: left; }
+  .rc-table th { position: sticky; top: 0; background: var(--panel); color: var(--ink-3); text-transform: uppercase; font-size: 11px; }
+  .rc-table td.best { color: var(--ink); font-weight: 600; }
+  .rc-table td.neg { color: var(--ink-3); }
+  .rc-table .k { color: var(--ink-3); font-size: 11px; }
+  .rc-note { color: var(--ink-3); font-size: 12px; margin: 6px 0 0; max-width: 60rem; }
+  .rc-pred { font-size: 12px; color: var(--ink-2); margin: 0; padding-left: 18px; }
+  .rc-pred li { margin: 4px 0; }
+  .rc-pred b { color: var(--ink); font-family: var(--mono); }
+  .multiples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .multiples .canvas-wrap { height: 240px; }
+  .multiples h3 { font-size: 12px; font-weight: 560; color: var(--ink-2); margin: 0 0 6px; display: flex; gap: 8px; align-items: center; }
+  .multiples h3 i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .span-8 { grid-column: span 8; }
+  @media (max-width: 1180px) { .span-8 { grid-column: span 12; } }
+  @media (max-width: 900px) { .multiples { grid-template-columns: 1fr; } }
+  .tip { position: fixed; z-index: 50; }
+  .tip .k { color: var(--ink-3); }
+  .rc-strip { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 10px; font-size: 12px; color: var(--ink); }
+  .rc-strip .k { color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; font-size: 11px; margin-right: 4px; }
+  .solve-bar { height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; margin-top: 8px; }
+  .solve-bar div { height: 100%; width: 0; background: var(--accent); transition: width .9s linear; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver</div><div class="brand-sub" id="sub">response convergence · waiting for run…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">null gain (τ=0, latest N)</div><div class="hs-value" id="stat-null">—</div><div class="hs-sub" id="stat-null-sub">converged BR must be ≥ 0</div></div>
+    <div class="hero-stat"><div class="hs-label">measurements</div><div class="hs-value" id="stat-progress">0 / —</div><div class="hs-sub" id="stat-current">—</div></div>
+    <div class="hero-stat"><div class="hs-label">solve rate</div><div class="hs-value" id="stat-rate">—</div><div class="hs-sub" id="stat-cpu">—</div></div>
+  </header>
+  <main class="grid">
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Solve in flight</h2><span class="panel-kpi mono" id="solve-label">—</span></div>
+      <div class="rc-strip mono">
+        <span><span class="k">elapsed</span> <span id="stat-elapsed">—</span></span>
+        <span><span class="k">eta</span> <span id="stat-eta">—</span></span>
+        <span><span class="k">ram</span> <span id="stat-ram">—</span></span>
+      </div>
+      <div class="run-progress-meta"><span id="run-label">0 of 0 updates</span><span id="run-pct">0%</span></div>
+      <div class="run-progress"><div id="run-bar"></div></div>
+      <div class="solve-bar"><div id="solve-bar"></div></div>
+    </section>
+
+    <section class="panel span-12 tall">
+      <div class="panel-head"><h2>Response gain vs iteration budget · ungated (τ = 0)</h2><div class="legend" id="legend-main"></div></div>
+      <div class="canvas-wrap"><canvas id="chart-main"></canvas></div>
+      <p class="rc-note">Paired gain of the two-seat response (blended over the anchor) minus the anchor, bb/100, 2M paired hands; dots = replicates, line = mean, whiskers = 99% interval. Against the anchor itself (blue) a converged best response cannot be below 0.</p>
+    </section>
+
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Reach gating · gain vs threshold τ at each N</h2><div class="legend" id="legend-n"></div></div>
+      <div class="multiples" id="multiples"></div>
+      <p class="rc-note">τ drops response infosets whose estimated reach probability is below τ; the anchor plays there instead. Same evaluation hands for every τ and N of an opponent (common random numbers).</p>
+    </section>
+
+    <section class="panel span-8">
+      <div class="panel-head"><h2>All measurements</h2><span class="panel-kpi mono" id="table-kpi">—</span></div>
+      <div class="rc-table-wrap"><table class="rc-table" id="table"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Pre-registered predictions</h2></div>
+      <ul class="rc-pred" id="predictions"><li>waiting for run_start…</li></ul>
+      <div class="panel-head" style="margin-top:14px"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div class="tip" id="tip" hidden></div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge">✓</div><h1>Study complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<script src="/static/response.js"></script>
+</body>
+</html>

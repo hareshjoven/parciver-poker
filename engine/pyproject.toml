@@ -1,0 +1,13 @@
+[build-system]
+requires = ["maturin>=1.15,<2"]
+build-backend = "maturin"
+
+[project]
+name = "parciver-engine"
+version = "0.1.0"
+description = "Rust game engine + CFR hot loop for the parciver poker bot"
+requires-python = ">=3.12"
+
+[tool.maturin]
+module-name = "parciver_engine"
+# Build a pure Rust extension (no Python source alongside it).

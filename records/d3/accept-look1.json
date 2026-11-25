@@ -1,0 +1,106 @@
+{
+  "check": "A1-A3",
+  "profile": "d1c",
+  "verdict": "PARTIAL",
+  "A1": true,
+  "A2": true,
+  "A3": true,
+  "generate_json": {
+    "iters": 500,
+    "gamma": 5,
+    "plus": false,
+    "samples": 1000008,
+    "shard": 1000,
+    "seed": 700007,
+    "dtype": "float32",
+    "units": "pots per unit of opponent range mass; ranges as stored (float32)",
+    "code": "archive/<worktree>",
+    "layout": "interleave-1:1",
+    "harvest": "d1519f23ef6b4d7fb65fdddc5115d1b07269f35f2c53ce9264bb311ecaeee019",
+    "harvest_rows": 499968,
+    "terminals": "q4"
+  },
+  "settings_clash": {},
+  "shards_expected": 1001,
+  "shards_missing": 750,
+  "missing_first": [
+    251,
+    252,
+    253,
+    254,
+    255,
+    256,
+    257,
+    258,
+    259,
+    260,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270
+  ],
+  "A1_bad": [],
+  "A2_nonfinite_shards": [],
+  "zero_sum_tol": 1e-05,
+  "whole": {
+    "rows": 251000,
+    "finite": true,
+    "zero_sum_max": 3.049908865182527e-07,
+    "zero_sum_over_tol": 0,
+    "expl_mean_pct": 0.24491894782323423,
+    "expl_median_pct": 0.13202006481291997,
+    "expl_p99_pct": 2.2015093871860665,
+    "share_over_3pct": 0.0014223107569721115,
+    "share_over_10pct": 1.1952191235059762e-05
+  },
+  "parts": {
+    "cloud": {
+      "rows": 0,
+      "finite": true,
+      "zero_sum_max": null,
+      "zero_sum_over_tol": 0,
+      "expl_mean_pct": null,
+      "expl_median_pct": null,
+      "expl_p99_pct": null,
+      "share_over_3pct": null,
+      "share_over_10pct": null
+    },
+    "pc": {
+      "rows": 251000,
+      "finite": true,
+      "zero_sum_max": 3.049908865182527e-07,
+      "zero_sum_over_tol": 0,
+      "expl_mean_pct": 0.24491894782323423,
+      "expl_median_pct": 0.13202006481291997,
+      "expl_p99_pct": 2.2015093871860665,
+      "share_over_3pct": 0.0014223107569721115,
+      "share_over_10pct": 1.1952191235059762e-05
+    }
+  },
+  "sources": {
+    "0": {
+      "rows": 62750,
+      "expl_mean_pct": 0.37141710849542703,
+      "share_over_10pct": 1.593625498007968e-05
+    },
+    "1": {
+      "rows": 62750,
+      "expl_mean_pct": 0.2816119776763111,
+      "share_over_10pct": 3.187250996015936e-05
+    },
+    "2": {
+      "rows": 125500,
+      "expl_mean_pct": 0.16332335256059938,
+      "share_over_10pct": 0.0
+    }
+  },
+  "d1": null,
+  "seconds": 15.1,
+  "when": "2026-11-13 23:52:11"
+}

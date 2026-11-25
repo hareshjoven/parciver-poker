@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · scorecard</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --cur: var(--accent); --prev: #5b626b; --up: var(--green); --down: var(--red); --flat: var(--ink-3);
+          --s-blueprint: #3987e5; --s-missing: #f9ab00; --s-off: #f28b82; --s-search: #c58af9; }
+  .brand-text { min-width: 0; }
+  .span-8 { grid-column: span 8; }
+  @media (max-width: 1180px) { .span-8 { grid-column: span 12; } }
+  .hs-sub .st-up { color: var(--up); } .hs-sub .st-down { color: var(--down); } .hs-sub .st-flat { color: var(--ink-3); }
+  .sc-note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 72rem; }
+  .sc-strip { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 10px; font-size: 12px; color: var(--ink); }
+  .sc-strip .k { color: var(--ink-3); text-transform: uppercase; letter-spacing: .07em; font-size: 11px; margin-right: 4px; }
+  .rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; margin-top: 12px; }
+  .row-card { padding: 9px 10px; border: 1px solid var(--border); border-radius: 3px; background: var(--panel-2); min-width: 0; }
+  .row-card.queued { border-style: dashed; opacity: .75; }
+  .row-card.running { border-color: var(--accent); box-shadow: inset 2px 0 0 var(--accent); }
+  .row-card .rt { display: flex; justify-content: space-between; gap: 8px; font: 600 12px var(--mono); color: var(--ink); }
+  .row-card .rs { color: var(--ink-3); font: 500 10px var(--sans); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+  .row-card.running .rs { color: var(--accent); } .row-card.done .rs { color: var(--ink-2); }
+  .row-card .rv { margin-top: 6px; font: 15px var(--mono); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row-card .rv small { color: var(--ink-3); font-size: 11px; }
+  .row-card .rb { height: 4px; background: var(--bg); border-radius: 2px; overflow: hidden; margin-top: 7px; }
+  .row-card .rb div { height: 100%; background: var(--accent); width: 0; transition: width .45s ease; }
+  .row-card.done .rb div { background: var(--border-2); }
+  .row-card .rk { color: var(--ink-3); font-size: 11px; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tbl-wrap { overflow: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .tbl th, .tbl td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child { text-align: left; }
+  .tbl th { color: var(--ink-3); text-transform: uppercase; font-size: 11px; font-weight: 500; }
+  .tbl td.ci { color: var(--ink-3); }
+  .tbl tr.headline td { color: var(--ink); font-weight: 600; }
+  .tbl tr.current td { background: var(--panel-2); }
+  .st { font: 500 10px var(--sans); text-transform: uppercase; letter-spacing: .05em; }
+  .st.up { color: var(--up); } .st.down { color: var(--down); } .st.flat { color: var(--ink-3); }
+  .src-bars { display: flex; flex-direction: column; gap: 9px; }
+  .src-row { display: grid; grid-template-columns: 150px 1fr; gap: 10px; align-items: center; font: 12px var(--mono); color: var(--ink-2); }
+  .src-row .bar-track { height: 16px; }
+  .empty { color: var(--ink-3); font-size: 13px; padding: 8px 0; }
+  .tip { position: fixed; z-index: 50; }
+  @media (max-width: 720px) {
+    .log li { grid-template-columns: 64px 1fr; }
+    .log .kind { display: none; }
+    .src-row { grid-template-columns: 110px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · scorecard</div><div class="brand-sub" id="sub">waiting for an evaluation…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">strength vs frozen baseline</div><div class="hs-value" id="stat-strength">—</div><div class="hs-sub" id="stat-strength-sub">duplicate bb/100 · 0 = same as baseline</div></div>
+    <div class="hero-stat"><div class="hs-label">exploitability (LBR, lower is better)</div><div class="hs-value" id="stat-lbr">—</div><div class="hs-sub" id="stat-lbr-sub">—</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">progress</span><span class="v mono" id="stat-progress">—</span></div>
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <main class="grid">
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Evaluation in flight</h2><span class="panel-kpi mono" id="current-label">—</span></div>
+      <div class="run-progress-meta"><span id="run-label">0 of 0 deals</span><span id="run-pct">0%</span></div>
+      <div class="run-progress"><div id="run-bar"></div></div>
+      <div class="rows" id="rows"></div>
+      <p class="sc-note" id="scope-note"></p>
+    </section>
+
+    <section class="panel span-8 tall">
+      <div class="panel-head"><h2 id="change-title">Change vs previous evaluation</h2><div class="legend" id="change-legend"></div></div>
+      <div class="canvas-wrap"><canvas id="chart-change"></canvas></div>
+      <p class="sc-note" id="change-note"></p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Where the candidate's decisions came from</h2></div>
+      <div class="legend" style="margin-bottom:10px">
+        <span class="lg"><i class="sw" style="background:var(--s-blueprint)"></i>blueprint</span>
+        <span class="lg"><i class="sw" style="background:var(--s-search)"></i>search</span>
+        <span class="lg"><i class="sw" style="background:var(--s-missing)"></i>missing key</span>
+        <span class="lg"><i class="sw" style="background:var(--s-off)"></i>off-tree</span>
+      </div>
+      <div class="src-bars" id="sources"><div class="empty">no decisions yet</div></div>
+      <p class="sc-note">Share of the candidate's own decisions per row. Search replaces the blueprint on the streets it covers; missing-key and off-tree decisions use the equity fallback.</p>
+    </section>
+
+    <section class="panel span-12">
+      <div class="panel-head"><h2>All rows · exact numbers</h2><span class="panel-kpi mono" id="table-kpi">—</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="rows-table"><thead></thead><tbody></tbody></table></div>
+      <p class="sc-note">bb/100 for the candidate against each opponent (LBR: LBR's winnings against the candidate). Intervals are approximate 95% from block means; the change column is the paired per-block difference on identical cards, so it is much tighter than the two intervals suggest. "Unclear" means the interval crosses 0.</p>
+    </section>
+
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Every evaluation on this benchmark</h2><span class="panel-kpi mono" id="history-kpi">—</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="history"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div class="tip" id="tip" hidden></div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">Evaluation complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<script src="/static/scorecard.js"></script>
+</body>
+</html>

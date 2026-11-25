@@ -1,0 +1,35 @@
+{
+  "version": "blueprint-v1",
+  "base_url": null,
+  "blueprint": "v2-8B (200 bb), the blueprint behind the SLUMBOT-2 match in RESULTS.md",
+  "files": [
+    {
+      "name": "blueprint.bin.gz",
+      "dest": "blueprint.bin",
+      "bytes": 1271160285,
+      "sha256": "fd27fe50324eba29f0454ab5c68604c2920f2bad18dd437544255d754c7ae071",
+      "gz_bytes": 616921364
+    },
+    {
+      "name": "abstraction_flop_buckets.npy.gz",
+      "dest": "abstraction/flop_buckets.npy",
+      "bytes": 2573712,
+      "sha256": "0f578e1ee3a693b7405aabed021d49102ddc40190c19e8db2adac2443a469a76",
+      "gz_bytes": 1154666
+    },
+    {
+      "name": "abstraction_turn_buckets.npy.gz",
+      "dest": "abstraction/turn_buckets.npy",
+      "bytes": 27920228,
+      "sha256": "d8f0a30bdce200b591b60d38c6ee3434f33aa89b55d8bb71b3dfbbb188a47c5d",
+      "gz_bytes": 9339373
+    },
+    {
+      "name": "abstraction_river_buckets.npy.gz",
+      "dest": "abstraction/river_buckets.npy",
+      "bytes": 246312636,
+      "sha256": "7f15923bbcd88b30abca7a811b80a2623117772958043556ec5d577715b0bd09",
+      "gz_bytes": 64869643
+    }
+  ]
+}

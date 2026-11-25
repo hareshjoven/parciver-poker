@@ -1,0 +1,102 @@
+{
+  "run": "20261025T074051Z",
+  "commit": "8d16d87513b28e2bd877fd1f151dec03147faee3",
+  "prereg": [
+    "records/slumbot/PREREG.md",
+    "records/live-flop/PREREG.md",
+    "records/flop-sym/PREREG.md",
+    "LIVESEARCH.md",
+    "records/river-live/PREREG.md",
+    "records/bp-8b/PREREG.md",
+    "records/slumbot-2/PREREG.md"
+  ],
+  "search": {
+    "from_flop": true,
+    "flop_iters": 500,
+    "from_turn": true,
+    "turn_iters": 400,
+    "river_iters": 2000,
+    "rescue": false,
+    "terminals64": true,
+    "q3": false,
+    "solver": "Watched(FlopSearch(sym, turn=SubgameGpu))",
+    "leaves": "sym",
+    "flop_gamma": 5.0,
+    "turn_schedule": {
+      "gamma": 5,
+      "shift": 1
+    },
+    "net": "runs\\turn-net\\final-w2048-d5-e200\\net.pt",
+    "net_sha256": "A8BF00BE2FD1A3C7B0D1B0796809256CD939305B68723E541EF2CD029238EF65",
+    "flop_p95_bar": 3.0,
+    "turn_p95_bar": 2.0,
+    "river_p95_bar": 2.0
+  },
+  "verdict": "UNRESOLVED",
+  "raw": {
+    "n": 50000,
+    "bb100": -12.53736,
+    "sd_bb": 15.82628072756377,
+    "lo": -26.409451791202386,
+    "hi": 1.334731791202385,
+    "half": 13.872091791202385
+  },
+  "by_seat": {
+    "BB": {
+      "n": 25000,
+      "bb100": -24.4244,
+      "sd_bb": 15.081850107615137,
+      "lo": -43.11971154932375,
+      "hi": -5.72908845067624,
+      "half": 18.69531154932376
+    },
+    "SB": {
+      "n": 25000,
+      "bb100": -0.65032,
+      "sd_bb": 16.53668281244843,
+      "lo": -21.149027715903525,
+      "hi": 19.848387715903524,
+      "half": 20.498707715903524
+    }
+  },
+  "allin_adjusted": {
+    "n": 50000,
+    "bb100": -7.589783868658836,
+    "sd_bb": 15.173034541527207,
+    "lo": -20.88929065325449,
+    "hi": 5.709722915936817,
+    "half": 13.299506784595653,
+    "adjusted_hands": 59
+  },
+  "baseline_unregistered": {
+    "n": 50000,
+    "bb100": -8.57036,
+    "sd_bb": 17.180276607640323,
+    "lo": -23.62925969993731,
+    "hi": 6.488539699937309,
+    "half": 15.05889969993731
+  },
+  "blocks_10k": [
+    -4.2088,
+    4.8456,
+    -40.219,
+    -18.743,
+    -4.3616
+  ],
+  "retried": 75,
+  "lost": 13,
+  "lost_pilot": 0,
+  "sessions": 2,
+  "unchained": 3,
+  "restarted": 0,
+  "torn_lines": [],
+  "seconds": {
+    "elapsed_mean": 4.790909759998321,
+    "in_hand_mean": 4.706981069903374,
+    "think_mean": 1.950258678,
+    "solve_mean": 1.3571124699038315,
+    "solve_max": 3.1569,
+    "counted_hours": 66.54041333331003
+  },
+  "pilot_sd_bb": 6.040686963408962
+}

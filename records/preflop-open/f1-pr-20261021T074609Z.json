@@ -1,0 +1,28 @@
+{
+  "commit": "2f1e30523478106252e00de71acfcd94947d6eb2",
+  "engine": "906227B41D658E880EC7F4CBEF595F8E9661599AE2C10E802965EBF2D33089C7",
+  "engine_identity": "906227B41D658E88+5AD0B211E9C7D830",
+  "fix": "F1-2B",
+  "fix_receipt": "20261021T073651388613Z-F1-2B.json",
+  "base": "A2",
+  "base_receipt": "20261003T151853368534Z-A2.json",
+  "weights": {
+    "A0": 0.0,
+    "A1": 0.0,
+    "A2": 1.0,
+    "Ln": 0.0,
+    "Ls": 0.0,
+    "Lm": 0.0
+  },
+  "change_mbb_per_hand": {
+    "mean": -4.7563,
+    "se": 1.7969104226977672,
+    "lo": -8.27817971193227,
+    "hi": -1.234420288067732,
+    "anchors": [
+      "A2"
+    ]
+  },
+  "status": "DOWN",
+  "c": "FAIL (DOWN)"
+}

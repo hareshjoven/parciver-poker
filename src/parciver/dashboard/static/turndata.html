@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · turn-value data</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --s0: #8ab4f8; --s1: #c58af9; --hot: #f28b82; --warm: #f9ab00; --ok: #81c995; }
+  .span-8 { grid-column: span 8; } .span-5 { grid-column: span 5; } .span-7 { grid-column: span 7; }
+  @media (max-width: 1180px) { .span-8, .span-5, .span-7 { grid-column: span 12; } }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 76rem; }
+  .strip-wrap { position: relative; width: 100%; height: 34px; margin-top: 10px; }
+  .strip-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-top: 12px; }
+  .tile { min-width: 0; padding: 9px 10px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 3px; }
+  .tile .tl { display: block; color: var(--ink-3); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+  .tile strong { display: block; margin-top: 2px; color: var(--ink); font: 560 17px/1.25 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile small { display: block; margin-top: 3px; color: var(--ink-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile.good strong { color: var(--ok); } .tile.bad strong { color: var(--hot); } .tile.warn strong { color: var(--warm); }
+  .tbl-wrap { overflow: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .tbl th, .tbl td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child { text-align: left; }
+  .tbl th { color: var(--ink-3); text-transform: uppercase; font-size: 11px; font-weight: 500; }
+  .tbl td.dim { color: var(--ink-3); }
+  .tbl td.hot { color: var(--hot); } .tbl td.warm { color: var(--warm); } .tbl td.ok { color: var(--ok); }
+  .verdicts { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; font-size: 12px; }
+  .verdict { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: baseline; }
+  .verdict .vk { font: 500 10px var(--sans); text-transform: uppercase; letter-spacing: .06em; }
+  .verdict .vk.pass { color: var(--ok); } .verdict .vk.fail { color: var(--hot); } .verdict .vk.info { color: var(--ink-3); }
+  .verdict .vm { color: var(--ink-2); font-family: var(--mono); font-size: 11.5px; }
+  .tip { position: fixed; z-index: 50; }
+  .empty { color: var(--ink-3); font-size: 13px; padding: 8px 0; }
+  .canvas-wrap.mid { height: 250px; }
+  @media (max-width: 720px) { .log li { grid-template-columns: 64px 1fr; } .log .kind { display: none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · turn-value data (D1)</div><div class="brand-sub" id="sub">connecting…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">rows solved</div><div class="hs-value" id="stat-rows">—</div><div class="hs-sub" id="stat-rows-sub">—</div></div>
+    <div class="hero-stat"><div class="hs-label">exploitability · median / p99</div><div class="hs-value" id="stat-expl">—</div><div class="hs-sub" id="stat-expl-sub">% of pot, after the solve</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">pace</span><span class="v mono" id="stat-pace">—</span></div>
+      <div class="meta-row"><span class="k">gpu · cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <main class="grid">
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Generation</h2><span class="panel-kpi mono" id="last-shard">—</span></div>
+      <div class="run-progress-meta"><span id="run-label">—</span><span id="run-pct">0%</span></div>
+      <div class="run-progress"><div id="run-bar"></div></div>
+      <div class="strip-wrap"><canvas id="strip"></canvas></div>
+      <div class="tiles" id="tiles"></div>
+      <p class="note" id="scope-note"></p>
+    </section>
+
+    <section class="panel span-8 tall">
+      <div class="panel-head"><h2>Exploitability per shard · % of pot (log scale)</h2>
+        <div class="legend">
+          <span class="li"><i style="background:var(--s0)"></i>recorded · mean</span>
+          <span class="li"><i style="background:var(--s1)"></i>random · mean</span>
+          <span class="li"><i style="background:var(--ink-3)"></i>p99 (thin)</span>
+          <span class="lg"><i class="sw" style="background:var(--warm);border-radius:50%"></i>shard max</span>
+        </div></div>
+      <div class="canvas-wrap"><canvas id="chart-shards"></canvas></div>
+      <p class="note">Each solve's exploitability after 500 DCFR iterations (float32, fused GPU kernels), as the generator stored it. Two rows per situation: the ranges recorded in play, and DeepStack-style random ranges on the same public state.</p>
+    </section>
+    <section class="panel span-4 tall">
+      <div class="panel-head"><h2>Distribution · all rows</h2><span class="panel-kpi mono" id="hist-kpi">—</span></div>
+      <div class="canvas-wrap"><canvas id="chart-hist"></canvas></div>
+      <p class="note" id="hist-note"></p>
+    </section>
+
+    <section class="panel span-5">
+      <div class="panel-head"><h2>Where the tail lives · stack-to-pot ratio</h2></div>
+      <div class="canvas-wrap mid"><canvas id="chart-spr"></canvas></div>
+      <p class="note">Bar: mean exploitability per stack-to-pot bin (both sources); tick: the bin's largest; right: share of the bin's rows over 1% / 2% of pot, and its row count.</p>
+    </section>
+    <section class="panel span-7">
+      <div class="panel-head"><h2>Precision · stored (float32 GPU) vs float64 reference, same 500 iterations</h2></div>
+      <div class="canvas-wrap mid"><canvas id="chart-prec"></canvas></div>
+      <div class="verdicts" id="verdicts"></div>
+    </section>
+
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Tail rows · float64 reference vs iterations</h2></div>
+      <div class="canvas-wrap mid"><canvas id="chart-conv"></canvas></div>
+      <p class="note">Solid: the float64 reference solver's exploitability after 500 / 1000 / 2000 iterations of one run. Dashed: what the generator stored for the row at 500. Diamonds: probes of the same row (generic float32 / float64 DCFR on the CPU).</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Pace · minutes per shard</h2><span class="panel-kpi mono" id="pace-kpi">—</span></div>
+      <div class="canvas-wrap mid"><canvas id="chart-pace"></canvas></div>
+      <p class="note">Time between consecutive finished shards (1000 solves each). Gaps over 3× the median (restarts) are clipped and marked.</p>
+    </section>
+
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Worst rows so far</h2><span class="panel-kpi mono" id="worst-kpi">—</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="worst"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div class="tip" id="tip" hidden></div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">Generation complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<script src="/static/turndata.js"></script>
+</body>
+</html>

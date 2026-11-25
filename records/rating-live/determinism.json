@@ -1,0 +1,47 @@
+{
+  "chunks": [
+    {
+      "first": 0,
+      "deals": 100,
+      "seconds": 360.7,
+      "u": {
+        "identical": true,
+        "deals_differing": 0,
+        "max_abs_diff": 0.0
+      },
+      "cv": {
+        "identical": true,
+        "deals_differing": 0,
+        "max_abs_diff": 0.0
+      },
+      "aivat": {
+        "identical": true,
+        "deals_differing": 0,
+        "max_abs_diff": 0.0
+      }
+    },
+    {
+      "first": 1000,
+      "deals": 100,
+      "seconds": 290.6,
+      "u": {
+        "identical": true,
+        "deals_differing": 0,
+        "max_abs_diff": 0.0
+      },
+      "cv": {
+        "identical": true,
+        "deals_differing": 0,
+        "max_abs_diff": 0.0
+      },
+      "aivat": {
+        "identical": true,
+        "deals_differing": 0,
+        "max_abs_diff": 0.0
+      }
+    }
+  ],
+  "git": "f2aedb956d044adef67143996c6fafaf97940eed",
+  "engine": "e58c7292d100642762cd4fc920b2651316121cdc3995599ba7e1bbbe61c747b7",
+  "deterministic": true
+}

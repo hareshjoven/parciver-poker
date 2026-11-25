@@ -1,0 +1,24 @@
+{
+  "leaf": {
+    "current dense": {
+      "nodes": 2160,
+      "mean": 1.7279787135716356e-07,
+      "max": 1.2646396344771842e-06
+    },
+    "current FactoredLeaves": {
+      "nodes": 2160,
+      "mean": 2.4989185634789685e-07,
+      "max": 1.3904703778422752e-06
+    },
+    "current FactoredLeaves:float64": {
+      "nodes": 2160,
+      "mean": 8.313538101609395e-08,
+      "max": 1.2603305728791511e-06
+    },
+    "current FactoredLeaves:float64+eps": {
+      "nodes": 2160,
+      "mean": 8.20659020514502e-08,
+      "max": 1.2603305728791511e-06
+    }
+  }
+}

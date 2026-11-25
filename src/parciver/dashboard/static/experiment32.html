@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · S3.2 full-100bb</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  #stat-verdict { font-family:var(--mono); font-size:clamp(18px,2.2vw,25px); font-weight:560; letter-spacing:-.04em; }
+  .s32-caveat { color:var(--amber); font-size:12px; max-width:34rem; }
+  .note-box { color:var(--ink-2); font-size:13px; padding:7px 2px 0; line-height:1.55; }
+  .table-wrap { overflow:auto; max-height:520px; }
+  table.s32-table { width:100%; border-collapse:collapse; font:12px/1.4 var(--mono); }
+  table.s32-table th, table.s32-table td { padding:6px 8px; border-bottom:1px solid var(--border); white-space:nowrap; text-align:right; }
+  table.s32-table th { position:sticky; top:0; background:var(--panel); color:var(--ink-3); font-size:11px; text-transform:uppercase; letter-spacing:.06em; }
+  table.s32-table th:nth-child(2), table.s32-table td:nth-child(2) { text-align:left; }
+  .pass { color:var(--green); } .fail { color:var(--red); }
+  #gates-list { display:flex; flex-direction:column; gap:0; list-style:none; padding:0; margin:0; }
+  #gates-list li { padding:7px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  @media (max-width:1180px) { .s32-caveat { display:none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><span class="chip cs"></span><span class="chip ch"></span><span class="chip cd"></span><span class="chip cc"></span></div>
+      <div class="brand-text"><div class="brand-title">parciver</div><div class="brand-sub" id="game-name">S3.2 · waiting for locked run…</div></div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-label">S3.2 verdict</div><div id="stat-verdict">running</div>
+      <div class="hs-sub">synthetic field · full 100bb abstraction</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-label">completed cases</div><div class="hs-value" id="stat-progress">0 / 45</div>
+      <div class="hs-sub">three locked seeds</div>
+    </div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">mean held gain</span><span class="v mono" id="stat-gain">—</span></div>
+      <div class="meta-row"><span class="k">min held coverage</span><span class="v mono" id="stat-coverage">—</span></div>
+      <div class="s32-caveat">ABR-proxy is a sampled lower-bound attack, not an exploitability upper bound or safety certificate.</div>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="panel span-12 run-telemetry">
+      <div class="panel-head">
+        <h2>Live run telemetry</h2>
+        <span class="panel-kpi mono" id="run-stage">waiting for locked run…</span>
+      </div>
+      <div class="telemetry-grid">
+        <div class="telemetry-stat"><span class="telemetry-label">elapsed</span><strong id="stat-elapsed">—</strong></div>
+        <div class="telemetry-stat"><span class="telemetry-label">estimated remaining</span><strong id="stat-eta">calibrating estimate…</strong><small id="stat-eta-note">needs a measured case</small></div>
+        <div class="telemetry-stat"><span class="telemetry-label">case progress</span><strong id="stat-workload">0 / 45</strong><small id="stat-throughput">waiting for work rate</small></div>
+        <div class="telemetry-stat"><span class="telemetry-label">last event</span><strong id="stat-last-event">—</strong></div>
+      </div>
+      <div class="run-progress-meta"><span id="run-progress-label">0 of 45 cases complete</span><span id="run-progress-percent">0%</span></div>
+      <div class="run-progress" aria-label="completed case progress"><div id="run-progress-bar"></div></div>
+      <div class="phase-strip" id="phase-strip" aria-label="run phase progress"></div>
+      <div class="calibration-grid" id="calibration-cards"></div>
+      <div class="note-box">Elapsed time is live. ETA is an explicitly rough projection from observed work cadence until measured case durations are available; it never steers the locked run.</div>
+    </section>
+    <section class="panel span-6 tall">
+      <div class="panel-head"><h2>Product gain · corrected intervals</h2></div>
+      <div class="canvas-wrap"><canvas id="c-product"></canvas></div>
+      <div class="note-box">Held opponents. The reference line is each seed’s pre-registered δ<sub>sub</sub>.</div>
+    </section>
+    <section class="panel span-6 tall">
+      <div class="panel-head"><h2>Confidence and proxy alpha</h2></div>
+      <div class="canvas-wrap"><canvas id="c-alpha"></canvas></div>
+      <div class="note-box">Final α is the smaller of α<sub>conf</sub> and the attack-tested α<sub>proxy</sub>.</div>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>ABR-proxy non-regression</h2></div>
+      <div class="canvas-wrap short" style="height:210px"><canvas id="c-proxy"></canvas></div>
+      <div class="note-box">Corrected incremental-loss upper bound against the locked proxy budget.</div>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Public model validation</h2></div>
+      <div class="canvas-wrap short" style="height:210px"><canvas id="c-model"></canvas></div>
+      <div class="note-box">Supported decision mass and held-out log-loss improvement. Coverage must reach 95%.</div>
+    </section>
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Locked cases</h2></div>
+      <div class="table-wrap"><table class="s32-table" id="case-table">
+        <thead><tr><th>seed</th><th>opponent</th><th>split</th><th>gain</th><th>99% FWER CI</th><th>α</th><th>coverage</th><th>proxy UCB</th><th>budget</th><th>time</th><th>peak GB</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Seven locked gates</h2></div>
+      <ul id="gates-list"><li>waiting for complete report…</li></ul>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+
+<div id="done-overlay" class="overlay" hidden>
+  <div class="done-card">
+    <div class="done-badge" id="done-badge">✓</div>
+    <h1 id="done-title">S3.2 complete</h1>
+    <p id="done-detail"></p>
+    <button id="done-dismiss">Dismiss</button>
+  </div>
+</div>
+<script src="/static/experiment32.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+{
+  "run": "p",
+  "seed": 730000,
+  "deals": 2000,
+  "chunk": 100,
+  "search": "live",
+  "identity": {
+    "a0": null,
+    "a2": "1976a53cf253971fec20d7c03bfb2dc6a1d4d31dfe07296f8f02809c239da4d1",
+    "abstraction": "data\\abstraction",
+    "chunk": 100,
+    "deals": 2000,
+    "engine": "e58c7292d100642762cd4fc920b2651316121cdc3995599ba7e1bbbe61c747b7",
+    "live": {
+      "cuda": "13.2",
+      "device": "NVIDIA GeForce RTX 4070",
+      "flop_gamma": 5.0,
+      "leaves": "sym",
+      "net_sha256": "a8bf00be2fd1a3c7b0d1b0796809256cd939305b68723e541ef2cd029238ef65",
+      "play_code": {
+        "engine": "a4e68d491ef1004798852db2ef43a811a408f608",
+        "scripts/slumbot_run.py": "83520bc3cdaee83e76edcac3fc8e1edd6003111d",
+        "src": "6ca14029c3a6040573d0d4c0fcfc6a43196f9290"
+      },
+      "search": {
+        "flop_iters": 500,
+        "from_flop": true,
+        "from_turn": true,
+        "rescue": false,
+        "river_iters": 200,
+        "turn_iters": 100
+      },
+      "terminals64": true,
+      "torch": "2.14.0+cu132"
+    },
+    "run": "p",
+    "script": "564fe70475116f5fd07b54e6a4566b523c22ad1836d13f0e99aeaeea878663aa",
+    "search": "live",
+    "seed": 730000,
+    "stakes": [
+      50,
+      100,
+      20000
+    ],
+    "threads": 1
+  },
+  "git_at_start": "bbc8c2dd2ff7213401d64e87f5ff5954fcaf941d",
+  "deals_done": 2000,
+  "aivat_mass_error": 1.7367710825055838e-07,
+  "zero_share_u": 0.5975,
+  "zero_share_aivat": 0.404,
+  "mean_u": 0.7688399999999999,
+  "sd_u": 16.91597485683514,
+  "seconds": 6935.848765611649,
+  "s_per_deal": 3.4679243828058244,
+  "flop_calls": 2937,
+  "cv": {
+    "mean": 0.5552917676767677,
+    "sd": 15.797788180859245,
+    "diff_mean": -0.21354823232323233,
+    "diff_se": 0.14298772942101942,
+    "z": -1.4934724342286143,
+    "r": 0.8721647118717413,
+    "r_ci": [
+      0.7448837759113937,
+      1.014319784533654
+    ]
+  },
+  "aivat": {
+    "mean": 0.7804071350163589,
+    "sd": 11.857672690926869,
+    "diff_mean": 0.01156713501635899,
+    "diff_se": 0.2553454494835846,
+    "z": 0.04529994577836644,
+    "r": 0.4913657198662384,
+    "r_ci": [
+      0.3519595834912448,
+      0.6727992189882903
+    ]
+  },
+  "passed": true,
+  "mass_ok": true,
+  "r_ci_ok": true
+}

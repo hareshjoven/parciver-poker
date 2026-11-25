@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · D1 re-solve</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --gT: #8ab4f8; --gA: #c58af9; --gB: #78d9ec; --hot: #f28b82; --warm: #f9ab00; --ok: #81c995; }
+  .span-8 { grid-column: span 8; } .span-5 { grid-column: span 5; } .span-7 { grid-column: span 7; }
+  @media (max-width: 1180px) { .span-8, .span-5, .span-7 { grid-column: span 12; } }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 76rem; }
+  .segbar { display: flex; gap: 3px; margin-top: 6px; }
+  .seg { min-width: 0; }
+  .seg .track { height: 10px; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; background: var(--bg); }
+  .seg .fill { height: 100%; width: 0%; transition: width .45s cubic-bezier(.2,.8,.2,1); }
+  .seg .sl { display: flex; justify-content: space-between; gap: 6px; margin-top: 4px; color: var(--ink-3); font: 11px var(--mono); white-space: nowrap; overflow: hidden; }
+  .seg .sl b { font-weight: 500; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
+  .tile { min-width: 0; padding: 9px 10px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 3px; }
+  .tile .tl { display: block; color: var(--ink-3); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+  .tile strong { display: block; margin-top: 2px; color: var(--ink); font: 560 17px/1.25 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile small { display: block; margin-top: 3px; color: var(--ink-3); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile.good strong { color: var(--ok); } .tile.bad strong { color: var(--hot); } .tile.warn strong { color: var(--warm); }
+  .tbl-wrap { overflow: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .tbl th, .tbl td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child { text-align: left; }
+  .tbl th { color: var(--ink-3); text-transform: uppercase; font-size: 11px; font-weight: 500; }
+  .tbl td.dim { color: var(--ink-3); }
+  .tbl td.hot { color: var(--hot); } .tbl td.warm { color: var(--warm); } .tbl td.ok { color: var(--ok); }
+  .reading { margin-top: 14px; }
+  .reading h3 { margin: 0 0 4px; font: 500 12px var(--sans); color: var(--ink-2); }
+  .reading .canvas-wrap { height: 64px; }
+  .reading .rv { font: 11.5px var(--mono); color: var(--ink-2); }
+  .reading .rv b { font-weight: 600; }
+  .rv .yes { color: var(--warm); } .rv .no { color: var(--ok); } .rv .wait { color: var(--ink-3); }
+  .switch { display: flex; gap: 4px; }
+  .switch button { background: var(--bg-2); color: var(--ink-2); border: 1px solid var(--border); border-radius: 3px; padding: 3px 8px; font: 11px var(--sans); cursor: pointer; }
+  .switch button.on { color: var(--ink); border-color: var(--border-2); background: var(--panel-2); }
+  .gtag { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+  .banner { display: none; margin-top: 14px; padding: 10px 14px; border: 1px solid var(--hot); border-radius: 4px; color: var(--hot); font: 13px var(--sans); }
+  .banner.on { display: block; }
+  .tip { position: fixed; z-index: 50; }
+  .canvas-wrap.mid { height: 230px; }
+  @media (max-width: 720px) { .log li { grid-template-columns: 64px 1fr; } .log .kind { display: none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · D1 re-solve (PREREG15)</div><div class="brand-sub" id="sub">connecting…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">rows re-solved</div><div class="hs-value" id="stat-rows">—</div><div class="hs-sub" id="stat-rows-sub">—</div></div>
+    <div class="hero-stat"><div class="hs-label">tail median e · stored → kept</div><div class="hs-value" id="stat-tail">—</div><div class="hs-sub" id="stat-tail-sub">% of pot</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">pace</span><span class="v mono" id="stat-pace">—</span></div>
+      <div class="meta-row"><span class="k">gpu · cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <div class="banner" id="banner"></div>
+  <main class="grid">
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Progress · solving order: tail (largest e first), then sample A, then sample B</h2><span class="panel-kpi mono" id="last-row">—</span></div>
+      <div class="segbar" id="segbar"></div>
+      <div class="tiles" id="tiles"></div>
+      <p class="note" id="scope-note"></p>
+    </section>
+
+    <section class="panel span-7 tall">
+      <div class="panel-head"><h2>Exploitability · stored vs re-solved · % of pot (log–log)</h2>
+        <div class="legend">
+          <span class="li"><i style="background:var(--gT)"></i>tail</span>
+          <span class="li"><i style="background:var(--gA)"></i>A</span>
+          <span class="li"><i style="background:var(--gB)"></i>B</span>
+        </div></div>
+      <div class="canvas-wrap"><canvas id="chart-scatter"></canvas></div>
+      <p class="note">Below the diagonal the re-solve is better and replaces the stored solve (keep-better); above it the stored solve stays. Dashed: 3% (the tail's threshold), 5% and 10%.</p>
+    </section>
+    <section class="panel span-5 tall">
+      <div class="panel-head"><h2>Readings</h2><span class="panel-kpi mono">pre-registered</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="tail-tbl"><thead></thead><tbody></tbody></table></div>
+      <div class="reading"><h3>A · 300 ordinary rows (e ≤ 3%) · RE-SOLVE-ALL if mean d &gt; 0.05% and the interval's low end &gt; 0</h3>
+        <div class="canvas-wrap"><canvas id="chart-A"></canvas></div><div class="rv" id="rv-A"></div></div>
+      <div class="reading"><h3>B · 100 band rows (1.5% &lt; e ≤ 3%) · EXTEND if mean d &gt; 0.1% and the low end &gt; 0</h3>
+        <div class="canvas-wrap"><canvas id="chart-B"></canvas></div><div class="rv" id="rv-B"></div></div>
+      <p class="note">d = stored e − re-solved e (positive: the re-solve is better). Bars: mean d with its 95% t-interval so far. Until a sample is complete this is a preview; the reading is the job's own summary line.</p>
+    </section>
+
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Exploitability in solving order · % of pot (log)</h2></div>
+      <div class="canvas-wrap mid"><canvas id="chart-order"></canvas></div>
+      <p class="note">Grey: stored. Colored: re-solved. The tail is solved largest stored e first.</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Seconds per row</h2><span class="panel-kpi mono" id="pace-kpi">—</span></div>
+      <div class="canvas-wrap mid"><canvas id="chart-pace"></canvas></div>
+      <p class="note">Each row's wall time: setup, the 500-iteration solve (float64 terminal sums), and on C2 rows (amber) the float64 reference walk.</p>
+    </section>
+
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Rows</h2>
+        <div class="switch" id="switch"><button data-k="kept" class="on">largest after keep-better</button><button data-k="worse">re-solve worse</button><button data-k="latest">latest</button></div></div>
+      <div class="tbl-wrap"><table class="tbl" id="rows"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div class="tip" id="tip" hidden></div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">Re-solve complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<script src="/static/resolve15.js"></script>
+</body>
+</html>

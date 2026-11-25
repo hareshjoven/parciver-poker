@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · Slumbot</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --total: #8ab4f8; --sd: #f28b82; --nsd: #81c995; --adj: #f9ab00; --us: #8ab4f8; --bot: #c58af9;
+          --club: #81c995; --diamond: #8ab4f8; --heart: #f28b82; --spade: #f0f1f2; }
+  .span-4 { grid-column: span 4; } .span-5 { grid-column: span 5; } .span-7 { grid-column: span 7; } .span-8 { grid-column: span 8; }
+  @media (max-width: 1180px) { .span-4, .span-5, .span-7, .span-8 { grid-column: span 12; } }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; }
+  .tbl-wrap { overflow: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .tbl th, .tbl td { padding: 4px 7px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child, .tbl td.l, .tbl th.l { text-align: left; }
+  .tbl th { color: var(--ink-3); text-transform: uppercase; font-size: 11px; font-weight: 500; }
+  .tbl td.dim { color: var(--ink-3); } .pos { color: var(--green); } .neg { color: var(--red); }
+  .canvas-wrap.mid { height: 260px; } .canvas-wrap.small { height: 190px; }
+  .cards { display: inline-flex; gap: 3px; vertical-align: middle; }
+  .card { display: inline-block; min-width: 26px; padding: 2px 4px; border: 1px solid var(--border-2); border-radius: 4px;
+          background: var(--panel-2); font: 600 13px var(--mono); text-align: center; }
+  .card.big { min-width: 40px; padding: 7px 6px; font-size: 19px; border-radius: 6px; }
+  .card.c { color: var(--club); } .card.d { color: var(--diamond); } .card.h { color: var(--heart); } .card.s { color: var(--spade); }
+  .card.back { color: var(--ink-3); }
+  .table-felt { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; }
+  .table-felt .k { color: var(--ink-3); font: 11px var(--sans); text-transform: uppercase; }
+  .streets { font: 12px/1.7 var(--mono); }
+  .streets .st { color: var(--ink-3); display: inline-block; min-width: 52px; }
+  .streets .a { margin-right: 8px; } .streets .a.us { color: var(--us); } .streets .a.bot { color: var(--bot); }
+  .opt-row { display: grid; grid-template-columns: 130px 1fr 52px; gap: 8px; align-items: center; font: 12px var(--mono); margin: 3px 0; }
+  .opt-row .tr { height: 9px; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+  .opt-row .tr i { display: block; height: 100%; background: var(--us); opacity: .55; }
+  .opt-row.pick .tr i { opacity: 1; } .opt-row.pick span:first-child { color: var(--us); font-weight: 600; }
+  .verdict { font: 600 14px var(--mono); } .verdict.WIN { color: var(--green); } .verdict.LOSE { color: var(--red); } .verdict.UNRESOLVED { color: var(--amber); }
+  .banner { display: none; margin-top: 14px; padding: 10px 14px; border: 1px solid var(--red); border-radius: 4px; color: var(--red); font: 13px var(--sans); }
+  .banner.on { display: block; } .banner.info { border-color: var(--amber); color: var(--amber); }
+  .bigline { font: 600 26px var(--mono); } .sub { color: var(--ink-3); font: 12px var(--mono); }
+  .kv { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 4px 12px; font: 12px var(--mono); }
+  .kv > span:nth-child(even) { text-align: right; }
+  .kv .k { color: var(--ink-3); font-family: var(--sans); }
+  .meter { height: 7px; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; background: var(--bg); margin-top: 6px; }
+  .meter i { display: block; height: 100%; background: var(--accent); }
+  .meter.warn i { background: var(--red); }
+  .tip { position: fixed; z-index: 50; }
+  .brand, .brand-text { min-width: 0; overflow: hidden; }
+  .phase-tag { display: inline-block; padding: 0 6px; border-radius: 3px; font: 600 11px var(--mono); color: #111; background: var(--amber); }
+  .phase-tag.counted { background: var(--green); } .phase-tag.mock { background: var(--accent-2); }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · live vs Slumbot</div><div class="brand-sub" id="sub">connecting…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">hands</div><div class="hs-value" id="stat-hands">—</div><div class="hs-sub" id="stat-hands-sub">—</div></div>
+    <div class="hero-stat"><div class="hs-label">won</div><div class="hs-value" id="stat-won">—</div><div class="hs-sub" id="stat-won-sub">—</div></div>
+    <div class="hero-stat"><div class="hs-label">win rate</div><div class="hs-value" id="stat-rate">—</div><div class="hs-sub" id="stat-rate-sub">—</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">pace</span><span class="v mono" id="stat-pace">—</span></div>
+      <div class="meta-row"><span class="k">gpu · cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <div class="banner" id="banner"></div>
+  <main class="grid">
+    <section class="panel span-5">
+      <div class="panel-head"><h2 id="cur-title">Hand in play</h2><span class="panel-kpi mono" id="cur-kpi">—</span></div>
+      <div id="current"><p class="note">waiting for the first hand</p></div>
+    </section>
+    <section class="panel span-7">
+      <div class="panel-head"><h2>Cumulative winnings (bb)</h2><div class="legend">
+        <span class="li"><i style="background:var(--total)"></i>all</span><span class="li"><i style="background:var(--adj)"></i>all-in adjusted</span>
+        <span class="li"><i style="background:var(--sd)"></i>showdown</span><span class="li"><i style="background:var(--nsd)"></i>without showdown</span></div></div>
+      <div class="canvas-wrap mid"><canvas id="c-curve"></canvas></div>
+      <p class="note" id="curve-note"></p>
+    </section>
+
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Win rate · bb/100 · 95% interval</h2></div>
+      <div class="tbl-wrap"><table class="tbl" id="rates"><thead></thead><tbody></tbody></table></div>
+      <div style="margin-top:10px">reading at N: <span class="verdict" id="verdict">—</span></div>
+      <p class="note" id="rate-note"></p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Result per hand (bb)</h2><span class="panel-kpi mono" id="wlt">—</span></div>
+      <div class="canvas-wrap small"><canvas id="c-hist"></canvas></div>
+      <p class="note">Hands by result; wins right, losses left, ties in the middle bar.</p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Play style · parciver vs Slumbot</h2></div>
+      <div class="tbl-wrap"><table class="tbl" id="hud"><thead></thead><tbody></tbody></table></div>
+      <div class="tbl-wrap" style="margin-top:8px"><table class="tbl" id="mix"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Recent hands</h2><span class="panel-kpi mono" id="checks">—</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="recent"><thead></thead><tbody></tbody></table></div>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Biggest pots</h2></div>
+      <div class="tbl-wrap"><table class="tbl" id="top"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <section class="panel span-4">
+      <div class="panel-head"><h2>Pace · search · health</h2></div>
+      <div class="kv" id="timing"></div>
+      <div style="margin-top:12px" class="sub" id="lost-label">lost hands</div>
+      <div class="meter" id="lost-meter"><i style="width:0"></i></div>
+      <p class="note" id="lost-note"></p>
+    </section>
+    <section class="panel span-8">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">Run complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<div class="tip" id="tip" hidden></div>
+<script src="/static/slumbot.js"></script>
+</body>
+</html>

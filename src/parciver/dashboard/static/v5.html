@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · V5</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --armD: #8ab4f8; --armF: #f9ab00; --hot: #f28b82; --ok: #81c995; }
+  .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; }
+  @media (max-width: 1180px) { .span-4, .span-6 { grid-column: span 12; } }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 80rem; }
+  .tbl-wrap { overflow: auto; }
+  .tbl { width: 100%; border-collapse: collapse; font: 12px/1.4 var(--mono); }
+  .tbl th, .tbl td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child, .tbl td.l { text-align: left; }
+  .tbl th { color: var(--ink-3); text-transform: uppercase; font-size: 11px; font-weight: 500; }
+  .tbl td.dim { color: var(--ink-3); } .tbl td.hot { color: var(--hot); } .tbl td.ok { color: var(--ok); }
+  .tbl td.wrap { white-space: normal; text-align: left; color: var(--ink-3); max-width: 34rem; }
+  .arm { display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 3px; font-weight: 600; text-align: center; color: #111; }
+  .arm.D { background: var(--armD); } .arm.F { background: var(--armF); }
+  .st { font-weight: 600; } .st.running { color: var(--armD); } .st.done { color: var(--ok); } .st.failed { color: var(--hot); } .st.waiting { color: var(--ink-3); }
+  .bar { height: 6px; margin-top: 3px; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; background: var(--bg); min-width: 90px; }
+  .bar i { display: block; height: 100%; background: var(--armD); }
+  .canvas-wrap.mid { height: 220px; }
+  .verdict { margin-top: 10px; font: 600 15px var(--mono); }
+  .verdict.yes { color: var(--armF); } .verdict.no { color: var(--ok); } .verdict.wait { color: var(--ink-3); font-weight: 400; font-size: 12px; }
+  .banner { display: none; margin-top: 14px; padding: 10px 14px; border: 1px solid var(--hot); border-radius: 4px; color: var(--hot); font: 13px var(--sans); }
+  .banner.on { display: block; }
+  .tip { position: fixed; z-index: 50; }
+  .brand, .brand-text { min-width: 0; overflow: hidden; }
+  .tbl th.l { text-align: left; }
+  .tbl td.err { color: var(--hot); white-space: normal; text-align: left; max-width: 34rem; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · V5 · does K2 matter in live search?</div><div class="brand-sub" id="sub">connecting…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">step now</div><div class="hs-value" id="stat-step">—</div><div class="hs-sub" id="stat-step-sub">—</div></div>
+    <div class="hero-stat"><div class="hs-label">deals played</div><div class="hs-value" id="stat-deals">—</div><div class="hs-sub" id="stat-deals-sub">—</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">pace</span><span class="v mono" id="stat-pace">—</span></div>
+      <div class="meta-row"><span class="k">gpu · cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <div class="banner" id="banner"></div>
+  <main class="grid">
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Queue · arm D (the bot as it plays: default kernels), then arm F (float64 terminal sums), same deals</h2></div>
+      <div class="tbl-wrap"><table class="tbl" id="steps"><thead></thead><tbody></tbody></table></div>
+      <p class="note" id="scope-note"></p>
+    </section>
+
+    <section class="panel span-4">
+      <div class="panel-head"><h2>LBR v1 · turn search</h2><div class="legend"><span class="li"><i style="background:var(--armD)"></i>D</span><span class="li"><i style="background:var(--armF)"></i>F</span></div></div>
+      <div class="canvas-wrap mid"><canvas id="c-lbr-v1"></canvas></div>
+      <p class="note">LBR's winnings against the bot, bb/100, cumulative (lower = less exploitable).</p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>LBR v2-2B · turn search</h2><div class="legend"><span class="li"><i style="background:var(--armD)"></i>D</span><span class="li"><i style="background:var(--armF)"></i>F</span></div></div>
+      <div class="canvas-wrap mid"><canvas id="c-lbr-v2"></canvas></div>
+      <p class="note">As left, for the 200bb 2B blueprint.</p>
+    </section>
+    <section class="panel span-4">
+      <div class="panel-head"><h2>h2h · v2-2B vs v1 · both search the turn</h2><div class="legend"><span class="li"><i style="background:var(--armD)"></i>D</span><span class="li"><i style="background:var(--armF)"></i>F</span></div></div>
+      <div class="canvas-wrap mid"><canvas id="c-h2h"></canvas></div>
+      <p class="note">v2-2B's winnings against v1, bb/100, cumulative (higher = v2-2B stronger).</p>
+    </section>
+
+    <section class="panel span-6">
+      <div class="panel-head"><h2>F − D · paired on the same deals</h2><span class="panel-kpi mono">K2 MATTERS if any Bonferroni interval excludes 0</span></div>
+      <div class="tbl-wrap"><table class="tbl" id="deltas"><thead></thead><tbody></tbody></table></div>
+      <div class="verdict wait" id="verdict">The reading comes from records/verify/v5_paired.py once all four GPU runs are complete.</div>
+      <p class="note" id="delta-note"></p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">V5 complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<div class="tip" id="tip" hidden></div>
+<script src="/static/v5.js"></script>
+</body>
+</html>

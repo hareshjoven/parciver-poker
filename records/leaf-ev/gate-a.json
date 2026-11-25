@@ -1,0 +1,66 @@
+{
+  "registration": "records/leaf-ev/PREREG.md",
+  "data": "8df0fc79620a1820",
+  "torch": "2.14.0+cu132",
+  "commit": "7ef6474c957a2eeb6a69b0f54d1aaed8b50e4c27",
+  "gpu_state": {
+    "start": {
+      "gpu": [
+        "8 %, 939 MiB"
+      ],
+      "python": []
+    },
+    "end": {
+      "gpu": [
+        "0 %, 8719 MiB"
+      ],
+      "python": []
+    }
+  },
+  "p": {
+    "tag": "leafnet-c0-wd0.1",
+    "sha256": "0c196d46d1af10a1fee31864196febc04b958888368005ea8fb7372162d45489",
+    "best": {
+      "epoch": 183,
+      "train_loss": 0.002508503866606745,
+      "val_loss": 0.013437177158544897,
+      "val_mae": 4.719464108347893,
+      "seconds": 822.3
+    }
+  },
+  "reproduction": {
+    "ok": true,
+    "tag": "leafev-repro-c0-wd0.1",
+    "best": {
+      "epoch": 183,
+      "train_loss": 0.002508503866606745,
+      "val_loss": 0.013437177158544897,
+      "val_mae": 4.719464108347893,
+      "seconds": 805.9
+    },
+    "commit": "7ef6474c957a2eeb6a69b0f54d1aaed8b50e4c27",
+    "torch": "2.14.0+cu132",
+    "sha256": "0c196d46d1af10a1fee31864196febc04b958888368005ea8fb7372162d45489"
+  },
+  "selection": {
+    "passed": false,
+    "S": {
+      "epoch": 187,
+      "train_loss": 0.0023687821010063433,
+      "val_loss": 0.013497820025475825,
+      "val_mae": 4.65599037706852,
+      "seconds": 860.8
+    },
+    "P": {
+      "epoch": 183,
+      "train_loss": 0.002508503866606745,
+      "val_loss": 0.013437177158544897,
+      "val_mae": 4.719464108347893,
+      "seconds": 822.3
+    },
+    "commit": "7ef6474c957a2eeb6a69b0f54d1aaed8b50e4c27",
+    "torch": "2.14.0+cu132",
+    "sha256": "9be57caf8ea9b0c28370214eef55b9b319f168af59aa4ede2aaa3d2a9b151f53"
+  },
+  "stopped": "SC5 stops"
+}

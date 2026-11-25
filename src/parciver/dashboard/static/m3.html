@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · M3</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  :root { --armA: #8ab4f8; --armB: #c58af9; --hot: #f28b82; --ok: #81c995; --amber: #f9ab00; }
+  .span-6 { grid-column: span 6; } .span-12 { grid-column: span 12; }
+  @media (max-width: 1180px) { .span-6 { grid-column: span 12; } }
+  .note { color: var(--ink-3); font-size: 12px; margin: 8px 0 0; max-width: 80rem; }
+  .canvas-wrap.tall { height: 300px; } .canvas-wrap.mid { height: 220px; }
+  .runs { width: 100%; border-collapse: collapse; font: 12px/1.5 var(--mono); }
+  .runs th { text-align: left; color: var(--ink-3); font-weight: 400; padding: 4px 10px 6px 0; border-bottom: 1px solid var(--border); }
+  .runs td { padding: 7px 10px 7px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .runs tr.sel td { background: color-mix(in srgb, var(--armA) 9%, transparent); }
+  .runs tr { cursor: pointer; }
+  .runs .sub { color: var(--ink-3); font-size: 11px; }
+  .bar { height: 5px; background: var(--border); border-radius: 3px; margin-top: 4px; min-width: 80px; }
+  .bar i { display: block; height: 100%; border-radius: 3px; background: var(--armA); }
+  .good { color: var(--ok); } .bad { color: var(--hot); } .muted { color: var(--ink-3); }
+  .tabs { display: flex; gap: 6px; }
+  .tabs button { font: 12px var(--mono); padding: 3px 9px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--ink-2); cursor: pointer; }
+  .tabs button.on { border-color: var(--armA); color: var(--armA); }
+  .banner { display: none; margin-top: 14px; padding: 10px 14px; border: 1px solid var(--hot); border-radius: 4px; color: var(--hot); font: 13px var(--sans); }
+  .banner.on { display: block; }
+  .tip { position: fixed; z-index: 50; }
+  .brand, .brand-text { min-width: 0; overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver · FLOPSEARCH M3 · flop + turn search vs turn search, against the bots and LBR</div><div class="brand-sub" id="sub">connecting…</div></div></div>
+    <div class="hero-stat"><div class="hs-label" id="stat-mean-label">A − B</div><div class="hs-value" id="stat-mean">—</div><div class="hs-sub" id="stat-mean-sub">bb/100 so far</div></div>
+    <div class="hero-stat"><div class="hs-label" id="stat-deals-label">deals</div><div class="hs-value" id="stat-deals">—</div><div class="hs-sub" id="stat-deals-sub">—</div></div>
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">elapsed · eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row"><span class="k">pace</span><span class="v mono" id="stat-pace">—</span></div>
+      <div class="meta-row"><span class="k">gpu · cpu · ram</span><span class="v mono" id="stat-res">—</span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+    </div>
+  </header>
+  <div class="banner" id="banner"></div>
+  <main class="grid">
+    <section class="panel span-12">
+      <div class="panel-head"><h2>The three runs, in order</h2></div>
+      <div class="table-wrap"><table class="runs" id="runs"></table></div>
+      <p class="note">A = v2-2B with flop + turn search (500 iterations, γ 5, the final net); B = v2-2B with turn search. Against a bot, higher is better for A; under LBR (the bb/100 LBR wins), lower is better for A. Intervals: 50 blocks, 95% t, A − B paired by block; a preview until the run's last deal. M3 is descriptive: it decides nothing (ADOPT came from M1 + M2). Click a row to chart it.</p>
+    </section>
+    <section class="panel span-12">
+      <div class="panel-head"><h2 id="cum-title">Cumulative A − B</h2><div class="legend"><span class="li"><i style="background:var(--armA)"></i>A − B ± 1.96 se</span><span class="li"><i style="background:var(--ok)"></i>A alone</span><span class="li"><i style="background:var(--armB)"></i>B alone</span></div></div>
+      <div class="canvas-wrap tall"><canvas id="c-cum"></canvas></div>
+      <p class="note" id="cum-note">bb/100. The band is the per-deal 95% interval, a preview.</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>A − B by chunk</h2></div>
+      <div class="canvas-wrap mid"><canvas id="c-bars"></canvas></div>
+      <p class="note">Each saved chunk's own mean, bb/100. Green = good for A.</p>
+    </section>
+    <section class="panel span-6">
+      <div class="panel-head"><h2>Pace and solver calls per deal</h2><div class="legend"><span class="li"><i style="background:var(--amber)"></i>s/deal</span><span class="li"><i style="background:var(--armA)"></i>A's calls</span><span class="li"><i style="background:var(--armB)"></i>B's calls</span></div></div>
+      <div class="canvas-wrap mid"><canvas id="c-pace"></canvas></div>
+      <p class="note">Per chunk: wall seconds per deal (both arms), and each arm's GPU solver calls per deal (A: flop, turn and river; B: turn and river).</p>
+    </section>
+    <section class="panel span-12">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+  </main>
+</div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">M3 complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<div class="tip" id="tip" hidden></div>
+<script src="/static/m3.js"></script>
+</body>
+</html>

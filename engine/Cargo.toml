@@ -1,0 +1,40 @@
+[package]
+name = "parciver_engine"
+version = "0.1.0"
+edition = "2021"
+description = "Fast Rust game engine + CFR hot loop for the parciver poker bot (PyO3 extension)"
+
+[lib]
+name = "parciver_engine"
+# cdylib: the Python extension module built by maturin.
+# rlib:   lets `cargo test` build the pure-Rust unit tests.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# extension-module is a default feature so `maturin develop` builds a proper
+# Python extension, but `cargo test --no-default-features` drops it so the test
+# binary links libpython and the pure-Rust unit tests run without a wheel.
+pyo3 = { version = "0.27", default-features = false, features = ["macros"] }
+# Fast, deterministic non-cryptographic hasher. The CFR hot loop is dominated by
+# small-string infoset lookups; SipHash is needless overhead here. Iteration
+# order over the node map never affects results, so this stays numerically
+# identical to std HashMap while cutting hashing cost.
+rustc-hash = "2"
+# Data-parallel feature extraction (Phase 3b): the equity-distribution histogram
+# over every canonical (hand, board) is an embarrassingly parallel per-situation
+# workload. rayon fans it over the 16 hardware threads. Results are independent
+# per situation, so parallelism never changes the numbers.
+rayon = "1"
+# Global allocator. Growing the node table allocates a key + node per new
+# infoset from every solver thread at once; the Windows system heap serializes
+# those, mimalloc's per-thread heaps do not. Allocation never affects results.
+mimalloc = { version = "0.1", default-features = false }
+
+[features]
+default = ["extension-module"]
+extension-module = ["pyo3/extension-module"]
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1

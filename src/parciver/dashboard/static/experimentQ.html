@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · fragility → EV predictor</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  /* §38 H-Q experiment-view extras (kept out of the shared blueprint style.css) */
+  #stat-verdict { font-family: var(--mono); font-size: clamp(18px,2.2vw,25px); font-weight: 560; letter-spacing:-.04em; color:var(--ink); }
+  .v-go   { color: var(--green) !important; }
+  .v-kill { color: var(--red)   !important; }
+  .v-run  { color: var(--accent) !important; }
+  .v-flat { color: var(--amber) !important; }
+  .legend { display:flex; gap:12px; flex-wrap:wrap; }
+  .legend .li { display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-2); }
+  .legend .li i { width:9px; height:9px; border-radius:1px; }
+  .legend .li i.hollow { background:transparent !important; border:1.5px solid var(--ink-3); }
+  .note-box { color: var(--ink-2); font-size:13px; padding:7px 2px 0; line-height:1.55; }
+  .gsel { display:flex; gap:6px; }
+  .gsel button { font:inherit; font-size:12px; color:var(--ink-2); background:transparent; border:1px solid var(--border); border-radius:3px; padding:3px 9px; cursor:pointer; }
+  .gsel button.on { color:var(--ink); border-color:var(--accent); background:transparent; }
+  table.qtab { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:12px; }
+  table.qtab th, table.qtab td { text-align:right; padding:6px 8px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  table.qtab th:first-child, table.qtab td:first-child { text-align:left; }
+  table.qtab th { color:var(--ink-3); font-weight:600; text-transform:uppercase; letter-spacing:.06em; font-size:11px; position:sticky; top:0; background:var(--panel); }
+  table.qtab tr.fit td:first-child { color:var(--accent); }
+  table.qtab tr.held td:first-child { color:var(--amber); }
+  table.qtab tr.transfer td:first-child { color:var(--green); }
+  table.qtab tr.eqrow td { color:var(--ink-3); }
+  .tab-wrap { max-height:280px; overflow:auto; }
+  .kpi-row { display:flex; gap:18px; flex-wrap:wrap; margin-top:2px; }
+  .kpi-row .kx { display:flex; flex-direction:column; }
+  .kpi-row .kl { color:var(--ink-3); font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
+  .kpi-row .kv { color:var(--ink); font-family:var(--mono); font-size:16px; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <span class="chip cs"></span><span class="chip ch"></span>
+        <span class="chip cd"></span><span class="chip cc"></span>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">parciver</div>
+        <div class="brand-sub" id="game-name">§38 fragility → EV predictor — waiting…</div>
+      </div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">H-Q verdict</div>
+      <div id="stat-verdict" class="v-run">—</div>
+      <div class="hs-sub"><span id="stat-role">predict extractable EV from a cheap fragility metric</span></div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">best cheap ρ<sub>held</sub> (vs baseline)</div>
+      <div class="hs-value mono" id="stat-bestrho">—</div>
+      <div class="hs-sub"><span id="stat-bestname" class="mono">—</span> · dist_eq <span id="stat-baserho" class="mono">—</span></div>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">game</span><span class="v"><span class="gsel" id="game-sel"></span></span></div>
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+      <div class="meta-row"><span class="k">eq NashConv</span><span class="v mono" id="stat-nc">—</span></div>
+      <div class="meta-row"><span class="k">held n</span><span class="v mono" id="stat-nheld">—</span></div>
+      <div class="meta-row"><span class="k">elapsed</span><span class="v mono" id="stat-elapsed">00:00</span></div>
+      <div class="meta-row" id="config-chips"></div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <section class="panel span-6 tall" id="p-scatter">
+      <div class="panel-head">
+        <h2>Fragility → extractable EV · <span id="scatter-metric" class="mono" style="text-transform:none;color:var(--ink)">—</span></h2>
+        <div class="legend">
+          <span class="li"><i style="background:var(--accent)"></i>fit</span>
+          <span class="li"><i style="background:var(--amber)"></i>held</span>
+          <span class="li"><i style="background:var(--green)"></i>transfer</span>
+          <span class="li"><i class="hollow"></i>eq anchor</span>
+        </div>
+      </div>
+      <div class="canvas-wrap" style="height:330px"><canvas id="c-scatter"></canvas></div>
+      <div class="note-box">Each point is an opponent: x = the CHEAP, best-response-free fragility metric; y = the EXACT extractable EV (per-opponent BR gain, <i>Y_ceil</i>). A tight up-slope on the held (amber) points = the metric predicts extractable EV out-of-sample. The baseline <i>dist_eq</i> ("looks non-GTO") is the thing to beat.</div>
+    </section>
+
+    <section class="panel span-6 tall" id="p-rho">
+      <div class="panel-head">
+        <h2>Held-out predictive power · |ρ<sub>held</sub>|</h2>
+        <div class="legend"><span class="li"><i style="background:var(--green)"></i>clears ρ*+Δρ</span><span class="li"><i style="background:var(--ink-3)"></i>baseline / below</span><span class="li"><i style="background:var(--accent-2)"></i>expensive ref</span></div>
+      </div>
+      <div class="canvas-wrap" style="height:330px"><canvas id="c-rho"></canvas></div>
+      <div class="note-box">Bars = |ρ<sub>held</sub>| (Spearman, target <i>Y_ceil</i>). Dashed line = ρ*=0.70; the shaded band above the baseline = the Δρ=0.15 a cheap metric must clear. The expensive opponent-NashConv reference is shown for contrast — a cheap metric beating it is the useful result.</div>
+    </section>
+
+    <section class="panel span-6" id="p-gap">
+      <div class="panel-head"><h2>Ceiling vs realized capture · held</h2><div class="panel-kpi mono" id="kpi-gap">—</div></div>
+      <div class="canvas-wrap short" style="height:190px"><canvas id="c-gap"></canvas></div>
+      <div class="note-box">Per held opponent: the exact <i>Y_ceil</i> (what an oracle could extract) vs <i>Y_cap</i> (what a deployable identity-blind α=1 exploiter that reads only public behaviour actually captures). The gap is the R2 marginal-model cost.</div>
+    </section>
+
+    <section class="panel span-6" id="p-cheap">
+      <div class="panel-head"><h2>Cheap fragility vs expensive reference</h2></div>
+      <div class="canvas-wrap short" style="height:190px"><canvas id="c-cheap"></canvas></div>
+      <div class="note-box">|ρ<sub>held</sub>| of the best CHEAP (BR-free) metric vs the EXPENSIVE opponent-NashConv reference vs the trivial <i>dist_eq</i> baseline. The bet (§38): a cheap metric predicts extractable EV as well as or better than the expensive one, and far better than the baseline.</div>
+    </section>
+
+    <section class="panel span-12" id="p-table">
+      <div class="panel-head"><h2>Per-opponent detail</h2></div>
+      <div class="tab-wrap"><table class="qtab" id="qtab"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <section class="panel span-12" id="p-log">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+
+  </main>
+</div>
+
+<div id="done-overlay" class="overlay" hidden>
+  <div class="done-card">
+    <div class="done-badge" id="done-badge">✓</div>
+    <h1 id="done-title">H-Q experiment complete</h1>
+    <p id="done-sub"></p>
+    <div class="done-stats" id="done-stats"></div>
+    <button id="done-dismiss">Dismiss</button>
+  </div>
+</div>
+
+<script src="/static/experimentQ.js"></script>
+</body>
+</html>

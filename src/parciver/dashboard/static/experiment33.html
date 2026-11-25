@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · S3.3 public-observation recovery</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  #stat-verdict{font-family:var(--mono);font-size:clamp(18px,2.2vw,25px);font-weight:560}
+  .pass{color:var(--green)}.fail{color:var(--red)}
+  .s33-table-wrap{overflow:auto;max-height:540px}
+  .s33-table{width:100%;border-collapse:collapse;font:12px/1.4 var(--mono)}
+  .s33-table th,.s33-table td{padding:7px 8px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+  .s33-table th:nth-child(2),.s33-table td:nth-child(2){text-align:left}
+  .s33-table th{position:sticky;top:0;background:var(--panel);color:var(--ink-3);text-transform:uppercase;font-size:11px}
+  #gates-list{list-style:none;padding:0;margin:0}#gates-list li{padding:8px 0;border-bottom:1px solid var(--border)}
+  .protocol-note{color:var(--amber);font-size:12px;max-width:38rem}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand"><div class="brand-text"><div class="brand-title">parciver</div><div class="brand-sub" id="game-name">S3.3 · waiting for locked run…</div></div></div>
+    <div class="hero-stat"><div class="hs-label">S3.3 verdict</div><div id="stat-verdict">running</div><div class="hs-sub" id="run-stage">audit interlock</div></div>
+    <div class="hero-stat"><div class="hs-label">progress</div><div class="hs-value" id="stat-progress">0 / 27</div><div class="hs-sub" id="stat-workload">observation first</div></div>
+    <div class="topbar-meta"><div class="meta-row"><span class="k">min effective coverage</span><span class="v mono" id="stat-coverage">—</span></div><div class="meta-row"><span class="k">max ECE</span><span class="v mono" id="stat-ece">—</span></div><div class="protocol-note">Public-only hierarchy. ABR-proxy remains a lower-bound attack, not a safety certificate.</div></div>
+  </header>
+  <main class="grid">
+    <section class="panel span-12"><div class="panel-head"><h2>Locked stage telemetry</h2><span class="panel-kpi mono" id="stat-last-event">—</span></div><div class="telemetry-grid"><div class="telemetry-stat"><span class="telemetry-label">elapsed</span><strong id="stat-elapsed">—</strong></div><div class="telemetry-stat"><span class="telemetry-label">stage</span><strong id="stat-stage">waiting</strong></div><div class="telemetry-stat"><span class="telemetry-label">workers</span><strong id="stat-workers">—</strong></div><div class="telemetry-stat"><span class="telemetry-label">protocol</span><strong id="stat-protocol">—</strong></div></div><div class="run-progress-meta"><span id="run-progress-label">0 of 27 observation cases</span><span id="run-progress-percent">0%</span></div><div class="run-progress"><div id="run-progress-bar"></div></div></section>
+    <section class="panel span-12"><div class="panel-head"><h2>Public-model confirmation</h2></div><div class="s33-table-wrap"><table class="s33-table" id="observation-table"><thead><tr><th>seed</th><th>opponent</th><th>effective coverage</th><th>legacy coverage</th><th>hier NLL</th><th>anchor NLL</th><th>legacy NLL</th><th>ECE</th><th>time</th><th>peak GB</th></tr></thead><tbody></tbody></table></div></section>
+    <section class="panel span-6"><div class="panel-head"><h2>Locked gates</h2></div><ul id="gates-list"><li>waiting for complete observation family…</li></ul></section>
+    <section class="panel span-6"><div class="panel-head"><h2>Event log</h2></div><ul class="log" id="event-log"></ul></section>
+  </main>
+</div>
+<div id="done-overlay" class="overlay" hidden><div class="done-card"><div class="done-badge" id="done-badge">✓</div><h1 id="done-title">S3.3 complete</h1><p id="done-detail"></p><button id="done-dismiss">Dismiss</button></div></div>
+<script src="/static/experiment33.js"></script>
+</body>
+</html>

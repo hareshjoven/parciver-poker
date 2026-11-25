@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>parciver · live training</title>
+<link rel="preconnect" href="/">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ── status header ─────────────────────────────────────────────── -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <span class="chip cs"></span><span class="chip ch"></span>
+        <span class="chip cd"></span><span class="chip cc"></span>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">parciver</div>
+        <div class="brand-sub" id="game-name">— waiting for run —</div>
+      </div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">iteration</div>
+      <div class="hs-value" id="stat-iter">0</div>
+      <div class="hs-sub"><span id="stat-progress">0%</span> of <span id="stat-target">—</span></div>
+    </div>
+
+    <div class="hero-stat">
+      <div class="hs-label">throughput</div>
+      <div class="hs-value" id="stat-itps">0<span class="unit"> it/s</span></div>
+      <div class="hs-sub"><span id="stat-conv-label">convergence</span> <span id="stat-conv" class="mono">—</span></div>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="meta-row"><span class="k">status</span><span class="v" id="stat-status"><span class="dot idle"></span>connecting</span></div>
+      <div class="meta-row"><span class="k">elapsed</span><span class="v mono" id="stat-elapsed">00:00</span></div>
+      <div class="meta-row"><span class="k">eta</span><span class="v mono" id="stat-eta">—</span></div>
+      <div class="meta-row" id="config-chips"></div>
+    </div>
+  </header>
+
+  <!-- ── panels ────────────────────────────────────────────────────── -->
+  <main class="grid">
+
+    <section class="panel span-6 tall" id="p-convergence">
+      <div class="panel-head">
+        <h2>Convergence</h2>
+        <div class="legend" id="conv-legend"></div>
+      </div>
+      <div class="canvas-wrap"><canvas id="c-convergence"></canvas></div>
+    </section>
+
+    <section class="panel span-6 tall" id="p-range">
+      <div class="panel-head">
+        <h2>Preflop range</h2>
+        <div class="legend">
+          <span class="lg"><i class="sw" style="background:var(--raise)"></i>raise</span>
+          <span class="lg"><i class="sw" style="background:var(--call)"></i>call</span>
+          <span class="lg"><i class="sw" style="background:var(--fold)"></i>fold</span>
+        </div>
+      </div>
+      <div class="canvas-wrap grid-wrap">
+        <canvas id="c-range"></canvas>
+        <div id="range-tip" class="tip" hidden></div>
+      </div>
+    </section>
+
+    <section class="panel span-3" id="p-throughput">
+      <div class="panel-head"><h2>Throughput</h2><div class="panel-kpi mono" id="kpi-itps">—</div></div>
+      <div class="canvas-wrap short"><canvas id="c-throughput"></canvas></div>
+    </section>
+
+    <section class="panel span-3" id="p-coverage">
+      <div class="panel-head"><h2>Infoset coverage</h2><div class="panel-kpi mono" id="kpi-infosets">—</div></div>
+      <div class="canvas-wrap short"><canvas id="c-coverage"></canvas></div>
+    </section>
+
+    <section class="panel span-3" id="p-headtohead">
+      <div class="panel-head"><h2>Head-to-head</h2><div class="panel-kpi mono" id="kpi-hh">—</div></div>
+      <div class="canvas-wrap short"><canvas id="c-hh"></canvas></div>
+    </section>
+
+    <section class="panel span-3" id="p-stability">
+      <div class="panel-head"><h2>Strategy stability</h2><div class="panel-kpi mono" id="kpi-stability">—</div></div>
+      <div class="canvas-wrap short"><canvas id="c-stability"></canvas></div>
+    </section>
+
+    <section class="panel span-4" id="p-actions">
+      <div class="panel-head"><h2>Action frequency · by street</h2></div>
+      <div class="bars" id="action-bars"></div>
+    </section>
+
+    <section class="panel span-4" id="p-bets">
+      <div class="panel-head"><h2>Bet sizing · by street</h2></div>
+      <div class="bars" id="bet-bars"></div>
+    </section>
+
+    <section class="panel span-4" id="p-resources">
+      <div class="panel-head"><h2>Machine</h2><div class="panel-kpi mono" id="kpi-threads">—</div></div>
+      <div class="gauges" id="gauges"></div>
+    </section>
+
+    <section class="panel span-12" id="p-log">
+      <div class="panel-head"><h2>Event log</h2></div>
+      <ul class="log" id="event-log"></ul>
+    </section>
+
+  </main>
+</div>
+
+<!-- ── completion banner ───────────────────────────────────────────── -->
+<div id="done-overlay" class="overlay" hidden>
+  <div class="done-card">
+    <div class="done-badge" id="done-badge">✓</div>
+    <h1 id="done-title">Training complete</h1>
+    <p id="done-sub">The blueprint solve has finished.</p>
+    <div class="done-stats" id="done-stats"></div>
+    <button id="done-dismiss">Dismiss</button>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
