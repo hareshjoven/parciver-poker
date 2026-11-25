@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Tests for the training-telemetry contract (Phase 3c, pre-B4).
 
 The telemetry log is the sole channel B4 has for reporting a multi-day solve, so

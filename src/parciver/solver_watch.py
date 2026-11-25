@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Bookkeeping for runs that play with real-time search (scripts/search_lbr.py,
 search_h2h.py, flop_eval.py latency).
 

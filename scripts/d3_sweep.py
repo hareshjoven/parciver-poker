@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3-SWEEP's driver (records/d3-sweep/PREREG.md): which training recipe N2 uses, decided on D1 + D1b alone.
 
     d3_sweep.py check               N1's recipe through the new code for 3 epochs of the 200-epoch schedule against N1's history, the two

@@ -1,6 +1,6 @@
 # BP-8B: a longer blueprint (v2-2B resumed to 4B, then 8B)
 
-Registered 18 Oct 2026 (SGT), before any training of it. The user chose it after RIVER-ITERS (18 Oct ~22:10 SGT:
+Registered 18 Oct 2026, before any training of it. The user chose it after RIVER-ITERS (18 Oct ~22:10:
 "Longer blueprint"). Nothing here changes the live config until "Adoption" passes.
 
 ## Known
@@ -60,7 +60,7 @@ Registered 18 Oct 2026 (SGT), before any training of it. The user chose it after
 - RAM: ~29 GB while training, beside RIVER R1's P2 (2 blueprints) within 64 GB. No M1 oracle runs beside it.
 - The ratings are minutes each; the live match ~20 h GPU; the mock ~40 min.
 
-## Stage 3 (addendum, registered 19 Oct 2026 21:13 SGT, the user's yes; before any stage-3 training)
+## Stage 3 (addendum, registered 19 Oct 2026 21:13, the user's yes; before any stage-3 training)
 The user's yes (19 Oct): "register stage 3 and run it on cloud cores 10-18 after stage 2 ends, with the 2% D1b stop
 rule". Why: the cloud droplet's CPU sits ~59% idle beside D1b (records/d1b), whose GPU work cannot use it; training
 there frees the PC to rate v2-8B at the same time. Nothing above changes: v2-8B's rating, GAIN rule, live match and
@@ -71,7 +71,7 @@ adoption stand as registered.
 - **Training:** from stage 2's final `checkpoint.bin` (8,000,000,000 iterations; copied sha256-checked) with
   `train_blueprint.py --resume <its dir> --run-dir /root/bp-s3/run --abstraction-dir /root/bp-s3/abstraction
   --target-iters 16000000000 --threads 9 --max-seconds S --no-dashboard`, under `taskset -c 10-18` and nice 10;
-  S ends it ~20:30 SGT Tue 20 Oct. Just before launch, D1b's running processes are re-pinned to cores 0-9
+  S ends it ~20:30 Tue 20 Oct. Just before launch, D1b's running processes are re-pinned to cores 0-9
   (`taskset -a -p`; no restart).
 - **The end is the time box.** The trainer prints "interrupted" for any stop short of the target; here that is the
   registered end, not a VOID. **VOID:** a refused resume; a crash with no checkpoint after it (one with a checkpoint

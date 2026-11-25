@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Slumbot live viewer. Data-only: the watcher (scripts/watch_slumbot.py) reads the run's hands, status and events
    and sends one summary at a time; the page draws it and counts the clocks down. */
 "use strict";

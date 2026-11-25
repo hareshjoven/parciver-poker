@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS §35.A — the RICH-BAIT DECIDER, runnable + watchable.
 
 Settles whether §34.5's "H2 not supported" was a MENU ARTIFACT. §34.5's ρ-ceiling

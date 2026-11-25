@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Play Slumbot (records/slumbot/PREREG.md; flop search: records/live-flop/PREREG.md; its leaves:
 records/flop-sym/PREREG.md; turn search: LIVESEARCH.md, Amendment 3): v2-8B with live GPU search, one hand and
 one request at a time.

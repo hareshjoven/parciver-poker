@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/slumbot_run.py's mock check (records/slumbot/PREREG.md; LIVE-FLOP; LIVESEARCH.md, Amendment 3): the
 flop, turn and river decisions' p95 bars, each street on its own; and the live search record's turn schedule
 (rating.py). CPU only: fake hands, the parser check stubbed."""

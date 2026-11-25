@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3's memory-mapped loader (records/d3/PREREG.md 5.0.3, section 8) and the load's measurements.
 
 `turn_net.load_many` reads every shard into host arrays: 18 KB a row, 34 GB for the 1.9M training rows of D3 plus a

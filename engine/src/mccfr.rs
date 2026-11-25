@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! External-sampling Monte-Carlo CFR (ES-MCCFR) — the sampled counterpart to the
 //! full-traversal [`crate::cfr`] solver, and the hot loop that scales to the
 //! abstracted hold'em tree where a full traversal is intractable.

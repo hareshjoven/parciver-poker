@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Headless smoke test for the S3.4 dashboard. */
 import fs from "node:fs";import path from "node:path";import vm from "node:vm";import{fileURLToPath}from"node:url";
 const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");const logPath=process.argv[2];if(!logPath||!fs.existsSync(logPath)){console.error("missing events.jsonl");process.exit(2);}

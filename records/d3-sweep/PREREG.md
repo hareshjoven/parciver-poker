@@ -1,6 +1,6 @@
 # D3-SWEEP: which training recipe trains N2 (dropout, EMA, a range-weighted loss), on D1 + D1b only
 
-**Status: REGISTERED 9 Nov 2026 21:39 SGT (registration only).** The user's yes in this session ("Sweep registration"), after D3's
+**Status: REGISTERED 9 Nov 2026 21:39 (registration only).** The user's yes in this session ("Sweep registration"), after D3's
 code stage (PREREG 5.0, commits 9193ae6..1b319bc, HANDOFF). Written before any sweep code, training or data use. No net
 has been trained or evaluated for it. Only existing records (`runs/turn-net/d2b-w2048-wd0.1`, `d2b-seed1`) and
 the D3 PREREG were read. Nothing here changes the live config. Its own code stage and its run each need the user's

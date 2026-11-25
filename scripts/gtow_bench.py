@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Play the bot against GTO Wizard AI through the researcher API (heads-up NLHE, 200bb stacks
 reset every hand, 50/100 blinds) and measure it with the server's AIVAT scores.
 

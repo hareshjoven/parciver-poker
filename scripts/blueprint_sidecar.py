@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Blueprint dashboard sidecar — fills the action-frequency, bet-sizing, and
 head-to-head panels WITHOUT touching the running solve.
 

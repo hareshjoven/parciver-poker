@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! N-player general-sum CFR (vanilla / CFR+ / Linear / DCFR), the multiplayer
 //! sibling of [`crate::cfr`] for the R-MAPSS track (RMAPSS.md §33, Step 0.2).
 //!

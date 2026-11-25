@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 2 — the inter-opponent interaction KERNEL, runnable + watchable.
 
 Runs the Step-2 experiment (RMAPSS.md §34): adaptive 3p opponents under the locked

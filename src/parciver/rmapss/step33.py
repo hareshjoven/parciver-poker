@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Locked R-MAPSS S3.3 public-observation recovery protocol (§46).
 
 This module is intentionally separate from :mod:`step32`: the failed S3.2

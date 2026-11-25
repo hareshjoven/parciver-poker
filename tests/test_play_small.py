@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The terminal game against the solved Kuhn / Leduc opponent (parciver play)."""
 from __future__ import annotations
 

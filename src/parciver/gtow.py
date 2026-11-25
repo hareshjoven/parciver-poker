@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GTO Wizard researcher API <-> play agent (pure translation; no network).
 
 The API (https://researcher.gtowizard.com, client: github.com/gtowizard-ai/researcher-api-client)

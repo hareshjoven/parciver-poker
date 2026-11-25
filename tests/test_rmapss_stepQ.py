@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Tests for R-MAPSS Step Q — fragility-as-transferable-EV-predictor (RMAPSS.md §38).
 
 Fast, exact, engine-independent (3p Kuhn/Leduc pure-Python). Certifies the machinery,

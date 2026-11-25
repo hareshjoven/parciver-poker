@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Convergence gates for the CFR solvers.
 
 These are the project's primary defence against silent correctness bugs. A CFR

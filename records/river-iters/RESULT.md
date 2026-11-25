@@ -4,11 +4,11 @@ Run as registered (`PREREG.md`, `scripts/river_iters.py` at 319008e, audited rea
 Record: `scout.json` (every job's curve, the bootstraps, provenance, the GPU checks; not VOID).
 
 ## Data
-- `collect` 20:41-21:37 SGT: B1 against B0 on the 200bb baseline deals 0-499 (seed 410001, 4 threads, AIVAT on),
+- `collect` 20:41-21:37: B1 against B0 on the 200bb baseline deals 0-499 (seed 410001, 4 threads, AIVAT on),
   5 chunks of 100, every chunk's arms proven. **332 river jobs** (0.664 a deal; 65/79/64/67/57 by chunk, as P2's),
   all distinct, on 162 boards. The deals' results are identical to P2's, deal for deal: the same play, so the same
   river jobs the live config solves.
-- `solve` 22:01-22:03 SGT: 116 s; the GPU had no other job of this Python at the start or the end.
+- `solve` 22:01-22:03: 116 s; the GPU had no other job of this Python at the start or the end.
 
 ## Exploitability in the river subgame, % of the pot (mean [95% board-bootstrap], median)
 

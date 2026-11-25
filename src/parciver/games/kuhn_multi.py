@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """N-player Kuhn poker — the multiplayer oracle for the R-MAPSS track.
 
 The independent Python mirror of the Rust ``kuhn_n::KuhnN`` (RMAPSS.md §33,

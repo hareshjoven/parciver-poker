@@ -91,7 +91,8 @@ Rust extension. GPU search additionally needs `pip install -e ".[gpu]"` with a C
 
 A local web app that tails a run's append-only telemetry log: convergence, the 13x13 preflop range, throughput
 and coverage, strategy stability, action frequencies by street, and machine load. It only reads the log, so it
-cannot slow a solve. Try it on a simulated full-scale run, no data needed:
+cannot slow a solve. Try it on a simulated full-scale run, no data needed (it does need the Rust extension from
+[Install](#install) built, and serves at http://127.0.0.1:8765/):
 
 ```bash
 python scripts/dashboard.py --demo full

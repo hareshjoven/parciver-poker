@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 3 (S3.1) — the HU exploitation SPINE on `nlhe_small`.
 
 Sub-step-1 primitives are certified in `test_rmapss_step3.py`; this covers the

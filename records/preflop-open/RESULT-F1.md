@@ -8,7 +8,7 @@ head (PR -4.8 mbb/hand, DOWN), and it does worse against `min_raiser` (-62 bb/10
 B is not trained.
 
 ## The engine
-- Built by `f1_build.py` at d188bd0 (21 Oct 2026, 00:04 SGT): `runs/f1-engine/BUILD.json`.
+- Built by `f1_build.py` at d188bd0 (21 Oct 2026, 00:04): `runs/f1-engine/BUILD.json`.
   - .pyd sha256 `906227B41D658E880EC7F4CBEF595F8E9661599AE2C10E802965EBF2D33089C7` (identity
     `906227B41D658E88+5AD0B211E9C7D830`).
   - Wheel sha256 `A8A69C4C8317A6C0B0A778B5E1B35510FAEEB4A12946AD3909A0A8F272E1B974`; Cargo.lock sha256
@@ -16,7 +16,7 @@ B is not trained.
 - The installed engine is unchanged (E58C7292…, checked before and after the build).
 
 ## Stage A
-- Started 21 Oct 2026, 00:04:37 SGT, by `launch_f1.ps1`: interpreter PID 19312 at BelowNormal, GPU hidden, log
+- Started 21 Oct 2026, 00:04:37, by `launch_f1.ps1`: interpreter PID 19312 at BelowNormal, GPU hidden, log
   `runs/f1-stageA.log`. First line: 83,538 it/s solving at 1.9M iterations (30.4M infosets).
 - Beside D1b: GPU at 100% in all 20 samples, 3 s apart (00:04:44-00:05:44; read by hand, not logged).
   `f1_watch_d1b.py` (log `runs/f1-watch/watch.log`, from 00:10) applies the stop rule until the trainer ends:
@@ -27,7 +27,7 @@ B is not trained.
   stop before it (`checkpoint.bin` is first written ~30 min in, and `taskkill /F` skips the final save) leaves
   nothing to resume: stage A then starts afresh once D1b is done, with the same command into `runs/f1-stageA-r1`
   (no `--resume`); `runs/f1-stageA` is kept.
-- End: `completed` at 2,000,175,000 iterations, 21 Oct 2026 13:32 SGT (wall 48,456 s, 13.5 h; 61,200,445
+- End: `completed` at 2,000,175,000 iterations, 21 Oct 2026 13:32 (wall 48,456 s, 13.5 h; 61,200,445
   infosets; final mean |regret| 8.01e-4; ~43.6k it/s solving at the end). Not VOID; never stopped or resumed.
 - F1-2B = `runs/f1-stageA/blueprint.bin`, sha256
   `DDB06447E14E139D577DC9F1F606C3A322BA4EED3DA7703DBC6ACA79376854EC`.
@@ -35,7 +35,7 @@ B is not trained.
   every 5-minute GPU mean 100.0%. It ended with the trainer (13:33:18).
 
 ## The rating re-verified on the F1 engine
-- `f1_verify.ps1` (logs in `runs/f1-eval/`), 21 Oct 13:58-14:33 SGT, identity `906227B41D658E88+5AD0B211E9C7D830`:
+- `f1_verify.ps1` (logs in `runs/f1-eval/`), 21 Oct 13:58-14:33, identity `906227B41D658E88+5AD0B211E9C7D830`:
   - pytest (test_rating, test_rating_receipts): exit 0, 2 skipped.
   - crosscheck vs pool-v1: C6 PASS; C7 A1 and A2 inside pool-v1's 95% intervals.
   - verify: all 9 receipts without search replay ok, bit for bit (A0-reference, A1, A2, Ln, Ls, Lm, v2-4B, v2-8B,
@@ -43,9 +43,9 @@ B is not trained.
   - audit: FAIL on exactly the live receipt (STALE) and the headline it makes (none VERIFIED); everything else
     passes. By F1-PREREG this is a pass.
 - Then `f1_chain.ps1` (decide, rate, verify of the F1 receipt, pr, scorecard on v2-2B then F1-2B), 14:34-15:48
-  SGT; every step exit 0 (logs in `runs/f1-eval/`).
+ ; every step exit 0 (logs in `runs/f1-eval/`).
 
-## Decision arms (`f1-decide-20261021T063406Z.json`, 14:34-15:31 SGT)
+## Decision arms (`f1-decide-20261021T063406Z.json`, 14:34-15:31)
 - Pins: commit 2f1e305, engine 906227B4 (built at d188bd0, engine trees = HEAD's), base v2-2B `1976A53C…`, fix
   F1-2B `DDB06447…`. 100,000 deals per arm, peek-free, snap, no search.
 - Gates: G0 PASS (all 7 v2-2B arms equal 11 Oct's per deal, bit for bit), G3 PASS (100,000 / 61,271 opens), G5 PASS.
@@ -111,5 +111,5 @@ B is not trained.
 - The F1-2B rating receipt and both scorecard receipts record commit 2f1e305 with `git.dirty: true` (no file list).
   Against 2f1e305 the tree differs only in docs and `records/` (this file, the two launchers, the outputs,
   `records/slumbot-2/PREREG-DRAFT.md`); no file under `engine/`, `src/`, `scripts/` or `tests/` (checked 21 Oct
-  15:54 SGT). F1-PREREG's clean-tree rule is the runner's: `f1_eval.py` refuses uncommitted changes to the code
+  15:54). F1-PREREG's clean-tree rule is the runner's: `f1_eval.py` refuses uncommitted changes to the code
   under test, and both its runs passed it.

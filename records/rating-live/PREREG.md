@@ -1,6 +1,6 @@
 # RATING-LIVE V: AIVAT-style variance reduction for rating the live bot (Next 2)
 
-DRAFT written 2026-10-11 23:09 SGT. It becomes pre-registered at its commit, before any data from the
+DRAFT written 2026-10-11 23:09. It becomes pre-registered at its commit, before any data from the
 estimator below and before any rating match of a search configuration. The user chose "variance reduction
 first" for Next 2 (11 Oct): build and validate the estimator on cheap CPU matches, then rate the live bot with
 fewer GPU hours. Nothing here runs beside the FLOP-SYM M1 oracle except the build and the Rust tests (2 cores,
@@ -113,7 +113,7 @@ are used).
 - Tests 1-7 pass (arena tests 12/12 and the suite at b6a3c7e; test 6(b) z -0.22, `test6.json`).
 - V1 (4582d94): z -1.04; r 0.507 [0.492, 0.522]; mass error 3e-16.
 - V2 (0931077): z -0.29; r 0.378 [0.268, 0.550]; mass error 4e-16.
-- P (bbc8c2d; 15:11-17:07 SGT, `p.json`, `p.log`): the live configuration (sym flop leaves, Q4) against A2,
+- P (bbc8c2d; 15:11-17:07, `p.json`, `p.log`): the live configuration (sym flop leaves, Q4) against A2,
   2,000 deals, no chunk refused, 2,937 flop solves. z +0.05 (mean(u_aivat - u) +0.012 bb, SE 0.255);
   r 0.491, 95% CI [0.352, 0.673] (board terms alone 0.872 [0.745, 1.014]); `aivat_mass_error` 1.7e-7;
   zero deals 59.8% raw, 40.4% after AIVAT; sd 16.9 bb raw, 11.9 after; 3.47 s/deal.

@@ -1,6 +1,6 @@
 # FLOP-SCHED: a cheaper flop solve schedule (IDEAS SC2, scout)
 
-Registered 2026-10-14 (SGT; the commit that adds this file is the registration), before any SC2 code, run or
+Registered 2026-10-14 (the commit that adds this file is the registration), before any SC2 code, run or
 data. The user's go: "both if it's fine" (14 Oct, SC2 and SC5 after LEAF-NET's Gate B). A scout: it changes
 nothing live. A pass only recommends a live gate, which is registered separately with the user's go. Audited
 (read-only) before commit; the audit's findings are folded in.
@@ -158,7 +158,7 @@ nothing live. A pass only recommends a live gate, which is registered separately
   data.
 - Adding an arm after seeing results. A new schedule needs a new registration.
 
-## Amendment 1 (15 Oct 06:23 SGT, after the code audit, before any SC2 data)
+## Amendment 1 (15 Oct 06:23, after the code audit, before any SC2 data)
 - **The live net is N0.** LEAF-NET's Gate B failed (main ae3213c), so its runbook step 5 (re-verify, NET switch,
   mock, rating) never ran. "After step 5" is now; the code accepts only N0's sha256 (a8bf00be...38ef65) for Game
   N, and refuses P.

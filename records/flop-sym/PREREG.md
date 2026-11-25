@@ -1,10 +1,10 @@
-# FLOP-SYM: suit-symmetric flop leaves (PRE-REGISTERED 2026-10-11 21:19 SGT, df6df79, before any data of them)
+# FLOP-SYM: suit-symmetric flop leaves (PRE-REGISTERED 2026-10-11 21:19, df6df79, before any data of them)
 
-The user's request (11 Oct ~21:10 SGT): improve performance and all the requirements (speed, precision,
+The user's request (11 Oct ~21:10): improve performance and all the requirements (speed, precision,
 strength). At registration no candidate had been implemented or run; the only numbers used were counts over
 the 22,100 flops (CPU, no solver) and the existing M1 files.
 
-**Revised ~21:35 SGT after its read-only audit, before any M1 or speed data** (all 20 findings taken; the
+**Revised ~21:35 after its read-only audit, before any M1 or speed data** (all 20 findings taken; the
 changes: C1's multiplicity (z = 2.241 for both candidates), the oracle-hour comparison, left cosets, the
 copy rule's estimand and provenance, the speed rule's ratio, table builds and cluster bootstrap, a VOID / bug
 rule, and wording). Disclosed: between the two commits the code and tests were written and a development
@@ -151,7 +151,7 @@ suit permutations that map b onto itself; G_t = the members of G that also fix t
 - Moving the margin, the order, the spots, the oracle rule or the speed rule after any C data.
 - Choosing between C1 and C2 on their numbers (the order above decides).
 
-## M1 result (12 Oct 2026; the oracle solve ran 11 Oct 22:11 - 12 Oct 06:56 SGT)
+## M1 result (12 Oct 2026; the oracle solve ran 11 Oct 22:11 - 12 Oct 06:56)
 - **C2 (sym) PASSES M1**: Loss(X_sym) - Loss(X_net) = **+0.009% of the pot, CI (z 2.241) [-0.008, +0.027]** on
   40 spots; upper + e = +0.127% <= 0.25%. Loss(X_sym) +1.284% pot [+1.029, +1.539] vs Loss(X_net) +1.275%.
   323 of 479 flop solves symmetric; largest G-average change 0.0028. Spots 39-40 (unpaired rainbow) copied
@@ -163,14 +163,14 @@ suit permutations that map b onto itself; G_t = the members of G that also fix t
 - The speed script had never run; its first launch failed on `import parciver` (no `src` path, unlike
   flop_eval.py): one line added, the rule unchanged.
 
-## Speed result (12 Oct 2026, ~10:16-11:26 SGT; `records/flop-sym/sym-speed-sym.json`)
+## Speed result (12 Oct 2026, ~10:16-11:26; `records/flop-sym/sym-speed-sym.json`)
 - **PASSES**: on the 323 jobs of the 27 flops with a stabilizer beyond the identity (none fell back to dense),
   the median ratio sym/dense is **0.900, 95% CI [0.899, 0.903]** (flop-clustered bootstrap, seed 0). The 156
   unpaired-rainbow jobs: bit-identical, median ratio 1.000. All jobs: solve median 2.226 -> 2.043 s, p95 2.536
   -> 2.487 s. Net sha256 a8bf00be.
 - Next (Adoption): `slumbot_run.py` to `leaves="sym"`, then the registered 1,000-hand mock.
 
-## Adoption result (12 Oct 2026; the registered mock run 11:31-12:03 SGT, `runs/slumbot/mock-20261012T033126Z`)
+## Adoption result (12 Oct 2026; the registered mock run 11:31-12:03, `runs/slumbot/mock-20261012T033126Z`)
 - **PASSED** at 4f71d66 (`slumbot_run.py` LEAVES = "sym"): 1,000 hands, 0 lost, chips conserved, every history
   legal, none refused, 1,000 winnings checked; parser check 214,221 prefixes agree. **Flop decisions p95 2.791 s**
   (<= 3.0; median 2.160, max 2.908, n 750); turn/river p95 0.368 s; **1.86 s/hand**. 526/750 flop solves (70.1%)

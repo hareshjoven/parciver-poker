@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Build the GitHub-release assets for `parciver fetch-blueprint` and write src/parciver/assets.json.
 
     python scripts/make_release_assets.py --out C:/path/to/release-assets

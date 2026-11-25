@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Cross-validation of the Rust engine against the Python reference.
 
 The Rust crate (`parciver_engine`) reimplements the game trees and the CFR hot

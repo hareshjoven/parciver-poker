@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """FLOP-SYM's speed test (records/flop-sym/PREREG.md, "Speed"): every flop job
 the candidate's M1 strategy run solved (`m1-jobs-<cand>.pkl`), each solved by
 the dense leaves (A) and the candidate's (B), interleaved per job A B B A,

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! All-in equity: the probability a holding beats a uniform-random opponent
 //! holding once the board runs out.
 //!

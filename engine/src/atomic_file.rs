@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Publish complete snapshots without truncating the last usable artifact.
 use std::fs::{File, OpenOptions};
 use std::io::{self, BufWriter, Write};

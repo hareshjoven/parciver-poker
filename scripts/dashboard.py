@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Launch the live training dashboard viewer.
 
 The viewer is a local, no-build-step web app that tails a run's append-only

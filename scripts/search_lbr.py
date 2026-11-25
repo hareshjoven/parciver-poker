@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """LBR of blueprints with real-time search, paired with their no-search receipts.
 
 Does search repair the v2 grid's extra exploitability? Runs a scorecard's LBR

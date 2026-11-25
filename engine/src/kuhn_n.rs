@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! N-player Kuhn poker — the multiplayer foundation for the R-MAPSS research
 //! track (RMAPSS.md §33, Step 0.2).
 //!

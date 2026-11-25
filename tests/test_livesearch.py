@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """LIVESEARCH B1 (LIVESEARCH.md, Amendment 3): `SubgameGpu(turn_schedule=...)` and scripts/livesearch.py's
 harness: the schedule reaches turn jobs only, the default path is unchanged, the schedules with Q4's terminals,
 frozen slots and kept sums match the NumPy reference; the Stage 1 rule, the chunk proofs, the resume refusal and

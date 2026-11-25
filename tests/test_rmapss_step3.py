@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 3 (S3.1) — engine exploitation-spine primitives on `nlhe_small`.
 
 Export-level parity + §28 controls for the new `nlhe_small_*` exports added for

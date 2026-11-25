@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """N-player general-sum CFR (pure Python) for the R-MAPSS toy experiments.
 
 The Python sibling of the Rust ``cfr_np.rs``. Toy games (3p Kuhn / Leduc) are

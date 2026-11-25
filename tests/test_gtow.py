@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GTO Wizard API connector: the state translation (parciver.gtow) and the runner
 (scripts/gtow_bench.py) against an in-process fake server that follows the API as its
 client documents it (github.com/gtowizard-ai/researcher-api-client). The fake can only

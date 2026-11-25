@@ -1,6 +1,6 @@
 # FLOP-SCHED (SC2): result
 
-Run 15 Oct 2026, 06:59-07:16 SGT, from `parciver-sc2` at commit `ec8d330` (clean), as PREREG.md and its
+Run 15 Oct 2026, 06:59-07:16, from `parciver-sc2` at commit `ec8d330` (clean), as PREREG.md and its
 Amendment 1 fix it. Record: `scout.json` (copied verbatim from the run). The first run, not VOID: it ran to the
 end with the GPU otherwise idle, and the reproduction held.
 

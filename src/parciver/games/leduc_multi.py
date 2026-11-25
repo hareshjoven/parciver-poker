@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """N-player Leduc hold'em — the decisive game for the R-MAPSS kernel (Step 2).
 
 The multiplayer generalisation of ``parciver.games.leduc`` (RMAPSS.md §33/§34,

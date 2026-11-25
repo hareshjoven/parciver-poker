@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Real training telemetry from the small B3 NLHE game — the live convergence proof.
 
 This is the *real-data* producer for the dashboard (the other is

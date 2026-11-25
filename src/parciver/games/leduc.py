@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Leduc hold'em: the standard small benchmark for CFR correctness.
 
 Rules (2 players). A 6-card deck: two suits x three ranks (J, Q, K), i.e. two of

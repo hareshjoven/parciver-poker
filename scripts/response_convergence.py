@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Response-solve convergence study — bot engineering, NOT a locked R-MAPSS protocol.
 
 Question: how good is the full-game fixed-opponent response (external-sampling

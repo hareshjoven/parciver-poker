@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Cross-validation of the Rust external-sampling MCCFR solver.
 
 MCCFR is the sampled hot loop that will scale to the abstracted hold'em tree,

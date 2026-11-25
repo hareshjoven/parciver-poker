@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Compact card representation shared by the hand evaluator.
 //!
 //! A card is a 0..52 index; internally `rank` is 0..13 (0=deuce … 12=ace) and

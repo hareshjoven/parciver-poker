@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """BP-8B's live match (records/bp-8b/PREREG.md "Live match"): L1 (the live bot with v2-8B) against L0 (the live bot).
 
   smoke  50 deals of seed 777,005 at 1 and at 4 threads, fresh arms each, each run's arms proven; the per-deal

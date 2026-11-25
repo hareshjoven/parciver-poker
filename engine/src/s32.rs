@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! S3.2 policy and public-observation primitives.
 //!
 //! This module is deliberately below the protocol/gate layer. It provides only:

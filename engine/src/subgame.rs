@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Real-time search, part 2: from a real hand to a subgame and back to an
 //! action — both players' ranges, the subgame of the current betting round,
 //! and the solved strategy's action for the hero's holding.

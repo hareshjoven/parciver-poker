@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* parciver · R-MAPSS §35.A rich-bait decider — experiment dashboard client.
  *
  * Self-contained (does not share app.js). Connects to the same decoupled SSE

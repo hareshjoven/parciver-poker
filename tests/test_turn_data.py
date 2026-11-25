@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The turn-data generator's resume rule (scripts/turn_data.py; FLOPSEARCH.md D1):
 a run writing into a directory with shards must use their settings, and the
 metadata keeps the code version that wrote the first shards."""

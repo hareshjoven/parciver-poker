@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3-SWEEP's driver (scripts/d3_sweep.py): the registered rules as pure functions, and every refusal. No GPU, no data."""
 import json
 import sys

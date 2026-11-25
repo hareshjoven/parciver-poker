@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D1b / D1c acceptance (records/d1b/PREREG.md "Acceptance" and Amendment 2; records/d3/PREREG.md 5.2 and 5.0.5), on the PC.
 
   check   A1-A3 on the CPU, over every shard; also reported for the cloud part (shards 0-371) and the

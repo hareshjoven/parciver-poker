@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GPU k-means / EMD clustering tests (Phase 3b).
 
 The Earth-Mover's distance is cross-checked against an independent numpy

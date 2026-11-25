@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Play Kuhn or Leduc poker against a CFR-solved opponent, in the terminal.
 
 Nothing to download: the opponent is solved on the spot by the same CFR code the

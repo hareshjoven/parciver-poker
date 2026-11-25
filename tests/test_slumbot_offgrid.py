@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/slumbot_offgrid.py's replay of a flop history and its off-grid test. CPU only."""
 import importlib.util
 from pathlib import Path

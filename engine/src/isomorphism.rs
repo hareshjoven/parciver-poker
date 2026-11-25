@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Waugh hand-isomorphism indexer (Phase 3b).
 //!
 //! A dense, bijective index over the suit-isomorphic `(hole, board)` classes of

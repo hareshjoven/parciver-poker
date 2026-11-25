@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """FLOP-SYM (records/flop-sym/PREREG.md): suit-symmetric flop leaves
 (`flop_search.SymLeaves`, `FlopSearch(leaves="sym" | "orbit")`).
 

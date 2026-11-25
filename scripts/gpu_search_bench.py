@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GPU subgame solver speed: ms per DCFR iteration on the same trees and
 inputs as the Rust solver's `print_solver_speed` (search.rs), plus the
 exploitability reached, so the two can be compared number for number.

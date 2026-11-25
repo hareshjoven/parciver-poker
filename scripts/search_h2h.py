@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Head-to-head strength with real-time search on both sides, paired with the no-search receipt.
 
 Does the candidate still beat the baseline when both search? Plays a scorecard's

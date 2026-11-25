@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The turn-start value net of the depth-limited flop search (FLOPSEARCH.md, D2).
 
 Input: both ranges over the 1,326 two-card holdings (fixed deck order, dead

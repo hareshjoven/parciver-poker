@@ -1,6 +1,6 @@
-# SLUMBOT-2: the final exam (REGISTERED 2026-10-25 14:36 SGT; drafted 2026-10-20 22:58 SGT)
+# SLUMBOT-2: the final exam (REGISTERED 2026-10-25 14:36; drafted 2026-10-20 22:58)
 
-**Status: REGISTERED** on the user's yes, 25 Oct 2026 ~14:29 SGT: "yes, register SLUMBOT-2 with N0 and run the
+**Status: REGISTERED** on the user's yes, 25 Oct 2026 ~14:29: "yes, register SLUMBOT-2 with N0 and run the
 mock". Drafted on the user's yes (20 Oct, "draft the Slumbot rematch pre-registration, leaving the config open
 until the match result"). B1 and B2 were closed by BP-8B and F1; B4 and P1-P3 on the user's okay (25 Oct) to
 The assistant's recommendations; B3 by the yes to register. The draft's conditions, all met at registration:
@@ -136,7 +136,7 @@ The changes:
    Done 25 Oct (the registering commit; the runner's `run.json` prereg list now names this file).
 5. The registered mock passes and its check is committed as GATES. Only then the first live hand.
 
-## Amendment 1: a restart (2026-10-25 15:25 SGT, before the first live hand)
+## Amendment 1: a restart (2026-10-25 15:25, before the first live hand)
 The user's yes, 25 Oct: "yes, add the reboot amendment (resume after a restart, exclude cut hands, allow uneven
 seats), update the report script, then start the live run". It answers the registering audit's open point: the
 live run takes ~78-100 h, so a reboot (a Windows Update restart, a power cut), a crash or a kill is likely. Before

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """LIVESEARCH B1 on the live bot (LIVESEARCH.md, Amendment 3): a more precise turn search.
 
   stage1  the turn schedule (Stage 1): the 8 registered arms on recs40's 40 real turn starts and a random-range

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Local best response (`PlayAgent.lbr`) checked against exact values.
 
 LBR is a legal strategy, so its winnings against a fixed agent can never exceed

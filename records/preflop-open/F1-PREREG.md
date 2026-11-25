@@ -1,6 +1,6 @@
 # F1, the grid fix: pre-registered before any F1 training or measurement
 
-Written 20 Oct 2026, ~23:55 SGT, on the user's yes (20 Oct, "yes to f1", after `records/rm2/SCOUT.md`). No F1
+Written 20 Oct 2026, ~23:55, on the user's yes (20 Oct, "yes to f1", after `records/rm2/SCOUT.md`). No F1
 blueprint exists yet and no F1 number has been measured. FINDING.md's plan and rule govern; this file makes them
 concrete for F1, as PREREG-RUN.md did for F2. Where this file is more exact, it governs. Slumbot is not a
 criterion anywhere.
@@ -43,7 +43,7 @@ criterion anywhere.
   - The parent shell is BelowNormal and the GPU hidden (`CUDA_VISIBLE_DEVICES=-1`). Expected ~7 h at ~77.5k it/s
     (870532e, the 200bb table); longer, since F1's table is larger and other work runs beside it.
 - **Beside D1b.** D1b's 4 PC workers (GPU-bound, ~0.9 core each) run at Normal priority, the trainer at
-  BelowNormal. Before the trainer the GPU ran at 100% (20 Oct 23:52 SGT) and each worker at 0.18-0.19 solves/s
+  BelowNormal. Before the trainer the GPU ran at 100% (20 Oct 23:52) and each worker at 0.18-0.19 solves/s
   (a shard takes ~1.4 h). The assistant samples the GPU's utilization in the trainer's first minutes and reads each
   worker's next shard line. If the GPU falls below 90%, or a worker's solves/s more than 10% below its
   pre-trainer rate, the trainer is stopped and resumed after D1b.

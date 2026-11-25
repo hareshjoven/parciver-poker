@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 1 — multiplayer exploitation spine (3p Kuhn, tabular/exact).
 
 Implements the Step-1 contract of RMAPSS.md §33:

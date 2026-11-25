@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 2 FOLLOW-UP §35.A — the RICH-BAIT DECIDER.
 
 §34.5 found H2 (the multiplayer inter-opponent edge) NOT SUPPORTED under the

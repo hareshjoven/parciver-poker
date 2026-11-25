@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Single sustained full-game `fixed_response` solve — the profiling target.
 
 Runs one long external-sampling best-response solve on the full abstract game so

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Extensive-form game interface, the Rust mirror of `parciver.games.base.Game`.
 //!
 //! The solver moves through states only via this trait, so one CFR

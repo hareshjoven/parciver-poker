@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/search_lbr.py: a chunk that read a failed search is never saved, and
 a run resumes only on its engine build (a stand-in engine: the real one is
 tested in tests/test_search_ab.py)."""

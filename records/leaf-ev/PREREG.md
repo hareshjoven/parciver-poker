@@ -1,6 +1,6 @@
 # LEAF-EV: the leaf net predicts expected values (IDEAS SC5, scout)
 
-Registered 2026-10-14 (SGT; the commit that adds this file is the registration), before any SC5 code, training
+Registered 2026-10-14 (the commit that adds this file is the registration), before any SC5 code, training
 or data. The user's go: "both if it's fine" (14 Oct, SC2 and SC5 after LEAF-NET's Gate B). A scout: it changes
 nothing live. A PROCEED only leads to Gate B and adoption, which an amendment registers with the user's go.
 Audited (read-only) before commit; the audit's findings are folded in.
@@ -144,7 +144,7 @@ Audited (read-only) before commit; the audit's findings are folded in.
 - Adding an arm after seeing results (an EV-space loss, another wd, canonical frames). A new arm needs a new
   registration.
 
-## Amendment 1 (14 Oct 21:35 SGT, with the code, before any SC5 data)
+## Amendment 1 (14 Oct 21:35, with the code, before any SC5 data)
 - **The relabelling test, corrected.** "A suit relabelling commutes with forward" cannot hold: P is c0, a plain
   MLP, and its input layer is not suit-equivariant, with or without `matchup`. The registered test was wrong as
   written. What "Equivariance" above rests on is the matchup factor itself, so the test is instead:
@@ -153,7 +153,7 @@ Audited (read-only) before commit; the audit's findings are folded in.
 - **Where the tests live:** `tests/test_leaf_ev.py` (new). The existing `tests/test_value_net.py` and
   `tests/test_leaf_net.py` run unchanged.
 
-## Amendment 2 (15 Oct 06:43 SGT, from the code audit, before any SC5 data)
+## Amendment 2 (15 Oct 06:43, from the code audit, before any SC5 data)
 - **Every run trains both nets from scratch.** The code reused a finished net with matching settings, which
   contradicts "repeated from scratch" above. Now `leafev` never reuses or overwrites. It refuses to start while
   `records/leaf-ev/gate-a.json`, `runs/turn-net/leafev-repro-c0-wd0.1/` or `runs/turn-net/leafev-c0-wd0.1/`

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/search_ab.py: one blueprint under two search settings, head to head
 (FLOPSEARCH M2, LIVESEARCH P2). CPU arms and a stand-in GPU solver here."""
 import importlib.util

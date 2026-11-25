@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Leduc hold'em — the primary CFR correctness gate (288 infosets, perfect
 //! recall). A faithful port of `parciver.games.leduc`, matching its betting
 //! logic, legal-action ORDER, and `private|board|bet_log` infoset-key format

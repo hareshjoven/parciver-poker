@@ -1,4 +1,4 @@
-# SLUMBOT-2: the reading (30 Oct 2026 17:53 SGT)
+# SLUMBOT-2: the reading (30 Oct 2026 17:53)
 
 **UNRESOLVED.** v2-8B with the full live search played Slumbot for the registered 50,000 counted hands. It
 finished **-12.54 bb/100, 95% [-26.41, +1.33]**. By PREREG's rule the bot is not shown to beat or to lose to the
@@ -18,15 +18,15 @@ these swings are what noise looks like at this sample size.
 
 ## The run, checked from its own files
 - `runs/slumbot/20261025T074051Z`, at 8d16d87 (play code as GATES' 1169e6e); log `runs/slumbot/live-slumbot2.log`.
-  - Session 1, launched 25 Oct 15:40:51 SGT, 15:41:14-15:49:27: the 100-hand pilot, discarded. It projected 68.1 h, over `LIMIT_HOURS`
+  - Session 1, launched 25 Oct 15:40:51, 15:41:14-15:49:27: the 100-hand pilot, discarded. It projected 68.1 h, over `LIMIT_HOURS`
     60, so the runner paused and the assistant resumed with `--go` under P2 (at most 100 h).
-  - Session 2, 25 Oct 15:50:14 to 28 Oct 10:22:40 SGT: the counted hands. No restart, so Amendment 1's resume was
+  - Session 2, 25 Oct 15:50:14 to 28 Oct 10:22:40: the counted hands. No restart, so Amendment 1's resume was
     never used; its report checks were.
 - 50,000 counted hands, seats 25,000 BB / 25,000 SB, hand numbers contiguous, every one of the 50,100 payoff checks
   "ok". 75 request retries in 22 bursts: 9 bursts (14 retries) resumed; 13 bursts (61 retries) failed, and those are
   the 13 lost hands.
 - **13 hands lost, excluded (the limit is 250).** Slumbot deals the cards and the losses do not depend on them:
-  - 25647-25657, 11 in a row: no answer to `new_hand` after 6 tries, 27 Oct from 01:10 to about 01:57 SGT. None
+  - 25647-25657, 11 in a row: no answer to `new_hand` after 6 tries, 27 Oct from 01:10 to about 01:57. None
     was dealt to us (no decision, no winnings), and Slumbot's totals pass through them unchanged.
   - 37146 and 46993: a retried `act` was refused (the first try may have reached the server). Slumbot did count
     these two, -100 and +100 chips, and +100 and +1,300 on its baseline total.
@@ -47,7 +47,7 @@ these swings are what noise looks like at this sample size.
 
   The bars gate the mock, not the run; 5 of the flop decisions passed 3.0 s.
 - GPU clients, session 2 (65,803 reads, 48 errors): other clients on 30.4% of reads, together at most 16.4% (25 Oct
-  19:16:56 SGT: a browser 13.0). The named ones are all desktop apps and Windows, no other python (one read names no
+  19:16:56: a browser 13.0). The named ones are all desktop apps and Windows, no other python (one read names no
   client). The log cannot tell compute from 3D (our own solver reads as 3D), so this is by name. Reported only. The
   pilot's: 52% of reads (83 of 161), at most 10.0% (a desktop app 9.3%, a desktop app, no compute job).
 
@@ -126,7 +126,7 @@ the translated 3bb open would make. Such a bet counts as on the grid here, becau
 ## Files
 | file | what |
 |---|---|
-| `PREREG.md` | the pre-registration (25 Oct 14:36 SGT) and Amendment 1 |
+| `PREREG.md` | the pre-registration (25 Oct 14:36) and Amendment 1 |
 | `result.json` | the reading, as `scripts/slumbot_report.py --json` writes it |
 | `scout.json`, `offgrid.json`, `offgrid_mock.json` | the descriptive readings above; the last is the same script on the mock's hands |
 | `hands.jsonl.xz` | every hand (3.6 MB, sha256 `99654dee...540c77`; xz of the run's 48.8 MB `hands.jsonl`, `bba22f86...a46a8e8`) |
@@ -142,12 +142,12 @@ sha256 `09050c61...b6c748`). To re-derive the reading from this folder alone (te
     .venv/Scripts/python.exe scripts/slumbot_report.py records/slumbot-2
 
 ## Before the run
-Registered: `PREREG.md` (25 Oct 2026 14:36 SGT, commit 1169e6e; the user's yes: "yes, register SLUMBOT-2 with N0
+Registered: `PREREG.md` (25 Oct 2026 14:36, commit 1169e6e; the user's yes: "yes, register SLUMBOT-2 with N0
 and run the mock"). The bot: v2-8B (fd27fe50...c7ae071), N0, seed 20261024, N 50,000; flop 500 / turn 400 /
 river 2,000, Q4, sym leaves.
 
 ### The registered mock: PASSED
-- `runs/slumbot/mock-20261025T063547Z` (25 Oct 14:36:11-15:15:16 SGT, at 1169e6e, clean; log
+- `runs/slumbot/mock-20261025T063547Z` (25 Oct 14:36:11-15:15:16, at 1169e6e, clean; log
   `runs/slumbot/mock-slumbot2.log`; copy `mock_check.json`, sha256 B5C6C67A...).
 - 1,000 hands, 0 lost, chips conserved, every history legal, none refused, 1,000 winnings checked (0 unchecked);
   parser check 214,221 prefixes agree; 2,789 decisions; 2.32 s/hand.
@@ -160,7 +160,7 @@ river 2,000, Q4, sym leaves.
 - **GATES written** (PREREG "Registered mock first": committed before the first live hand):
   `records/livesearch/mock_check.json` is this check (replacing BP-8B's mock at 6032470).
 
-### Amendment 1: a restart (25 Oct 15:25 SGT, before the first live hand)
+### Amendment 1: a restart (25 Oct 15:25, before the first live hand)
 The user's yes: a restart is resumed with `--dir <run>`, cut and lost hands are excluded (the 250-hand stop
 unchanged), uneven seats are allowed (PREREG "Amendment 1"). `scripts/slumbot_report.py` now chains Slumbot's
 running totals hand by hand per session and sums each session's playing time. Run on the 5 Oct run, every number

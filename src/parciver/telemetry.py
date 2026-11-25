@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Training telemetry contract (Phase 3c, pre-B4) — the decoupling layer.
 
 The blueprint solve (B4) is a run of hundreds of millions of MCCFR iterations we

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 2 — the inter-opponent interaction KERNEL (RMAPSS.md §34).
 
 The research bet (hypothesis H2): against ADAPTIVE opponents, modeling

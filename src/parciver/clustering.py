@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GPU k-means over equity-distribution histograms (Phase 3b).
 
 Card abstraction buckets strategically-similar hands together. The modern,

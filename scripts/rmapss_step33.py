@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Locked S3.3 public-observation recovery runner (RMAPSS §46)."""
 from __future__ import annotations
 

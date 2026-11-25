@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The rating's receipts (RATING.md, Amendment 2): states, tamper detection, recomputation, the headline.
 Engine-free except the last test (PARCIVER_RATING_SMOKE=1: the full smoke pipeline on the real engine)."""
 import importlib.util

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Python-API tests for the Rust 7-card hand evaluator.
 
 The exhaustive correctness gates (every 5-card and every 7-card hand matched

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """S3.2 sub-step 2: sampled fixed-opponent response, exact-control first.
 
 The same response algorithm intended for the full abstraction is exercised only

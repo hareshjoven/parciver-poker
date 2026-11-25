@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3's flop-spot recorder and leaf-query harvest (records/d3/PREREG.md 5.0.1 and 5.0.5, 5.1).
 
   record   play the blueprint (v2-8B where it can play the cell's stake, else v2-2B) over the 18 cells (200bb / 100bb x

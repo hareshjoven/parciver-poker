@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Turn-start values (src/parciver/turn_values.py; FLOPSEARCH.md D1, gate G1):
 the situation the recorder reads from the search's own subgame jobs, root
 values against a NumPy recursion, the zero-sum identity, suit symmetry, the

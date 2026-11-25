@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 1 — multiplayer exploitation spine (RMAPSS.md §33, 3p Kuhn).
 
 Pure-Python + exact; no engine required (uses the Python N-player CFR + the exact

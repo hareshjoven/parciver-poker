@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The ``parciver`` command line: play the solved bots.
 
     parciver play kuhn              # nothing to download, instant

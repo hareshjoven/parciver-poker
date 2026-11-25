@@ -1,7 +1,7 @@
 # K10's pre-gate under Q4: the run, fixed before its data
 
-Written 2026-10-11 14:17 SGT, before any of the run's numbers. The gate itself (its inputs, the ceiling `C`,
-the rule `C >= 1.05`) is KERNELS.md K10 "Pre-gate, before any code", registered 6 Oct 03:50 SGT. This note fixes
+Written 2026-10-11 14:17, before any of the run's numbers. The gate itself (its inputs, the ceiling `C`,
+the rule `C >= 1.05`) is KERNELS.md K10 "Pre-gate, before any code", registered 6 Oct 03:50. This note fixes
 only how it is run now that Q4 is the live config (11 Oct). Nothing here changes the bot.
 
 ## What runs (`pregate.py`, this checkout's `src`, one process)

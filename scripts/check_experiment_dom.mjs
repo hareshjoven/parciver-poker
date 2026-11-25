@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Headless DOM/Canvas harness for the §35.A experiment dashboard client.
  *
  * We verify

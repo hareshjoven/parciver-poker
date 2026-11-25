@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """N-player Leduc hold'em — correctness gate (RMAPSS.md §33/§34, Step 2/3).
 
 The decisive game for the interaction kernel. Two anchors:

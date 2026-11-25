@@ -1,4 +1,4 @@
-# SLUMBOT: the reading (7 Oct 2026 19:00 SGT)
+# SLUMBOT: the reading (7 Oct 2026 19:00)
 
 **UNRESOLVED.** v2-2B with live search played Slumbot for the registered 50,000 counted hands. It finished
 **-1.54 bb/100, 95% [-15.00, +11.91]**. Read by PREREG's rule, the bot is not shown to beat or to lose to
@@ -61,7 +61,7 @@ By 10,000-hand block (descriptive): -24.0, +7.3, +11.0, -15.7, +13.6. Each block
 ## Files
 | file | what |
 |---|---|
-| `PREREG.md` | the pre-registration (5 Oct 03:08 SGT) |
+| `PREREG.md` | the pre-registration (5 Oct 03:08) |
 | `result.json` | the reading, as `scripts/slumbot_report.py --json` writes it |
 | `hands.jsonl.xz` | every hand (3.9 MB; xz of the run's 46.5 MB `hands.jsonl`, sha256 `0f0b087c...e26037`) |
 | `run.json`, `events.jsonl`, `status.json` | the run's configuration, events and final state, as the runner wrote them |

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3's flop-spot recorder, leaf-query hook and harvest layout (scripts/d3_flop.py, scripts/turn_data.py;
 records/d3/PREREG.md 5.0.1 and 5.0.5)."""
 import re

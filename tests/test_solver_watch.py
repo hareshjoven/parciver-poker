@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """`solver_watch.Watched`: the calls and failures of a search solver, which the
 engine otherwise hides (it counts only the decisions a failed search reached:
 redone by the built-in solver, or left to the blueprint)."""

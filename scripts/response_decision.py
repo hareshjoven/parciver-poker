@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Apply the response-convergence study's pre-registered decision rule.
 
 Rule (PREDICTIONS["decision_rule"] in response_convergence.py): recommend the

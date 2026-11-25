@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Standard-library SSE server for the training dashboard.
 
 The viewer is a separate process from the trainer. It tails the append-only

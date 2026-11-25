@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Dense hand-isomorphism indexer tests (Phase 3b).
 
 The exhaustive proofs live in the Rust crate: the flop indexer is certified to

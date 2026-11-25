@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 2 FOLLOW-UP §35.B — the NO-REGRET-LEARNER decider (last shot at H2).
 
 §35.A (the rich-bait decider) OVERTURNED §34.5: against dense lagged-BR followers a rich

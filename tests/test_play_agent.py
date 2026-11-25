@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Play-time agent (`parciver_engine.PlayAgent`): real hand in, legal action out.
 
 The Rust unit tests (engine/src/play.rs) cover translation exactness on random

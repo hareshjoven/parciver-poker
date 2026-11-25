@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The rating's math (RATING.md): known-answer meta-games, invariance, the paired interval."""
 import numpy as np
 import pytest

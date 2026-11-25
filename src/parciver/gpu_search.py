@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GPU subgame solver (prototype): the real-time search's range-vs-range DCFR
 (engine/src/search.rs) as tensor operations, to measure whether a GPU makes
 turn (and later flop) solves fast enough to matter.

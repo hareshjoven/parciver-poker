@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """FLOPSEARCH.md D4 M1: loss against the full flop oracle on real flop decisions
 (the rules are in the D4 protocol amendment).
 

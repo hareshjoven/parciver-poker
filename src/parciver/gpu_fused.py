@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Fused GPU subgame solver: `gpu_search.GpuSolver`'s level-synchronous DCFR
 as a few Triton kernels per tree level, with O(n) terminals and one CUDA graph
 per iteration.

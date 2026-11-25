@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Read-only integrity checks for durable blueprint/abstraction artifacts.
 
 The Rust loader validates the binary strategy structure. These helpers validate

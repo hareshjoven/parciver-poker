@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """RM2 scout (IDEAS.md, RM2: "measure a preflop leak first"): how our big blind met Slumbot's 2bb open in the
 50,000-hand run (records/slumbot/hands.jsonl.xz). Descriptive only; it decides nothing.
 

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Kuhn poker: the smallest poker game with a known analytic Nash equilibrium.
 
 Rules. Three cards (J=0, Q=1, K=2). Each player antes 1 and receives one private

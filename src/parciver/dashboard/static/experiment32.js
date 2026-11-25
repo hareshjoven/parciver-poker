@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Locked S3.2 full-100bb telemetry view. The client renders records only; every
  * verdict is re-derived in Python and arrives in `step32` / run_end.summary.
  * The live telemetry cards are presentation-only: they never steer the run. */

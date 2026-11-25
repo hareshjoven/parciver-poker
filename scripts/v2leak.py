@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """V2LEAK (see V2LEAK.md): where does LBR win more against one bot than another?
 
 Stage 1 replays a scorecard benchmark's LBR stream (no search) for several bots with every action

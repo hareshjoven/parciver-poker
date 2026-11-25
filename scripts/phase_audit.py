@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Phase-end audit for parciver -- a hallucination guard.
 
 The single biggest risk in this project is a claim ("Phase X is done and

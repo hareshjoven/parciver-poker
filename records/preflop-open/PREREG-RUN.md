@@ -1,6 +1,6 @@
 # LBR-open and F2: the run, pre-registered before any LBR-open data
 
-Written 11 Oct 2026, ~14:45 SGT, before any LBR-open or F2 number exists. It makes FINDING.md's plan
+Written 11 Oct 2026, ~14:45, before any LBR-open or F2 number exists. It makes FINDING.md's plan
 concrete for this code. The plan's measurement, statistics and decision rule are unchanged; where this
 file is more exact, it governs. F1 runs only if F2 fails the rule, or if the user chooses it.
 

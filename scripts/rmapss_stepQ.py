@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step Q — fragility-as-transferable-EV-predictor runner (RMAPSS.md §38).
 
 Runs the pre-registered H-Q experiment: does a CHEAP, best-response-free fragility metric

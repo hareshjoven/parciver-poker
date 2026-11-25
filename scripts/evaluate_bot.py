@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Evaluate the play agent: head-to-head vs baselines + LBR exploitability.
 
 Every number is the agent's (or LBR's) winnings in bb/100 with a standard error,

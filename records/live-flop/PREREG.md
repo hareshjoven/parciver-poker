@@ -1,6 +1,6 @@
-# LIVE-FLOP: flop search in the live config (PRE-REGISTERED 2026-10-11 20:19 SGT, before any data of it)
+# LIVE-FLOP: flop search in the live config (PRE-REGISTERED 2026-10-11 20:19, before any data of it)
 
-The user's decisions, 11 Oct SGT (HANDOFF Next 1):
+The user's decisions, 11 Oct (HANDOFF Next 1):
 - ~20:12: option A, "raise the flop bar" (no kernel work first).
 - 20:19: the bar's value, "yes sure" to the assistant's proposal of **p95 <= 3.0 s for flop decisions**.
 
@@ -81,15 +81,15 @@ gate" moved after its numbers.
 - Flop tests (`tests/test_flop_search.py`) and the selftests pass.
 - A short development mock (`--mock --hands 20 --allow-dirty`, not the registered run) exercises the path
   before the commit. Its numbers are not the gate.
-  - Disclosed: it ran 11 Oct 20:21-20:22 SGT (`runs/slumbot/mock-20261011T122111Z`). 20 hands, 0 lost, chips
+  - Disclosed: it ran 11 Oct 20:21-20:22 (`runs/slumbot/mock-20261011T122111Z`). 20 hands, 0 lost, chips
     conserved, every history legal; 17 searched flop decisions, median 2.33 s, p95 2.77 s, max 2.98 s. Nothing
     above was changed after it.
   - Disclosed: a second development mock after the audit's fixes (`solve_seconds`, the turn/river report), 11
-    Oct 20:29 SGT (`runs/slumbot/mock-20261011T122900Z`), 6 hands, to check the new fields. 3 flop decisions
+    Oct 20:29 (`runs/slumbot/mock-20261011T122900Z`), 6 hands, to check the new fields. 3 flop decisions
     (2.83, 2.66, 2.29 s); each decision's whole call exceeded its `solve_seconds` by 1-13 ms.
 
-## Result (11 Oct 21:06 SGT; commit 409586d, clean play code (run.json `dirty: null`); run `runs/slumbot/mock-20261011T123050Z`) — **PASSED**
-- The registered mock run: 20:31:10 (run.json `started`; folder stamp 20:30:50) - 21:06:37 SGT, 1,000 hands, 0 lost, chips conserved (net +585,307 =
+## Result (11 Oct 21:06; commit 409586d, clean play code (run.json `dirty: null`); run `runs/slumbot/mock-20261011T123050Z`) — **PASSED**
+- The registered mock run: 20:31:10 (run.json `started`; folder stamp 20:30:50) - 21:06:37, 1,000 hands, 0 lost, chips conserved (net +585,307 =
   -bot_net), every history legal, none refused, 1,000 winnings checked, 0 mismatches; parser check passed
   (214,221 prefixes agree). Engine E93347A5, blueprint 1976A53C…, net A8BF00BE…. Just before the start
   (nvidia-smi at 20:30:46, seen in the session, not stored): GPU 8% busy, 587 MiB in use, no other compute job.

@@ -1,7 +1,7 @@
 # RIVER R1: the live river at 2,000 iterations
 
-Registered 18 Oct 2026 (SGT), before any R1 data. It follows from the RIVER-ITERS scout (`records/river-iters/
-RESULT.md`, PROCEED). The user chose 2,000 iterations (18 Oct ~22:10 SGT: "Yes, river 2000"). This is LIVESEARCH
+Registered 18 Oct 2026, before any R1 data. It follows from the RIVER-ITERS scout (`records/river-iters/
+RESULT.md`, PROCEED). The user chose 2,000 iterations (18 Oct ~22:10: "Yes, river 2000"). This is LIVESEARCH
 B1's protocol (LIVESEARCH.md Amendment 3, Stage 2) with the river in place of the turn.
 
 ## Known
@@ -90,8 +90,8 @@ B1's protocol (LIVESEARCH.md Amendment 3, Stage 2) with the river in place of th
 - **VOID:** a crash, kill or reboot of the smoke run, P1 or the mock, or another GPU job of this Python beside
   them, voids that step. Its record is moved aside as `*-void-<n>` and the step reruns. P2 resumes by chunks.
 
-## Amendment 1 (19 Oct 2026 ~04:10 SGT, the user's yes; P2 at 2,300 of 10,000 deals, no P1 or mock data)
-- **What happened:** chunk 2300 (deals 2300-2399) failed its proof at 03:50 SGT, and P2 stopped as registered.
+## Amendment 1 (19 Oct 2026 ~04:10, the user's yes; P2 at 2,300 of 10,000 deals, no P1 or mock data)
+- **What happened:** chunk 2300 (deals 2300-2399) failed its proof at 03:50, and P2 stopped as registered.
   Two of R0's 333 search solves (a flop and a river job; R0 is the live arm, not the changed one) raised
   `AcceleratorError: ... operation failed due to a previous error during capture`
   (`cudaErrorStreamCaptureInvalidated`), and 3 of R0's decisions fell back. The System log shows no driver
@@ -108,8 +108,8 @@ B1's protocol (LIVESEARCH.md Amendment 3, Stage 2) with the river in place of th
 - **Seen before this amendment (descriptive, not a verdict):** R1 - R0 +22.08 bb/100, standard error 9.63, over
   deals 0-2,299. Nothing above depends on it.
 
-## Amendment 2 (19 Oct 2026 ~07:30 SGT, the user's yes; written at 3,800 of 10,000 P2 deals, no P1 or mock data)
-- **What happened:** a second CUDA failure (chunk 3700, 07:14 SGT: one river solve of R1 and one flop solve of
+## Amendment 2 (19 Oct 2026 ~07:30, the user's yes; written at 3,800 of 10,000 P2 deals, no P1 or mock data)
+- **What happened:** a second CUDA failure (chunk 3700, 07:14: one river solve of R1 and one flop solve of
   R0), rerun under Amendment 1 (passed, 07:34). Both failures were preceded by one torch warning,
   `CUDAGraph.cpp:404 ... operation not permitted when stream is capturing (function reset)`: a CUDA graph was
   reset while another thread captured one. Each time one reset and two failed solves: the second is read as a
@@ -141,9 +141,9 @@ B1's protocol (LIVESEARCH.md Amendment 3, Stage 2) with the river in place of th
   reappearance of the reset warning in `p2.log` is reported.
 - **Adoption:** unchanged. The mock it needs runs on the new play code. LIVESEARCH's records are not touched.
 
-## Amendment 3 (19 Oct 2026 ~11:40 SGT, the user's yes; P2 stopped at 5,500 of 10,000 deals, no P1 or mock data)
+## Amendment 3 (19 Oct 2026 ~11:40, the user's yes; P2 stopped at 5,500 of 10,000 deals, no P1 or mock data)
 - **What happened:** Amendment 2 was written but not yet committed, and P2 kept running on 59a3b7a's code.
-  At 11:20 SGT chunk 5500 failed the same way: one reset warning (`CUDAGraph.cpp:404 ... (function reset)`),
+  At 11:20 chunk 5500 failed the same way: one reset warning (`CUDAGraph.cpp:404 ... (function reset)`),
   then one river solve of each arm raised `cudaErrorStreamCaptureInvalidated`. That is P2's third CUDA failure,
   so P2 stopped for good under Amendment 1, as registered.
 - **Before this amendment:** the GPU tests of Amendment 2 passed on the new code, with the GPU otherwise

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Card abstraction — the Python-ergonomic face of the Rust engine.
 
 The heavy lifting (suit isomorphism, exact/Monte-Carlo equity) lives in

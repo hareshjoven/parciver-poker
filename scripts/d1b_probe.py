@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D1b cloud probe (HANDOFF "Cloud GPU for D1b"): is another GPU fit to make D1b's data?
 
   extract  (on the PC) D1's first PAIRS real situations (index 0..PAIRS-1, shard 0) with their stored

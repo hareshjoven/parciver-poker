@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Read-only analysis of a SAVED blueprint (average strategy), for the dashboard's
 //! three summary panels — action-frequency, bet-sizing, and head-to-head. It never
 //! touches a running solve: the sidecar hands it a `blueprint.bin` snapshot the

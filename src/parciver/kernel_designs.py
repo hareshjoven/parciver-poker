@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """NumPy models of `gpu_fused`'s down pass and terminal kernels, and of the
 candidates of KERNELS.md that change them (K1, K2, K3b, K4, Q3): each design's
 algebra is checked here on the CPU before it is written in Triton

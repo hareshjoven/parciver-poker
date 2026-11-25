@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """RIVER-ITERS scout (records/river-iters/PREREG.md): how far is the live river solve from equilibrium?
 
   collect  B1 (the live config) against B0 on the 200bb scorecard's baseline deals 0-499, P2's protocol (4 threads,

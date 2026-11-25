@@ -1,6 +1,6 @@
 # D3: a better leaf net N2 from +1,000,008 turn-start rows (HANDOFF Roadmap C)
 
-**Status: REGISTERED 9 Nov 2026 13:59 SGT** (`date`: 13:59 at registration), after the user's three clickable rounds of answers
+**Status: REGISTERED 9 Nov 2026 13:59** (`date`: 13:59 at registration), after the user's three clickable rounds of answers
 the same day (section 12). It replaces `PREREG-DRAFT.md` (a side session's draft of 8 Nov, kept beside this file as `PREREG-DRAFT.md`, superseded, committed with it).
 **This is a registration only: nothing has run, no data was made, no net was trained, no GPU or CPU job was started.**
 Data generation, training and every compute job need the user's separate go after this commit (section 13). It was written
@@ -272,7 +272,7 @@ the 45 GiB start threshold and the 6 GiB pause floor; the harvest quota arithmet
 | Disk: C: 36.80 GiB free, E: 4,653 GiB; folder sizes | read 9 Nov 13:49 (`Get-PSDrive`, `du`); not in any record |
 | Mine, not in a record: 0.740 solves/s (= 128,004 rows / 48.07 h), exponent 0.223 (the curve's last-doubling ratio 0.855 and D2b's wd-0 ratio 0.858 are exponents 0.226 and 0.221 and mix two recipes) and the extrapolations (-14.3%, -10%, MAE -8% to -12%), 0.0285 pp per 1% (one point), the power table (recomputed; the draft's table agrees within Monte Carlo noise), 1,000,008 = 18 x 27,778 x 2, 500,040 + 499,968 = 1,000,008, 10,204 = ceil(499,968 / 49), 375 h = 1,000,008 / 0.740 / 3600, ~21 days, 22.6 GB, the 1.9M-row memory scaling |
 
-## Amendment 1: the recipe pin, d3s-rw (2026-11-10 16:07 SGT, before D1c's first label, S0a/S0c and any D1c compute)
+## Amendment 1: the recipe pin, d3s-rw (2026-11-10 16:07, before D1c's first label, S0a/S0c and any D1c compute)
 
 Arm 2 (section 3) and section 5.3 left N2's recipe to a pin amendment that may name only (a) N1's recipe or (b) the one confirmed winner of the
 sweep (`records/d3-sweep/PREREG.md`, commit 7d7dde2). The sweep ran on D1 + D1b only; no D1c label was read, no D1c net exists, and the gate halves were not read.
@@ -300,10 +300,10 @@ the arm is trained toward MAE and judged on the plain Huber; and a recipe tuned 
 Nothing else changes: no arm, bar, gate, margin, branch rule or order of this registration, and N1's record is untouched. Section 6 stands: one candidate, one seed, no grid. The sweep is done; the
 `d3-check` and `d3_sweep check` guards depend on the code trees, so a rerun on the final code is still the user's separate yes.
 
-## Amendment 2: how d3-check is judged, by the net and not the file's bytes (2026-11-10 17:56 SGT, before any D1c label or compute)
+## Amendment 2: how d3-check is judged, by the net and not the file's bytes (2026-11-10 17:56, before any D1c label or compute)
 
 Section 3 item 3 says `d3-check` "must give N1 bit for bit (as `d2b-check` reproduced N0)". The code stage turned that into "every compared field equal **and the
-`net.pt` file's sha256 equal to N1's**". The run (`d3_load.py check`, commit 0d28864, 17:48 SGT; `records/d3/check.json` as it was written, sha256
+`net.pt` file's sha256 equal to N1's**". The run (`d3_load.py check`, commit 0d28864, 17:48; `records/d3/check.json` as it was written, sha256
 fb4b4c2ad9c939e2516160a0d7507690afef6654eb40f0f3945d5d5dc67acd68 for the CRLF bytes on disk, 5c8feaef9e9970d534347deeb04adc94b949a8bca14d149c3ba136affb4407d0 for the LF blob committed
 as 8516616, whose message and HANDOFF said "27 tensors": that counted `meta` keys too, it is 19) reported **NOT REPRODUCED on that one field only**:
 

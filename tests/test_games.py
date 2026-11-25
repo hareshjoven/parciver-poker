@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Structural correctness of the reference games.
 
 These are cheap, exhaustive checks of the game trees themselves, independent of

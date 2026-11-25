@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Live machine-resource sampling for the training dashboard — stdlib only.
 
 The dashboard's resource panel wants CPU utilization, RAM, GPU utilization + GPU

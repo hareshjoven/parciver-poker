@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Card abstraction primitives: suit isomorphism.
 //!
 //! The NLHE game tree is astronomically large, but suits are interchangeable

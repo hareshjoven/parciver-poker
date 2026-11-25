@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Precompiled game tree for fast repeated exact evaluation (R-MAPSS Step 2).
 
 The Step-2 experiment evaluates on-policy value and exact best response THOUSANDS

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """FLOPSEARCH D4 M3, as amended by the author (7 Oct 21:44): the M2 arms through
 search_ab.py, three runs in one process, in order:
 

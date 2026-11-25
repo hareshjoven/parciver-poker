@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """GPU subgame solver prototype (src/parciver/gpu_search.py): its showdown
 matrices, its level-synchronous DCFR against the recursive reference (the
 Rust solver's algorithm) in float64, convergence, and the turn chance node

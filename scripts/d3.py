@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3's driver (records/d3/PREREG.md 5.0.4): every stage after the labels, on the memory-mapped loader (`d3_load.py`).
 
     d3.py data            the pinned files checked, each dataset's fingerprint and counts (records/d3/data.json); before

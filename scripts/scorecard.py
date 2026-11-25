@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Bot scorecard: track whether the playing bot improves (see src/parciver/scorecard.py).
 
     # once: freeze a baseline bot (a completed blueprint.bin + its abstraction dir);

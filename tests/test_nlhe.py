@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """HU NLHE tests (Phase 3c).
 
 B2 — card-abstraction infoset key. The Rust NLHE game keys its information sets on

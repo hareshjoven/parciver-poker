@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """SLUMBOT-2's descriptive reading (records/slumbot-2/PREREG.md, "Flop decisions facing an off-grid bet"): how many
 of our searched flop decisions face a Slumbot bet off the grid, and how long they take. Decides nothing.
 

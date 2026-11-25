@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* FLOPSEARCH M2 viewer. Data-only: the watcher (scripts/watch_m2.py) reads m2.json after each saved chunk and
    sends the curves, the 50-block preview and the flop latencies; the page only extrapolates the pace and draws. */
 "use strict";

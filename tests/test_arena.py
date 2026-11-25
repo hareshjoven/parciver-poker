@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Match runner (`PlayAgent.match_against`) validated against exact values.
 
 On the small exact game the value of any fixed profile is computable exactly,

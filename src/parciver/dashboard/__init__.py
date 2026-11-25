@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The live training dashboard: a local, no-build-step viewer for the telemetry log.
 
 ``server`` is a standard-library HTTP server that serves a single-page app and

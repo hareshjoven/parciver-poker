@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Tabular CFR family: vanilla CFR, CFR+, Linear CFR and Discounted CFR.
 
 All four are the same traversal differing only in how regrets and the average

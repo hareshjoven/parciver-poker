@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Abstract extensive-form game interface.
 
 Every game used by the solvers implements this. Keeping it minimal and explicit

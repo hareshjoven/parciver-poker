@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/d3_load.py (records/d3/PREREG.md 5.0.3): the memory-mapped loader gives `turn_net.load_many`'s data, bit for
 bit, on toys: the dict, its patches, its fingerprint, its views, the nets trained on it (CPU and GPU), and a mixed D3
 folder's harvested rows. A mapped column is never turned into one array."""

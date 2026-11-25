@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Equity-distribution feature-extraction tests (Phase 3b).
 
 The heavy correctness proofs live in the Rust crate: `eval7_fast` is certified

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The value net's training script (scripts/turn_net.py; FLOPSEARCH.md D2): the
 board split behind the selection / gate protocol, and the loss."""
 import importlib.util

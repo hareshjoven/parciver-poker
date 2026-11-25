@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! The play-time agent: turns a REAL heads-up hand (real blinds, stacks and
 //! arbitrary bet sizes) into a decision from a blueprint solved on the abstract
 //! 100bb grid.

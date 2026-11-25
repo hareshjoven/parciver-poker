@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! 7-card poker hand evaluator producing a TOTAL ORDER.
 //!
 //! `eval5`/`eval7` return a `u32` score where a numerically larger score is the

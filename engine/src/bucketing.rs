@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Card-abstraction bucket tables, loaded at solve/play time (Phase 3c, B2).
 //!
 //! The Phase-3b pipeline (`src/parciver/bucketing.py`) clustered every

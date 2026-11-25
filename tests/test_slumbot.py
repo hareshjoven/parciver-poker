@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The Slumbot client's protocol layer (src/parciver/slumbot.py; records/slumbot/PREREG.md).
 
 The pre-registered parser check: `parse` agrees with `ParseAction` of Slumbot's own `sample_api.py` on every

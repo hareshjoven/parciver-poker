@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Head-to-head match runner for the play agent: real hands, real rules, real
 //! chips — the same boundary the bot will face at a table.
 //!

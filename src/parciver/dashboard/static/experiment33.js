@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* S3.3 data-only telemetry. Verdicts are computed by Python, never here. */
 "use strict";
 const $=(id)=>document.getElementById(id);

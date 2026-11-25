@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Turn-start values: the training data of the depth-limited flop search's
 value net (FLOPSEARCH.md, D1).
 

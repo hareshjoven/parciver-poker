@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Scout: do VAD-CFR / WOP-CFR components or HS-DCFR schedules beat the live DCFR
 (alpha 1.5, beta 0, gamma 2, alternating) at the real-time search budget
 (100 and 400 iterations) on exact exploitability? Offline only; the live bot and

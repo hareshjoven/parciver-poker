@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Size of a full flop subgame (flop round, 49 turn cards, turn round, 48
 river cards, river round) for several bet menus, from the same betting rules
 as the search's trees (gpu_search.Tree / search.rs Tree::build), without

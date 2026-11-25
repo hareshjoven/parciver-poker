@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3's code stage (records/d3/PREREG.md section 5.0): the speed gate mode (5.0.6). More pieces are added below as they land."""
 import hashlib
 import importlib.util
@@ -17,9 +18,9 @@ def _script(name: str):
     mod = importlib.util.module_from_spec(spec)
     try:
         spec.loader.exec_module(mod)
-    except ModuleNotFoundError as e:  # the GPU solver needs triton; CPU-only installs skip these tests
-        if e.name == "triton":
-            pytest.skip("needs triton (GPU solver)")
+    except ModuleNotFoundError as e:  # the GPU solver needs torch/triton; CPU-only installs skip these tests
+        if e.name in ("torch", "triton"):
+            pytest.skip(f"needs {e.name} (GPU solver)")
         raise
     return mod
 

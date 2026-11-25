@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! `parciver_engine` — the fast Rust half of the poker bot, exposed to Python
 //! via PyO3.
 //!

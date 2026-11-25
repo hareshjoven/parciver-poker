@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Local best response (LBR; Lisý & Bowling, AAAI-17 workshop "Equilibrium
 //! approximation quality of current no-limit poker bots") against the play
 //! agent: a cheap, sound LOWER BOUND on how exploitable the bot is.

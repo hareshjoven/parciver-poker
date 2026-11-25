@@ -1,6 +1,6 @@
 # LBR-open and F2: result
 
-Run 11 Oct 2026, 15:55–16:43 SGT (`decide-20261011T075534Z.json`; per-deal arrays in
+Run 11 Oct 2026, 15:55–16:43 (`decide-20261011T075534Z.json`; per-deal arrays in
 `runs/preflop-open/decide-20261011T075534Z/`), as PREREG-RUN.md fixes it.
 - **Code:** commit `79109d1` (the pre-registration's commit), tree clean for the code under test.
 - **Engine:** `E93347A5…` (this commit's build). The rating was re-verified on it first: `rating.py verify`

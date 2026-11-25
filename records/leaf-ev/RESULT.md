@@ -1,6 +1,6 @@
 # LEAF-EV (SC5): result
 
-Run 15 Oct 2026, 07:17-07:48 SGT, from `parciver-sc5` at commit `7ef6474` (clean), as PREREG.md and its
+Run 15 Oct 2026, 07:17-07:48, from `parciver-sc5` at commit `7ef6474` (clean), as PREREG.md and its
 Amendment 2 fix it. Record: `gate-a.json` (copied verbatim from the run). The first run, not VOID: it ran to its
 registered stop with the GPU otherwise idle.
 

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Play heads-up no-limit hold'em against the parciver blueprint, in the terminal (CPU only).
 
     parciver fetch-blueprint        # once: ~0.7 GB download, 1.5 GB unpacked

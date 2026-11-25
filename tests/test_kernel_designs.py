@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The kernel candidates' algebra on the CPU (src/parciver/kernel_designs.py;
 KERNELS.md K1, K2, K3b, K4), before any of them is written in Triton: the
 aliased reach rows hold the same bits as today's down pass; the fold and

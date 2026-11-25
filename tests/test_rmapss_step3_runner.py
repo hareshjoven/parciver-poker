@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Confirmation orchestration must not hide a failed seed or silently retune."""
 import importlib.util
 from pathlib import Path

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """RIVER R1 (records/river-live/PREREG.md): scripts/river_live.py's harness. R1 differs from R0 only in
 river_iters; a chunk's proof fails a river job at the wrong iterations; the tap keeps R0's river jobs in P1's
 chunks only; the resume refusal; P1's statistic on toy data."""

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/slumbot_report.py's run checks under SLUMBOT-2 Amendment 1 (records/slumbot-2/PREREG.md): lost hands
 excluded up to the limit, Slumbot's running totals chained hand by hand per session (restarting after a lost
 hand), uneven seats allowed, seconds per hand summed over each session's own playing time. CPU only."""

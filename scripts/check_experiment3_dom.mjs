@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Headless DOM/Canvas harness for the S3.1 HU-exploitation-spine experiment client.
  *
  * Verifies the REAL static/experiment3.js: stub a minimal DOM + 2D canvas +

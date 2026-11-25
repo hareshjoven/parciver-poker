@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Depth-limited flop search (src/parciver/flop_search.py; FLOPSEARCH.md D3):
 runout equity against brute force, the check-down evaluator against the D1
 baseline, the net adapter against `value_net.predict`, and the leaf plumbing:

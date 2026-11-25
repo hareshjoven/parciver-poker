@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* VERIFY V5 viewer. Data-only: the watcher (scripts/watch_v5.py) reads the queue's log, the steps' logs and
    their --out files, and sends each step's progress, the F − D preview and v5_paired.py's reading; the page
    only extrapolates the pace and draws. */

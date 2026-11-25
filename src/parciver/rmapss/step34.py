@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Locked R-MAPSS S3.4 five-level public-support protocol (§48).
 
 The failed S3.2 and S3.3 implementations remain frozen.  This module owns the

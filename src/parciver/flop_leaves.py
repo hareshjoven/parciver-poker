@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The flop search's net leaves through the value net's linear ends
 (KERNELS.md, N1): `flop_search.NetLeaves(board, net_values(net))` without the
 49 dense first and last layers per leaf.

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Tests for the dashboard producers and viewer server (Phase 3c, pre-B4).
 
 The load-bearing contract is covered by ``test_telemetry.py``; these cover the

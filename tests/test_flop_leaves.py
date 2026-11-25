@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The factored net leaves (src/parciver/flop_leaves.py; KERNELS.md N1) against
 the dense path `NetLeaves(board, net_values(net))`, on the CPU: in float64
 the two agree to rounding on random, sparse, empty and concentrated reaches;

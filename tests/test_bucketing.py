@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """End-to-end card-abstraction bucketing tests (Phase 3b).
 
 Exercises the full driver on small slices: enumerate/index -> extract features

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Depth-limited flop search (FLOPSEARCH.md, D3): the flop round solved on the
 GPU, its leaves valued by the turn-start value net (`value_net`).
 

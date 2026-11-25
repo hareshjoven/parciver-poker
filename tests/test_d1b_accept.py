@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """scripts/d1b_accept.py: D1b's A1-A3 as before, and D1c's (pairs, or D3's mixed layout with a harvest), on tiny runs."""
 import argparse
 import json

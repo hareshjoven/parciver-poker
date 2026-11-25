@@ -1,6 +1,6 @@
 # RIVER-ITERS scout: how far is the live river solve from equilibrium?
 
-Registered 18 Oct 2026 (SGT), before any data. A scout: it only decides whether a river change is pre-registered
+Registered 18 Oct 2026, before any data. A scout: it only decides whether a river change is pre-registered
 (as LIVESEARCH B1 was for the turn). Nothing here changes the live bot.
 
 ## Why

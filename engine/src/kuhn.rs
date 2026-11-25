@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Kuhn poker — the correctness oracle with a known game value of -1/18.
 //! A faithful port of `parciver.games.kuhn`, including its exact legal-action
 //! ORDER and `card:history` infoset-key format so the Python oracle can score

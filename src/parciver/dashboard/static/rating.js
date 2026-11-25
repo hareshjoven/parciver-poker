@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 // parciver rating page: renders the `rating_view` event that scripts/rating.py builds from receipts.
 // Nothing is computed here except layout: every number comes from the view.
 "use strict";

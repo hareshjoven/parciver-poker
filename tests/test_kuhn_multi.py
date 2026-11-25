@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """N-player Kuhn foundation (RMAPSS.md §33, Step 0.2).
 
 Pure-Python structural + invariant checks (always run) plus the Rust<->Python

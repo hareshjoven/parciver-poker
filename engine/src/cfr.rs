@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Tabular CFR family (vanilla / CFR+ / Linear / DCFR), a faithful port of
 //! `parciver.solvers.cfr` restricted to the validated SIMULTANEOUS-update path
 //! (`alternating=False` in the Python solver, its default).

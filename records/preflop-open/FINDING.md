@@ -1,6 +1,6 @@
 # Preflop opens below our grid: finding, and a pre-registered plan for the next version
 
-Written 6 Oct 2026, 00:09 SGT. The user asked for it on 5 Oct, adding that we must not only get better
+Written 6 Oct 2026, 00:09. The user asked for it on 5 Oct, adding that we must not only get better
 against Slumbot. Nothing here changes the Slumbot live run: its bot is fixed until N = 50,000. Every
 measurement below is general, and none of them uses Slumbot.
 
@@ -47,10 +47,10 @@ measurement below is general, and none of them uses Slumbot.
     The whole run was −13.3 bb/100 (95% −52.8 to +26.1).
 
 ## Pre-registered plan (fixed before any measurement; Slumbot is not a criterion anywhere)
-Revised 6 Oct ~00:25 SGT after a read-only audit of the first version (af88e9b), before any
+Revised 6 Oct ~00:25 after a read-only audit of the first version (af88e9b), before any
 measurement. The changes: the defence arithmetic, peek-free LBR, a paired fix-versus-v2 statistic, a
 range opener as a guard against over-defence, (b) and (c) holding by construction for F2, and a
-deal count we can afford. Revised again ~00:30 SGT after a second read-only audit: peek-free LBR
+deal count we can afford. Revised again ~00:30 after a second read-only audit: peek-free LBR
 refuses search, the live-config cost, `bp` defined exactly, and the adoption sentence.
 
 ### Measurement: an LBR that opens off the grid

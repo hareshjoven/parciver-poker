@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The real-chip rules (nlhe.rs `apply_real` and `payoffs`, play.rs's replay of
 a hand) and the showdown evaluator against pokerkit, an independent
 implementation of no-limit hold'em: LBR's traced hands replay there with the

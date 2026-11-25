@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Download the blueprint tables that ``parciver play nlhe`` needs (``parciver fetch-blueprint``).
 
 The tables are too large for git (the strategy is 1.27 GB), so they are published as assets of a
@@ -95,7 +96,14 @@ def fetch(url: str | None = None, say: Callable[[str], None] = print) -> int:
         say(f"Not enough free disk space ({free / 1e9:.1f} GB free).")
         return 2
     for e, dest in todo:
-        _download(f"{base}/{e['name']}", dest, e, say)
+        try:
+            _download(f"{base}/{e['name']}", dest, e, say)
+        except (OSError, EOFError) as err:  # URLError/HTTPError, a dropped connection, a truncated .gz
+            dest.with_name(dest.name + ".part").unlink(missing_ok=True)
+            say(f"Could not download {e['name']} from {base}")
+            say(f"  {type(err).__name__}: {err}")
+            say("Check your connection (a 404 means that release is not published at this URL), or pass --url / set PARCIVER_ASSET_URL.")
+            return 1
         say(f"  {e['dest']}: verified (sha256 {e['sha256'][:12]}...)")
     say("Done. Play with:  parciver play nlhe")
     return 0

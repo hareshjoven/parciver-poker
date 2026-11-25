@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Build the Phase-3b card-abstraction bucket tables.
 
 Runs the full pipeline for one or more streets: enumerate/index every canonical

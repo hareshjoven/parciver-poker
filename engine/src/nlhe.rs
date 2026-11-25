@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 //! Heads-up No-Limit Texas Hold'em as a [`crate::game::Game`] — the real target
 //! tree the blueprint is solved on (the 6-max generalization comes later, on this
 //! proven base).

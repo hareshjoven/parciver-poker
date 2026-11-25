@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* parciver · R-MAPSS S3.1 HU exploitation spine (nlhe_small) — experiment dashboard client.
  *
  * Self-contained (does not share app.js). Connects to the same decoupled SSE transport

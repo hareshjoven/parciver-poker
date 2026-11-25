@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Scorecard: statistics, validation, identities, and a real-engine integration
 run on the exact small game (no blueprint artifacts needed)."""
 import importlib.util

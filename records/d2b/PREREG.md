@@ -1,6 +1,6 @@
 # D2b: a better turn-start net from D1 + D1b (HANDOFF Roadmap B)
 
-**Status: REGISTERED 30 Oct 2026 20:50 SGT.** The user's yes, in this session, to "Register D2b as drafted, to start once memory is
+**Status: REGISTERED 30 Oct 2026 20:50.** The user's yes, in this session, to "Register D2b as drafted, to start once memory is
 free?": "Yes, register it". It covers the text committed at a16e0a8 and its five recommendations (below). Written before
 any D2b code, training or data use. No net has been trained or evaluated for it, and D1b's labels have not been read for
 it. Only row counts, split counts, file layouts and existing records were used. Nothing here changes the live config
@@ -206,7 +206,7 @@ is expected if forward time scales with multiply-adds, which is unmeasured.
 - `scripts/slumbot_run.py` and the engine do not change before Adoption; the installed .pyd stays E58C7292.
 
 ## Machine needs
-- **Memory is the blocker.** At 30 Oct 19:00 SGT the free commit was 6.9 GB (limit 94.6) with a VM host process at 38.6 GB. Training
+- **Memory is the blocker.** At 30 Oct 19:00 the free commit was 6.9 GB (limit 94.6) with a VM host process at 38.6 GB. Training
   holds about 31-37 GB at its peak (18.0 raw float32 + 12.9 prepared rows, + a staged pool if it is mirrored on the host), so
   **~40 GB free commit** is asked for. Each oracle spot needs its store + 11 GiB, up to 27.2 GiB so far, and a larger spot may
   appear among the 120 new ones. A solve waits for memory rather than failing; on 14 Oct that was a ~14 h stall. **The user
@@ -252,7 +252,7 @@ is decided at an interim look; each stage is reported when it ends.
 4. **Include the 10,000-deal match** (~20 h GPU). Alternative: M1 and the mock only, as FLOP-SYM.
 5. **Memory:** the user frees ~40 GB of commit for training, and ~27+ GiB stays free through M1 (a VM host process is the largest holder).
 
-## Amendment 1: the code stage's details (30 Oct to 1 Nov 2026 SGT, before any net, D1b label or M1 row)
+## Amendment 1: the code stage's details (30 Oct to 1 Nov 2026, before any net, D1b label or M1 row)
 Records what the registration left to the code. No arm, selection rule, gate, margin, spot or order changes. Not a decision the
 user was asked for. Some entries add a stop (the X_N0 check, `d2b select`'s refusals). The VOID rule above stands as written, and two
 entries (the finished-match rule, the lock once `selection.json` exists) make applying it there need a further amendment, so that a
@@ -294,9 +294,9 @@ result in hand is never moved aside without one on the record. Nothing here wide
   change to the training code needs an amendment and a retrain, as above.
 - **Not yet here:** the union's fingerprint, which needs the data loaded: Amendment 2, when `d2b data` has run.
 
-## Amendment 2: the union's fingerprint (2026-11-01 13:24 SGT, before any net)
+## Amendment 2: the union's fingerprint (2026-11-01 13:24, before any net)
 
-`d2b data` ran at 13:22-13:24 SGT 1 Nov 2026 and wrote `records/d2b/data.json`. It reads the rows to hash and count them; no label's value was
+`d2b data` ran at 13:22-13:24 1 Nov 2026 and wrote `records/d2b/data.json`. It reads the rows to hash and count them; no label's value was
 looked at. **The union is `7d5a77c30aaad5d6`**, now `D2B_UNION` in `scripts/turn_net.py`; training and the gates refuse any other.
 
 | | fingerprint | train / selection / gate rows | boards | rows over 10% exploitability |

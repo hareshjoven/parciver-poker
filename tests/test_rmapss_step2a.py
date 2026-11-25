@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS §35.A — the RICH-BAIT DECIDER: exactness + §28 anti-hallucination gates.
 
 The decider replaces §34.5's 5-archetype ρ-ceiling with a rich bait search on the

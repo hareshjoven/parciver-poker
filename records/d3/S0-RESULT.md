@@ -1,6 +1,6 @@
 # D3 scouts S0a and S0c: results (10 Nov 2026, run after the recipe pin, before any D1c compute)
 
-Both ran on commit a14559d with the GPU free of other jobs (S0a's labelling 18:48-19:19 SGT; its scoring afterwards, `gpu_peers_after` empty). Records: `s0a.json`, `s0c.json`.
+Both ran on commit a14559d with the GPU free of other jobs (S0a's labelling 18:48-19:19; its scoring afterwards, `gpu_peers_after` empty). Records: `s0a.json`, `s0c.json`.
 Rules were fixed in PREREG 5.1 and the arms before any query existed; nothing here is a new decision.
 
 ## S0a (what the live flop search asks the net) -> **MIXED branch**

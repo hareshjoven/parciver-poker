@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """B4 — the real 100bb heads-up blueprint solve, emitting live telemetry.
 
 This runs external-sampling MCCFR on the FULL 52-card heads-up game

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Headless smoke test for the turn-data (D1) watcher page: replays an
    events.jsonl through turndata.js against a stand-in DOM and canvas, and
    checks that every panel rendered without throwing.

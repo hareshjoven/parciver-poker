@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Full-scale run SIMULATOR — every dashboard panel, marvellable before B4 exists.
 
 The real small-game producer (``train_small.py``) gives genuine convergence data

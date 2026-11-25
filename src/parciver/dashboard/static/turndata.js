@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Turn-value data (D1) viewer. Data-only: every statistic comes from the
    watcher (scripts/watch_turn_data.py), which reads the generator's finished
    shards; the page only sums per-shard counts, extrapolates the pace, and draws. */

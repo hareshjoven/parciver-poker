@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Headless DOM/canvas smoke test for the real S3.2 dashboard client.
  * Usage: node scripts/check_experiment32_dom.mjs <events.jsonl> */
 import fs from "node:fs";

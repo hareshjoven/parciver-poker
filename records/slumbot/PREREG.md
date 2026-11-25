@@ -1,6 +1,6 @@
-# SLUMBOT: an external anchor (PRE-REGISTERED 2026-10-05 03:08 SGT; drafted 2026-10-04 20:02 SGT)
+# SLUMBOT: an external anchor (PRE-REGISTERED 2026-10-05 03:08; drafted 2026-10-04 20:02)
 
-Approved by the user on 5 Oct 03:05 SGT ("okay for all", after the assistant proposed tying the search setting to V5's
+Approved by the user on 5 Oct 03:05 ("okay for all", after the assistant proposed tying the search setting to V5's
 reading). No hand has been played against Slumbot. V5 was running (arm D, deal ~1,500 of 40,000) and no V5
 reading existed when the search rule below was fixed. Any amendment must be stamped and made before the first
 live hand. The user said yes to Slumbot (4 Oct) as the next step after HANDOFF step 2.

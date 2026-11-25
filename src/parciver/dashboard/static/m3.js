@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* FLOPSEARCH M3 viewer. Data-only: the watcher (scripts/watch_m3.py) reads the three outputs after each saved chunk
    and sends each run's curves, previews and summaries; the page only extrapolates the pace and draws. */
 "use strict";

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """RIVER R1 (records/river-live/PREREG.md): the live river at 2,000 iterations instead of 200.
 
   smoke  50 deals of seed 777,004 at 1 and at 4 threads, fresh arms each, each run's arms proven; the per-deal

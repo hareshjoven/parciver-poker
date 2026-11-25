@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Slumbot's public API as the engine's play layer sees it (records/slumbot/PREREG.md).
 
 Slumbot (slumbot.com) plays heads-up NLHE, blinds 50/100, 20,000-chip stacks reset every hand. A hand's
@@ -601,7 +602,7 @@ def play_hand(post, token: str | None, options, rng: random.Random, rec: dict, l
     return token
 
 
-SAMPLE_SHA256 = "17ab1f6c1a25db1822cef7f34ed67b6516ac65ea24897adcc92d8f2db8f71505"  # sample_api.py, fetched 5 Oct 2026 16:38 SGT
+SAMPLE_SHA256 = "17ab1f6c1a25db1822cef7f34ed67b6516ac65ea24897adcc92d8f2db8f71505"  # sample_api.py, fetched 5 Oct 2026 16:38
 
 
 def load_parse_action(path, sha256: str = SAMPLE_SHA256):

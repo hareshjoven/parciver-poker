@@ -1,7 +1,7 @@
 # D1b: more turn-start data, made on the cloud MI300X
 
-Drafted 19 Oct 2026 12:20 SGT, before any D1b data; revised 12:45 SGT with Step 0's results (no D1b data
-yet). **Status: REGISTERED 19 Oct 12:51 SGT** (the user's yes, "okay go ahead", to this file and to Amendment 1
+Drafted 19 Oct 2026 12:20, before any D1b data; revised 12:45 with Step 0's results (no D1b data
+yet). **Status: REGISTERED 19 Oct 12:51** (the user's yes, "okay go ahead", to this file and to Amendment 1
 with Q4, after the two options were laid out; before any D1b data). Recording may start now; generation only
 after the speed test is a go. This step makes data only: how D1b is
 used (a D2-style retrain on D1 + D1b, and its gates) is registered separately, before any net is trained on it.
@@ -15,11 +15,11 @@ used (a D2-style retrain on D1 + D1b, and its gates) is registered separately, b
 - D2's learning curve: selection loss 0.02109 / 0.01711 / 0.01464 at 25 / 50 / 100% of D1; a fit gives
   ~-10% at 2x data (an estimate). Labels are not the bottleneck (500-iteration labels are 0.23% of the pot
   from 3,000-iteration references in value MAE).
-- The cloud: the user's AMD MI300X (ROCm 7.2.3, torch 2.11 HIP, Triton 3.6), until **22:50 SGT Tue 20 Oct**
+- The cloud: the user's AMD MI300X (ROCm 7.2.3, torch 2.11 HIP, Triton 3.6), until **22:50 Tue 20 Oct**
   (hard stop). For the speed test and the run, the user stops every local model server.
 
 ## Step 0, the probe (rule fixed in `scripts/d1b_probe.py` sha256 710f586f... before any cloud data)
-Done 19 Oct 11:55-12:40 SGT, with vLLM still on the GPU (24 GiB free):
+Done 19 Oct 11:55-12:40, with vLLM still on the GPU (24 GiB free):
 - **Setup:** code 4eacf33 as a git bundle plus the uncommitted generator; a separate venv on the system torch;
   rustup + maturin; the engine built. PASS.
 - **Tests:** `test_gpu_fused` 44, `test_gpu_search` 9, `test_turn_values` 7, `test_turn_data` 3,
@@ -37,11 +37,11 @@ Done 19 Oct 11:55-12:40 SGT, with vLLM still on the GPU (24 GiB free):
     the PC. The bar was wrong; the MI300X is not at fault.
 - **End to end** (6 stored situations): 2 workers' shards = 1 worker's bit for bit; `--terminals64` shards =
   the probe's Q4 solves bit for bit; generate.json carries `terminals: q4` / `workers: 2`. PASS (rerun on the
-  audited code at 12:39 SGT: PASS).
+  audited code at 12:39: PASS).
 
-**Amendment 1 (Q4's G4; APPROVED 12:51 SGT by the user; written after seeing both Q4 runs, so it is a
+**Amendment 1 (Q4's G4; APPROVED 12:51 by the user; written after seeing both Q4 runs, so it is a
 post-hoc rule and is marked as such).** Q4's G4 compares the cloud's Q4 with the PC's Q4 on the same 286
-ordinary jobs (`records/d1b/step0/parity-pc-q4.json`, 12:35 SGT), as distributions: the median e_cloud/e_pc
+ordinary jobs (`records/d1b/step0/parity-pc-q4.json`, 12:35), as distributions: the median e_cloud/e_pc
 lies in [0.8, 1.25] and mean e_cloud <= mean e_pc + 0.02% of the pot. On the data in hand: 1.0026 and
 0.351 vs 0.371, a pass. A4 below re-checks the same way on 200 fresh D1b jobs. *The alternative* (declined): generate in D1's float32 mode, which passed every bar as registered, and patch D1b's
 over-10% tail on the PC afterwards with PREREG15's recipe (~4x a row's cost; D1's 1,920 rows took ~2 h).
@@ -75,13 +75,13 @@ solves/s; not a measurement.) **Go iff** the best D1-mode rate is >= 3.51 solves
   with its own command (complete shards are kept by the resume rule). Only worker 0's resumes are listed
   in `resumed`.
 - Shards are copied to the PC (`runs/turn-data-d1b/`) at least hourly, sha256-checked on both sides.
-- **Stop:** when all 501 shards exist, or at **21:30 SGT 20 Oct**, whichever is first; then the last copy
+- **Stop:** when all 501 shards exist, or at **21:30 20 Oct**, whichever is first; then the last copy
   and its check by 22:30. Each shard mixes every cell, so any set of complete shards is a representative
   sample; partial shards are not used.
 
-**Amendment 2 (the PC finishes the run; the user's decision, 20 Oct ~21:46 SGT, "let's complete d1B now";
-written 21:53 SGT after the cloud's stop and before any PC shard).** The cloud stopped at the 21:30 rule with
-372 complete shards (shard-00000 to -00371), all copied and sha256-checked (last pass 21:37:32 SGT,
+**Amendment 2 (the PC finishes the run; the user's decision, 20 Oct ~21:46, "let's complete d1B now";
+written 21:53 after the cloud's stop and before any PC shard).** The cloud stopped at the 21:30 rule with
+372 complete shards (shard-00000 to -00371), all copied and sha256-checked (last pass 21:37:32,
 `runs/turn-data-d1b/copy.log`). The other 129 (372-500: 33 / 32 / 32 / 32 for workers 0-3) are made on the
 PC's RTX 4070 instead of being dropped:
 - Exactly the registered command (`turn_data.py --out runs/turn-data-d1b generate --iters 500 --gamma 5
@@ -124,7 +124,7 @@ worker restarts. Results go in `records/d1b/RESULT.md` with true times (`date`),
   unchanged, so D1's path is the same code. `tests/test_turn_data.py`: 3 new tests (6 pass).
 - `scripts/d1b_probe.py`: extract / parity / speed. Since the parity rule was fixed (710f586f), only
   `speed` changed (the common-start barrier; timeouts so a dead process ends the test instead of hanging it).
-  Audited read-only twice (12:30, 12:55 SGT); every real finding fixed.
+  Audited read-only twice (12:30, 12:55); every real finding fixed.
 - The cloud runs the committed code: a fresh bundle of that commit, its hash checked on both sides.
   (The working tree is CRLF and the repo LF, so file hashes are compared on the same checkout.)
 - `records/d1b/step0/e2e.sh`: the end-to-end check (a script beside the probe, copied into the record).

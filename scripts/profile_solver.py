@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Profile the full-game MCCFR response solver (the S3.4 downstream hot path).
 
 This is a DEV/measurement tool, not part of any locked protocol. It times

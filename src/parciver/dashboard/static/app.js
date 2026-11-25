@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* parciver live training dashboard — client.
  *
  * Decoupled + lag-free by construction: the server streams batched telemetry

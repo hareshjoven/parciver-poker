@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS research track (Phase 4). See RMAPSS.md §33 for the governing design.
 
 Step 1 = the multiplayer exploitation SPINE (tabular/exact) in 3p Kuhn:

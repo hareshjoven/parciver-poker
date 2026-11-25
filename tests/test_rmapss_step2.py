@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 2 — interaction kernel + its exact controls (RMAPSS.md §34).
 
 Pure-Python + exact. Two anchors:

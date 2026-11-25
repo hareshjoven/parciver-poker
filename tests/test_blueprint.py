@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Tests for the B4 blueprint solver (`parciver_engine.Blueprint`).
 
 Exact exploitability is intractable on the full 100bb game (that is why B3 built the

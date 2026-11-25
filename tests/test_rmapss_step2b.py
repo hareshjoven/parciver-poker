@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS §35.B — the NO-REGRET-LEARNER decider: exactness + §28 controls.
 
 §35.B replaces the dense lagged-BR ρ with principled no-regret learners (RM / RM+ /

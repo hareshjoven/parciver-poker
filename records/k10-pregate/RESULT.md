@@ -1,6 +1,6 @@
 # K10's pre-gate under Q4: result
 
-Run 11 Oct 2026, 14:43 SGT (`pregate-20261011T064342Z.json`), as PREREG.md fixes it.
+Run 11 Oct 2026, 14:43 (`pregate-20261011T064342Z.json`), as PREREG.md fixes it.
 - **Code:** commit `985c2d5`. It differs from the commit that added PREREG.md (`54a5f6e`) only in
   HANDOFF.md. The tree was clean for the code under test. `engine/src` held uncommitted preflop-open edits,
   but the installed engine was built on 7 Oct, before them, and is the one the run loaded.

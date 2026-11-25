@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Headless DOM/Canvas harness for the §38 H-Q fragility→EV experiment client.
  *
  * Verifies the REAL static/experimentQ.js: stub a minimal DOM + 2D canvas +

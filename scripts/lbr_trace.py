@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Replay a scorecard benchmark's LBR deals with every action recorded, for several
 versions of the bot, to see WHERE LBR wins (see `PlayAgent.lbr_trace`).
 

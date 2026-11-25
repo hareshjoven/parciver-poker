@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """LEAF-NET (records/leaf-net/PREREG.md, "Tests before any data"): the canonical
 suit frame (`value_net.ValueNet(..., canonical=True)`), the grid's training
 changes and Gate A (`scripts/turn_net.py`), Gate B's harness

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Locked R-MAPSS S3.2 full-100bb runner (`s3.2-full-v1`, RMAPSS §43).
 
 The command exposes only operational controls (run directory, worker count,

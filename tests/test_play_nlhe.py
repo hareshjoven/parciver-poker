@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The No-Limit terminal game and the blueprint downloader, against a stub opponent (no 1.3 GB tables)."""
 import gzip
 import hashlib
@@ -153,3 +154,13 @@ def test_fetch_without_a_location_says_so(monkeypatch):
     monkeypatch.delenv("PARCIVER_ASSET_URL", raising=False)
     msgs: list[str] = []
     assert assets.fetch(None, say=msgs.append) == 2 and any("--url" in m for m in msgs)
+
+
+def test_fetch_reports_an_unreachable_release_without_a_traceback(tmp_path, monkeypatch):
+    manifest, rel = _publish(tmp_path)
+    monkeypatch.setattr(assets, "load_manifest", lambda: manifest)
+    monkeypatch.setenv("PARCIVER_HOME", str(tmp_path / "home"))
+    msgs: list[str] = []
+    assert assets.fetch((tmp_path / "nowhere").as_uri(), say=msgs.append) == 1
+    assert any("Could not download" in m for m in msgs)
+    assert not list((tmp_path / "home").glob("*.part"))

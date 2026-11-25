@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Response-convergence study viewer. Data-only: every number comes from the
    producer (scripts/response_convergence.py); nothing is recomputed here except
    replicate means for plotting. */

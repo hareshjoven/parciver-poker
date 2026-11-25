@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Locked R-MAPSS S3.2 protocol (`s3.2-full-v1`, RMAPSS §43).
 
 This module keeps the frozen design visible on the Python side and composes the

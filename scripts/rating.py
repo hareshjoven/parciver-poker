@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Parciver rating (RATING.md): one number for the bot's strength, from receipts only.
 
     # once per pool version and engine: anchor round robin, Nash weights, A0's reference rows, acceptance

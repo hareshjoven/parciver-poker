@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """One blueprint under two search settings, paired (FLOPSEARCH M2/M3, LIVESEARCH P2/P3).
 
 The same blueprint in both arms, each with its own search settings and its own

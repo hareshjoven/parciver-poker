@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The kernel work's measurements (KERNELS.md): the profile (Step 1), the
 bit-identity check (rule 1), the precision gate (rule 2) and the interleaved
 speed gate (rule 3).

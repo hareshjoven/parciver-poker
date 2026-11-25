@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Depth-limited flop search: settings and evaluation (FLOPSEARCH.md, D3 amendment and D4).
 
   record     play v2-2B against itself at 200bb (flop search on, a recording

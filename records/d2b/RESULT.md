@@ -22,8 +22,8 @@ upper + e = -0.312% <= 0.25%: non-inferior, and the upper end is below 0. The 40
 120 new -0.708% [-0.922, -0.494], reported apart.
 
 ## Whole-bot safety
-- **Smoke** (8 Nov 13:17-13:30 SGT, 50 deals, seed 777,006): 1 and 4 threads identical deal for deal (L1 +2.812 bb/deal).
-- **Match** (8 Nov 13:31 to 9 Nov 10:27 SGT; `live.json`): L1 (N1) - L0 (N0) over 10,000 deals, baseline row seed 410,001,
+- **Smoke** (8 Nov 13:17-13:30, 50 deals, seed 777,006): 1 and 4 threads identical deal for deal (L1 +2.812 bb/deal).
+- **Match** (8 Nov 13:31 to 9 Nov 10:27; `live.json`): L1 (N1) - L0 (N0) over 10,000 deals, baseline row seed 410,001,
   seats swapped, 4 threads, 100 chunks, 0 voided, 0 failures, no compute job on the GPU in any chunk:
   **-7.24 bb/100, raw 95% CI [-23.80, +9.32]** (se 8.24, 50 blocks) — the upper end is >= 0, so **NOT DOWN**.
   AIVAT (reported, not gating) -0.57 [-13.59, +12.45]. Latency in the lock: flop p95 2.376 s (N1) vs 2.380 s (N0), turn 0.844
@@ -36,7 +36,7 @@ upper + e = -0.312% <= 0.25%: non-inferior, and the upper end is below 0. The 40
 ## Adoption
 1. NET -> N1 in `scripts/slumbot_run.py` with the user's yes (9 Nov 2026): one line, commit 6608183; read-only audit first,
    no other play code names N0's path or sha.
-2. **The registered 1,000-hand mock PASSED** (`runs/slumbot/mock-20261109T031133Z`, 9 Nov 11:11-11:52 SGT, at 6608183, seed
+2. **The registered 1,000-hand mock PASSED** (`runs/slumbot/mock-20261109T031133Z`, 9 Nov 11:11-11:52, at 6608183, seed
    20261024, not VOID; `mock_check.json` here and as `records/livesearch/mock_check.json`): 1000 hands, 0 lost, chips conserved,
    every history legal, none refused, 1000 winnings checked, parser check 214,221 prefixes agree; **flop p95 2.976 s (bar 3.0;
    median 2.342, max 3.235, n 765), turn p95 1.175 s (2.0), river p95 0.193 s (2.0), 2.416 s/hand**; 530/765 flop solves
@@ -47,7 +47,7 @@ upper + e = -0.312% <= 0.25%: non-inferior, and the upper end is below 0. The 40
 3. Live runs are allowed again at this play code (GATES checked with the committed file: no refusal).
 
 ## Reported speed of the cheaper net (not a gate)
-`flop_sym_speed.py --cand d2b` (`speed.json`; 9 Nov 11:54-12:53 SGT, GPU otherwise idle, 479 jobs of
+`flop_sym_speed.py --cand d2b` (`speed.json`; 9 Nov 11:54-12:53, GPU otherwise idle, 479 jobs of
 `runs/flop-eval/m1-jobs-sym.pkl`, A B B A, the same sym leaves, 500 iterations, gamma 5): A = N1, B = `d2b-w1024-wd0.1`
 (the better w1024 on the selection half: loss 0.012189 vs N1's 0.011799, +3.3%). **Median ratio B/A 0.540, flop-clustered
 95% CI [0.529, 0.544]** (by flop class 0.500 to 0.577). Solve time: N1 median 2.384 s, p95 2.995 s; w1024 median 1.274 s,

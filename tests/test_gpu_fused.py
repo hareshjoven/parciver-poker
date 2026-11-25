@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Fused GPU solver (src/parciver/gpu_fused.py): its O(n) fold and showdown
 terminals against the dense card-removal matrices, and CUDA-graph steps
 against eager ones. Its DCFR against the reference runs in test_gpu_search.py

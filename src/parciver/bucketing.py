@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """End-to-end card-abstraction bucketing (Phase 3b).
 
 Ties the three certified pieces together into the bucket tables the CFR solver

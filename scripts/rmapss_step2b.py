@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS §35.B — the NO-REGRET-LEARNER decider, runnable + watchable.
 
 The last pre-registered shot at a clean multiplayer edge H2. §35.A left H2 "open": under

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 3 (S3.1) — HU exploitation spine on `nlhe_small` (real reduced NLHE).
 
 This ports the validated Step-1 spine (RMAPSS.md §40) from 3p Kuhn onto a *real*

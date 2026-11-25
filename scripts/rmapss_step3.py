@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 3 / S3.1 — the HU exploitation SPINE on real reduced NLHE, runnable + watchable.
 
 Ships + scales the validated H1 spine (RMAPSS.md §40) from toy 3p Kuhn onto a real

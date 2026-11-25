@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* Bot scorecard viewer. Data-only: every number comes from the producer
    (scripts/scorecard.py evaluate); nothing is recomputed here except the
    progress fraction and a rough ETA. Final row numbers are the receipt's. */

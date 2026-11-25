@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The turn-start value net (FLOPSEARCH.md, D2), trained on `turn_data.py generate`'s shards.
 
   baseline  the check-down values of the held-out samples (G2's baseline), cached

@@ -1,3 +1,4 @@
+// Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 /* PREREG15 D1 re-solve viewer. Data-only: the watcher (scripts/watch_resolve15.py)
    tails the job's OUT file and sends its rows and resolve15.py's summary statistics;
    the page only extrapolates the pace and draws. */

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """FLOPSEARCH.md D4 M1 tooling: the `FlopOracle` binding and `scripts/flop_m1.py`'s
 translation helpers. The Rust tests check the oracle's solve itself."""
 import importlib.util

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The parciver rating (RATING.md): one number for a bot configuration's strength.
 
     PR(x) = 1500 + sum_j p_j * [u(x, j) - u(A0, j)]      (1 point = 1 mbb/hand)

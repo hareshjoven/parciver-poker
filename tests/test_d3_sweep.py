@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """D3-SWEEP (records/d3-sweep/PREREG.md): the recipe's three options (dropout, EMA, range-weighted loss) and the driver.
 
 The golden test comes first: it was written and passed on the code as it stood BEFORE the options existed (commit 7d7dde2),

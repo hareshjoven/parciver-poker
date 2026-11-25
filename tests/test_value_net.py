@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The turn-start value net's plumbing (src/parciver/value_net.py; FLOPSEARCH.md
 D2): the 1,326-holding layout against the solver's 1,128-holding order, suit
 relabelling against `turn_values.holding_map` (itself checked against solves in

@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The Slumbot reading (records/slumbot/PREREG.md, "Reading"), from a finished run folder.
 
     .venv/Scripts/python.exe scripts/slumbot_report.py runs/slumbot/<UTC> [--json records/slumbot/result.json]

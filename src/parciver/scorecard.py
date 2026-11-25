@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Bot scorecard: is the playing bot getting better, and at what cost?
 
 Measures the WHOLE bot at the real-table boundary (the play agent: blueprint +

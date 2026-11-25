@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step Q — fragility as a transferable-EV predictor (RMAPSS.md §38).
 
 Pre-registered in §38 (locked WITH the author, session 15, BEFORE any result). Tests

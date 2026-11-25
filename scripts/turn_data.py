@@ -1,3 +1,4 @@
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Turn-start value data for the depth-limited flop search (FLOPSEARCH.md, D1).
 
   record    play v2-2B (turn search, recording solver) against itself and the

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """R-MAPSS Step 1 — multiplayer exploitation spine (3p Kuhn), runnable + watchable.
 
 Runs the Step-1 experiment (RMAPSS.md §33): a diverse fixed 3p opponent

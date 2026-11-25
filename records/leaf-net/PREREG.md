@@ -1,6 +1,6 @@
 # LEAF-NET: a more precise turn-start value net at the same size (HANDOFF Next 3)
 
-Registered 2026-10-12 (SGT; the commit that adds this file is the registration), before any LEAF-NET code, training
+Registered 2026-10-12 (the commit that adds this file is the registration), before any LEAF-NET code, training
 or data. Nothing here changes the live config until "Adoption" passes. Audited (read-only) before commit; the
 audit's findings are folded in.
 
@@ -219,7 +219,7 @@ Each run is reported when it ends; nothing is decided at an interim look.
 - Choosing P on gate-half or M1 numbers.
 - Trying a runner-up after a fail.
 
-## Amendment 1 (12 Oct 22:35 SGT, with the code, before any LEAF-NET data)
+## Amendment 1 (12 Oct 22:35, with the code, before any LEAF-NET data)
 - **No copied leafnet rows.** Gate B's "a leafnet spot's row is copied from `m1-v-sym.json` only if ..." is
   dropped: every leafnet spot is solved under the current engine, and the report refuses a copied leafnet row.
   Simpler, and every leafnet row then comes from the build that solves the baseline check (none were expected).
@@ -227,7 +227,7 @@ Each run is reported when it ends; nothing is decided at an interim look.
   compares the rows, writes `records/leaf-net/enginecheck.json` with the baseline `sym` or `symcheck`), and
   `report` (Gate B against that baseline). `flop_sym_speed.py --cand leafnet --net N0 --net-b P` writes
   `records/leaf-net/speed.json`. Training and Gate A: `turn_net.py leafnet`, `turn_net.py gate-a`.
-- **The order is enforced (the code audit; committed 12 Oct 23:08 SGT, d5a55d7; the time first written here, 23:40, was wrong):** `strategy --cand leafnet` and the report refuse
+- **The order is enforced (the code audit; committed 12 Oct 23:08, d5a55d7; the time first written here, 23:40, was wrong):** `strategy --cand leafnet` and the report refuse
   unless `gate-a.json` says proceed for P's sha256. symcheck and leafnet solves record the engine build's sha256
   and the threads in their inputs (a resume under another build is refused); `enginecheck.json` records that build
   and the sha256 of `m1-v-sym.json` / `m1-x-sym.npz`, and the report refuses a leafnet (or symcheck) file solved
