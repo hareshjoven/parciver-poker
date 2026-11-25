@@ -4,6 +4,8 @@ version = "0.1.0"
 description = "A CFR-trained heads-up No-Limit Texas Hold'em bot: Rust MCCFR blueprint, GPU real-time subgame search, exact-exploitability validation ladder"
 readme = "README.md"
 license = { text = "MIT" }
+authors = [{ name = "Haresh Joven" }]
+urls = { Repository = "https://github.com/hareshjoven/parciver-poker" }
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.12",

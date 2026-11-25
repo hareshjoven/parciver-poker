@@ -42,6 +42,9 @@ and [ARCHITECTURE.md](../ARCHITECTURE.md).
 | Re-rating the current bot | the 1860.4 rating predates the 8B blueprint and the flop-net upgrades | `RESULTS.md` |
 | Small preflop opens | two attempts (patching, retraining) did not pass their gates; understand why before a third | `records/preflop-open` |
 
+Comments in the code sometimes cite the author's private working notes (`FLOPSEARCH.md`, `KERNELS.md`, `RATING.md`,
+`HANDOFF.md`, `IDEAS.md`); the condensed versions of the design notes are in `docs/`, and the experiments are in `records/`.
+
 `src/` and `scripts/` also contain a closed multiplayer-exploitation track (`rmapss*`); its later gates failed
 and it is kept only for the record.
 

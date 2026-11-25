@@ -13,7 +13,7 @@ parciver play kuhn                    # nothing else to install, instant
 parciver play leduc --peek            # watch the exact equilibrium it solved a moment ago
 ```
 
-and, after the one-time ~0.7 GB download of the real blueprint (see [Play](#play)):
+and, after the one-time ~0.7 GB download of the real blueprint (see [Play](#play); the release assets are not published yet, so until they are, `fetch-blueprint` reports that no download location is set):
 
 ```bash
 parciver fetch-blueprint

@@ -3,7 +3,7 @@
 
 The single biggest risk in this project is a claim ("Phase X is done and
 validated", "288 infosets", "~20x faster", "exploitability < 4e-2") that is true
-in the assistant's narrative but NOT true in the repository. This script exists
+in a narrative but NOT true in the repository. This script exists
 to make that impossible to get away with: it re-derives every headline claim
 directly from the code -- compiling the Rust engine, running both test suites,
 and independently recomputing the ground-truth numbers (infoset counts,
@@ -164,7 +164,6 @@ def check_files_exist() -> Result:
         "scripts/train_small.py",
         "scripts/replay_demo.py",
         "scripts/train_blueprint.py",
-        "HANDOFF.md",
     ]
     missing = [p for p in expected if not (ROOT / p).exists()]
     detail = "all present" if not missing else f"MISSING: {missing}"
