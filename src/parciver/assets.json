@@ -31,5 +31,30 @@
       "sha256": "7f15923bbcd88b30abca7a811b80a2623117772958043556ec5d577715b0bd09",
       "gz_bytes": 64869643
     }
-  ]
+  ],
+  "nets": {
+    "version": "flopnets-v1",
+    "base_url": "https://github.com/hareshjoven/parciver-poker/releases/download/flopnets-v1",
+    "about": "flop value nets: N0 = the SLUMBOT-2 match's net, N1 = the live configuration's net (RESULTS.md)",
+    "files": [
+      {
+        "name": "flopnet_N0.pt",
+        "dest": "nets/N0.pt",
+        "bytes": 111059281,
+        "sha256": "a8bf00be2fd1a3c7b0d1b0796809256cd939305b68723e541ef2cd029238ef65",
+        "gzip": false,
+        "width": 2048,
+        "depth": 5
+      },
+      {
+        "name": "flopnet_N1.pt",
+        "dest": "nets/N1.pt",
+        "bytes": 111059345,
+        "sha256": "54bae7494d830143daa5a06d6dfd7a805e99b28f1c3b5dfd9ec2533de7f97d72",
+        "gzip": false,
+        "width": 2048,
+        "depth": 5
+      }
+    ]
+  }
 }

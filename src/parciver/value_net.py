@@ -194,10 +194,11 @@ def ValueNet(width: int, depth: int, canonical: bool = False):
 
 
 def load(path, device="cuda"):
-    """A net saved by `save`."""
+    """A net saved by `save`. Read with ``weights_only=True``: a net file holds tensors and plain numbers
+    only, and this refuses anything else, so loading a downloaded net never runs code."""
     import torch
 
-    blob = torch.load(path, map_location=device, weights_only=False)
+    blob = torch.load(path, map_location=device, weights_only=True)
     net = ValueNet(blob["width"], blob["depth"], blob.get("canonical", False)).to(device)
     net.load_state_dict(blob["state"])
     net.eval()

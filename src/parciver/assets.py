@@ -1,11 +1,13 @@
 # Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
-"""Download the blueprint tables that ``parciver play nlhe`` needs (``parciver fetch-blueprint``).
+"""Download the blueprint tables that ``parciver play nlhe`` needs (``parciver fetch-blueprint``) and the
+flop value nets of the full GPU configuration (``parciver fetch-nets``).
 
 The tables are too large for git (the strategy is 1.27 GB), so they are published as assets of a
 GitHub release, gzip-compressed (about 0.7 GB to download). ``assets.json`` beside this file lists
 each file with the SHA-256 and size of its UNCOMPRESSED contents; a download is decompressed on the
 fly, hashed, and only moved into place if the hash matches. Nothing here executes downloaded
-content: the files are numeric tables read by the Rust engine.
+content: the tables are numeric data read by the Rust engine, and a net file is read with
+``torch.load(weights_only=True)``, which accepts tensors and plain numbers and nothing else.
 """
 from __future__ import annotations
 
@@ -68,23 +70,30 @@ def _download(url: str, dest: Path, entry: dict, say: Callable[[str], None]) -> 
     os.replace(part, dest)
 
 
-def fetch(url: str | None = None, say: Callable[[str], None] = print) -> int:
+def net_path(name: str) -> Path:
+    """Where `parciver fetch-nets` installs the flop value net ``name`` ("N0" or "N1")."""
+    return home() / "nets" / f"{name}.pt"
+
+
+def fetch(url: str | None = None, say: Callable[[str], None] = print, group: str = "blueprint") -> int:
+    """Download one group of release files: "blueprint" (the tables) or "nets" (the flop value nets)."""
     m = load_manifest()
-    base = (url or os.environ.get("PARCIVER_ASSET_URL") or m.get("base_url") or "").rstrip("/")
-    if not base:
+    sec = m if group == "blueprint" else m.get(group) or {}
+    base = (url or os.environ.get("PARCIVER_ASSET_URL") or sec.get("base_url") or "").rstrip("/")
+    if not base or not sec.get("files"):
         say("No download location is configured: this checkout has no release to fetch from yet.")
-        say("Pass --url <directory URL holding the .gz files> or set PARCIVER_ASSET_URL.")
+        say("Pass --url <directory URL holding the release files> or set PARCIVER_ASSET_URL.")
         return 2
     root = home()
     todo = []
-    for e in m["files"]:
+    for e in sec["files"]:
         dest = root / e["dest"]
         if verified(dest, e):
             say(f"  {e['dest']}: already installed and verified")
         else:
             todo.append((e, dest))
     if not todo:
-        say(f"All {len(m['files'])} files are in place under {root}.")
+        say(f"All {len(sec['files'])} files are in place under {root}.")
         return 0
     need = sum(e["bytes"] for e, _ in todo)
     probe = root
@@ -105,5 +114,8 @@ def fetch(url: str | None = None, say: Callable[[str], None] = print) -> int:
             say("Check your connection (a 404 means that release is not published at this URL), or pass --url / set PARCIVER_ASSET_URL.")
             return 1
         say(f"  {e['dest']}: verified (sha256 {e['sha256'][:12]}...)")
-    say("Done. Play with:  parciver play nlhe")
+    if group == "nets":
+        say("Done. The nets are in " + str(root / "nets") + " (see README, 'The full GPU configuration').")
+    else:
+        say("Done. Play with:  parciver play nlhe")
     return 0

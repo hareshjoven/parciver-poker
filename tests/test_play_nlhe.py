@@ -149,6 +149,62 @@ def test_fetch_refuses_a_corrupted_download(tmp_path, monkeypatch):
     assert not list((tmp_path / "home").glob("*.part"))
 
 
+def test_fetch_nets_installs_only_the_nets_and_verifies_them(tmp_path, monkeypatch):
+    body = b"net-weights" * 700  # nets are published uncompressed ("gzip": false)
+    rel = tmp_path / "rel"
+    rel.mkdir()
+    (rel / "flopnet_N0.pt").write_bytes(body)
+    entry = {"name": "flopnet_N0.pt", "dest": "nets/N0.pt", "bytes": len(body),
+             "sha256": hashlib.sha256(body).hexdigest(), "gzip": False}
+    monkeypatch.setattr(assets, "load_manifest", lambda: {"version": "t", "base_url": None, "files": [],
+                                                          "nets": {"version": "n", "base_url": None, "files": [entry]}})
+    monkeypatch.setenv("PARCIVER_HOME", str(tmp_path / "home"))
+    msgs: list[str] = []
+    assert assets.fetch(rel.as_uri(), say=msgs.append, group="nets") == 0
+    assert assets.net_path("N0") == tmp_path / "home" / "nets" / "N0.pt"
+    assert assets.net_path("N0").read_bytes() == body
+    assert not (tmp_path / "home" / "blueprint.bin").exists()
+    msgs.clear()
+    assert assets.fetch(rel.as_uri(), say=msgs.append, group="nets") == 0  # second run: nothing to download
+    assert any("already installed" in m for m in msgs)
+    assets.net_path("N0").write_bytes(body[:-1] + b"X")  # a damaged install is fetched again, not trusted
+    assert assets.fetch(rel.as_uri(), say=msgs.append, group="nets") == 0
+    assert assets.net_path("N0").read_bytes() == body
+
+
+def test_fetch_nets_without_a_published_release_says_so(monkeypatch):
+    monkeypatch.setattr(assets, "load_manifest", lambda: {"version": "t", "base_url": "http://x", "files": []})
+    monkeypatch.delenv("PARCIVER_ASSET_URL", raising=False)
+    msgs: list[str] = []
+    assert assets.fetch(None, say=msgs.append, group="nets") == 2 and any("--url" in m for m in msgs)
+
+
+def test_the_shipped_manifest_lists_both_nets():
+    nets = assets.load_manifest()["nets"]["files"]
+    assert [e["dest"] for e in nets] == ["nets/N0.pt", "nets/N1.pt"]
+    assert all(e["gzip"] is False and len(e["sha256"]) == 64 for e in nets)
+
+
+def test_a_net_loads_with_the_safe_loader_and_refuses_code(tmp_path):
+    torch = pytest.importorskip("torch")
+    from parciver import value_net as vn
+
+    net = vn.ValueNet(8, 2)
+    path = tmp_path / "net.pt"
+    vn.save(net, path, {"epoch": 1})
+    loaded, meta = vn.load(path, device="cpu")
+    assert meta == {"epoch": 1} and loaded.state_dict().keys() == net.state_dict().keys()
+
+    class Boom:  # a pickled object that would run code on load
+        def __reduce__(self):
+            return (print, ("executed",))
+
+    evil = tmp_path / "evil.pt"
+    torch.save({"width": 8, "depth": 2, "state": {}, "boom": Boom()}, evil)
+    with pytest.raises(Exception):  # weights_only=True: refused, nothing runs
+        vn.load(evil, device="cpu")
+
+
 def test_fetch_without_a_location_says_so(monkeypatch):
     monkeypatch.setattr(assets, "load_manifest", lambda: {"version": "t", "base_url": None, "files": []})
     monkeypatch.delenv("PARCIVER_ASSET_URL", raising=False)

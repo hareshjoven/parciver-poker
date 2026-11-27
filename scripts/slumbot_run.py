@@ -64,19 +64,30 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from parciver import slumbot as S  # noqa: E402
+from parciver.play_nlhe import home  # noqa: E402
 from parciver.solver_watch import Watched, write_atomic  # noqa: E402
 
 # v2-8B since BP-8B (records/bp-8b/PREREG.md "Adoption"; a GAIN, the live match not DOWN); before: v2-2B,
 # runs/blueprint-20260927-141645/blueprint.bin
-BLUEPRINT = ROOT / "runs" / "bp-8b-stage2" / "blueprint.bin"  # v2-8B, 200 bb, sha256 fd27fe50...c7ae071
-ABSTRACTION = ROOT / "data" / "abstraction"
+def _installed(lab: Path, rel: str) -> Path:
+    """The lab's own copy when it exists, else where `parciver fetch-blueprint` / `fetch-nets` installs it
+    (`~/.parciver`, or `$PARCIVER_HOME`): a checkout without `runs/` still finds the released files."""
+    return lab if lab.exists() else home() / rel
+
+
+BLUEPRINT = _installed(ROOT / "runs" / "bp-8b-stage2" / "blueprint.bin", "blueprint.bin")  # v2-8B, 200 bb, sha256 fd27fe50...c7ae071
+ABSTRACTION = _installed(ROOT / "data" / "abstraction", "abstraction")
 # river_iters: 2,000 since RIVER R1 (records/river-live/PREREG.md "Adoption"; P1 held, P2 not DOWN); 200 before
 SEARCH = dict(from_flop=True, flop_iters=500, from_turn=True, turn_iters=400, river_iters=2000, rescue=False)
 # LIVESEARCH B1 (Amendment 3; Stage 1's shift1_g5, records/livesearch/stage1.json): FusedSolver's schedule on
 # turn jobs only. None (before B1) is the default, DCFR gamma 2.
 TURN_SCHEDULE = dict(gamma=5, shift=1)
 TERMINALS64 = True  # records/verify/v5.json: K2 MATTERS
-NET = ROOT / "runs" / "turn-net" / "d2b-w2048-wd0.1" / "net.pt"  # D2b's N1 (9 Nov 2026, the author's yes): the flop search's leaves; before it D2's final-w2048-d5-e200 (N0)
+NETS = {  # the two released flop value nets (`parciver fetch-nets`; sha256s in src/parciver/assets.json)
+    "N0": _installed(ROOT / "runs" / "turn-net" / "final-w2048-d5-e200" / "net.pt", "nets/N0.pt"),  # D2's: the SLUMBOT-2 match's net
+    "N1": _installed(ROOT / "runs" / "turn-net" / "d2b-w2048-wd0.1" / "net.pt", "nets/N1.pt"),  # D2b's (9 Nov 2026, the author's yes)
+}
+NET = NETS["N1"]  # the live default: N1, the flop search's leaves; before D2b it was N0. `--net N0` plays the match's net
 FLOP_GAMMA = 5.0  # D4 (FLOPSEARCH M2)
 LEAVES = "sym"  # FLOP-SYM C2 (records/flop-sym/PREREG.md "Adoption"); before 12 Oct "dense"
 FLOP_P95 = 3.0  # seconds, the flop decisions' bar (records/live-flop/PREREG.md, the author's call 11 Oct)
@@ -354,7 +365,15 @@ def main() -> int:
                                                                "(recorded; not the registered mock run)")
     p.add_argument("--no-gpu-clients", action="store_true", help="do not log the GPU's other clients beside the run "
                                                                   "(LIVESEARCH.md Amendment 5; recorded)")
+    p.add_argument("--net", help="the flop value net: N0 (the SLUMBOT-2 match's), N1 (the default, the live "
+                                 "configuration's) or a path to a net file; recorded in run.json. A live run still "
+                                 "needs a committed mock run on this net (records/livesearch/mock_check.json)")
     args = p.parse_args()
+    if args.net:
+        global NET
+        NET = NETS.get(args.net.upper()) or Path(args.net)
+    if not NET.is_file():
+        raise SystemExit(f"no net at {NET}: run `parciver fetch-nets` (it installs N0 and N1 under {home() / 'nets'})")
 
     if args.dir:
         run = Path(args.dir)

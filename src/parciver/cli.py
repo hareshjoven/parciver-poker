@@ -5,6 +5,7 @@
     parciver play leduc --peek      # see the opponent's mixed strategy after each hand
     parciver fetch-blueprint        # once: ~0.7 GB of tables for the No-Limit game
     parciver play nlhe              # heads-up No-Limit hold'em vs the blueprint (CPU)
+    parciver fetch-nets             # optional: the flop value nets of the full GPU configuration (~0.2 GB)
 """
 from __future__ import annotations
 
@@ -40,11 +41,17 @@ def main(argv: list[str] | None = None) -> int:
     f = sub.add_parser("fetch-blueprint", help="download the blueprint tables the nlhe game needs")
     f.add_argument("--url", help="directory URL holding the release's .gz files (default: the project's release)")
 
+    n = sub.add_parser("fetch-nets", help="download the flop value nets (N0, N1) of the full GPU configuration")
+    n.add_argument("--url", help="directory URL holding the release's net files (default: the project's release)")
+
     a = ap.parse_args(argv)
     try:
         if a.command == "fetch-blueprint":
             from .assets import fetch
             return fetch(a.url)
+        if a.command == "fetch-nets":
+            from .assets import fetch
+            return fetch(a.url, group="nets")
         if a.game == "nlhe":
             from .play_nlhe import run as run_nlhe
             return run_nlhe(hands=a.hands, seed=a.seed, peek=a.peek, search=a.search,

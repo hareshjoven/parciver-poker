@@ -64,12 +64,20 @@ Three tiers, from "works in ten seconds" to "the full system":
    (half pot), `p` (pot), `a` (all in). It is a fixed strategy: it does not read or adapt to you.
 3. **The full GPU configuration** (flop value-net search + turn/river search), as benchmarked in
    [RESULTS.md](RESULTS.md): see [ARCHITECTURE.md](ARCHITECTURE.md) and `scripts/slumbot_run.py`. Needs an
-   NVIDIA GPU and `pip install -e ".[gpu]"`.
+   NVIDIA GPU, `pip install -e ".[gpu]"`, the blueprint tables (`parciver fetch-blueprint`) and a flop value net
+   (`parciver fetch-nets`). Two nets are released: **N0**, which the 50,000-hand Slumbot match above was played
+   with, and **N1**, the live configuration's current net and the script's default (`--net N0` selects the
+   match's). `scripts/slumbot_run.py --mock` plays the offline mock server (it checks every action with Slumbot's own
+   `sample_api.py`, which is not in this repository: put it at `C:/tmp/slumbot/sample_api.py` or point
+   `$PARCIVER_SLUMBOT_SAMPLE` at it; the file is checksum-pinned). A live run needs a registered mock run of your
+   own on the net you choose (see [RELEASING.md](RELEASING.md)).
 
 `parciver fetch-blueprint` downloads the blueprint tables (1.55 GB unpacked, ~0.7 GB to download) from the
 project's GitHub release, decompresses them on the fly and **verifies a SHA-256 of every file before
 installing it**. The tables are numeric data read by the Rust engine; nothing downloaded is ever executed.
-They go to `~/.parciver` (or `$PARCIVER_HOME`).
+They go to `~/.parciver` (or `$PARCIVER_HOME`). `parciver fetch-nets` does the same for the two flop value nets
+(2 x 111 MB, to `~/.parciver/nets`); a net file is read with `torch.load(weights_only=True)`, which accepts tensors
+and plain numbers only, so a downloaded net runs no code either.
 
 ## Install
 
