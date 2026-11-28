@@ -104,6 +104,14 @@ def test_describe_reads_the_history_from_the_players_seat():
     assert lines[1] == "flop: opponent checks, you bet to 200, opponent calls"
 
 
+def test_a_missing_engine_is_explained_before_any_download_is_suggested(monkeypatch):
+    monkeypatch.setattr(P, "engine_present", lambda: False)
+    lines: list[str] = []
+    assert P.run(hands=1, say=lines.append) == 2
+    text = "\n".join(lines)
+    assert "maturin develop" in text and "fetch-blueprint" not in text
+
+
 def test_locate_assets(tmp_path, monkeypatch):
     monkeypatch.setenv("PARCIVER_HOME", str(tmp_path))
     assert P.locate_assets(None, None) is None

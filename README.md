@@ -5,19 +5,23 @@ a Rust Monte Carlo CFR blueprint, GPU real-time subgame search on top of it, and
 checks every solver against games with known answers before it is trusted on poker. Developed and measured on
 one consumer desktop (RTX 4070, Ryzen 5800X); see [Scope](#scope-and-honesty) for the few jobs that were not.
 
-**Play it in your terminal:**
+**Play it in your terminal** (Python 3.12+; full setup, including the Rust build, is in [Install](#install)):
 
 ```bash
-pip install -e .                      # Python side
+git clone https://github.com/hareshjoven/parciver-poker.git && cd parciver-poker
+python -m venv .venv && . .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -e .                      # Python side, a few seconds
 parciver play kuhn                    # nothing else to install, instant
 parciver play leduc --peek            # watch the exact equilibrium it solved a moment ago
 ```
 
-and, after the one-time ~0.7 GB download of the real blueprint (see [Play](#play)):
+and for the real thing, heads-up no-limit hold'em, which also needs the Rust engine (about two minutes to build) and
+a one-time ~0.7 GB download of the blueprint:
 
 ```bash
+pip install maturin && maturin develop --release -m engine/Cargo.toml     # needs Rust: https://rustup.rs
 parciver fetch-blueprint
-parciver play nlhe                    # heads-up no-limit hold'em, 200 big blinds deep
+parciver play nlhe                    # 200 big blinds deep; the first start loads the tables (~20 s)
 ```
 
 ## What is in here
@@ -63,14 +67,22 @@ Three tiers, from "works in ten seconds" to "the full system":
    It reads your real bet sizes by nearest-size translation, so you can bet any amount: `b 640`, `h`
    (half pot), `p` (pot), `a` (all in). It is a fixed strategy: it does not read or adapt to you.
 3. **The full GPU configuration** (flop value-net search + turn/river search), as benchmarked in
-   [RESULTS.md](RESULTS.md): see [ARCHITECTURE.md](ARCHITECTURE.md) and `scripts/slumbot_run.py`. Needs an
-   NVIDIA GPU, `pip install -e ".[gpu]"`, the blueprint tables (`parciver fetch-blueprint`) and a flop value net
-   (`parciver fetch-nets`). Two nets are released: **N0**, which the 50,000-hand Slumbot match above was played
-   with, and **N1**, the live configuration's current net and the script's default (`--net N0` selects the
-   match's). `scripts/slumbot_run.py --mock` plays the offline mock server (it checks every action with Slumbot's own
-   `sample_api.py`, which is not in this repository: put it at `C:/tmp/slumbot/sample_api.py` or point
-   `$PARCIVER_SLUMBOT_SAMPLE` at it; the file is checksum-pinned). A live run needs a registered mock run of your
-   own on the net you choose (see [RELEASING.md](RELEASING.md)).
+   [RESULTS.md](RESULTS.md). This is a research harness, not a game: there is no interactive command for it. It is
+   `scripts/slumbot_run.py`, which plays a benchmark opponent over HTTP, and it is **pre-registered**: it refuses
+   to start a live match unless a registered mock run on the same net passed first (see [RELEASING.md](RELEASING.md)).
+   What you need, in order:
+   1. an NVIDIA GPU with a CUDA build of PyTorch, then `pip install -e ".[gpu]"` (see [Install](#install));
+   2. the Rust engine, `parciver fetch-blueprint` and `parciver fetch-nets` (about 0.9 GB in all);
+   3. Slumbot's `sample_api.py`, which is not in this repository: put it at `C:/tmp/slumbot/sample_api.py` or point
+      `$PARCIVER_SLUMBOT_SAMPLE` at it (the file is checksum-pinned);
+   4. `python scripts/slumbot_run.py --mock`, the offline mock run (1,000 hands by default; `--hands` changes it),
+      which checks every action with Slumbot's own `ParseAction`. Add `--allow-dirty` while you have uncommitted
+      changes (that run is recorded as not the registered one).
+
+   Two nets are released: **N0**, which the 50,000-hand Slumbot match above was played with, and **N1**, the live
+   configuration's current net and the script's default; `--net N0` selects the match's. The numbers above were
+   measured on one RTX 4070 (12 GB), and the flop search is what sets the latency in the table. Nothing in this
+   tier has been tested on another GPU, another operating system, or the Linux Triton build.
 
 `parciver fetch-blueprint` downloads the blueprint tables (1.55 GB unpacked, ~0.7 GB to download) from the
 project's GitHub release, decompresses them on the fly and **verifies a SHA-256 of every file before
@@ -81,19 +93,54 @@ and plain numbers only, so a downloaded net runs no code either.
 
 ## Install
 
-Requires Python 3.12+ and a Rust toolchain (the engine is a PyO3 extension built with maturin). Developed and
-tested on Windows 11; CI also builds and tests on Linux.
+**You need:** Python 3.12+, git, and for anything beyond Kuhn and Leduc a Rust toolchain ([rustup.rs](https://rustup.rs);
+on Windows also the "Desktop development with C++" build tools that rustup asks for). Developed on Windows 11 and
+tested there from a fresh clone; CI also builds and tests on Linux (CPU only). macOS is untested.
+
+| you want | install | disk | first run |
+|---|---|---|---|
+| `play kuhn`, `play leduc` | `pip install -e .` | tiny | instant |
+| `play nlhe` (the blueprint) | + the Rust engine, + `parciver fetch-blueprint` | 1.5 GB in `~/.parciver` | ~20 s to load the tables |
+| the tests | `pip install -e ".[dev]"` + the Rust engine | tiny | about 20 minutes (see below) |
+| GPU search ([tier 3](#play)) | + `pip install -e ".[gpu]"`, `fetch-nets` | + 0.2 GB | a research harness, not a game |
+
+The steps, from a clean clone:
 
 ```bash
+git clone https://github.com/hareshjoven/parciver-poker.git && cd parciver-poker
 python -m venv .venv && . .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -e ".[dev]"
-pip install maturin && maturin develop --release -m engine/Cargo.toml
-pytest                                              # the CPU test suite
-cargo test --no-default-features --manifest-path engine/Cargo.toml
+pip install -e ".[dev]"                             # the Python side; Kuhn and Leduc work now
+pip install maturin
+maturin develop --release -m engine/Cargo.toml      # the Rust engine; run it inside the venv; ~2 minutes
+parciver fetch-blueprint                            # ~0.7 GB download, verified, ~1.5 GB on disk
+parciver play nlhe
 ```
 
-`parciver play kuhn` and `leduc` work with the first line alone; `play nlhe` and most of `scripts/` need the
-Rust extension. GPU search additionally needs `pip install -e ".[gpu]"` with a CUDA build of PyTorch.
+Check each step: `parciver --version` prints a version; `python -c "import parciver_engine"` prints nothing once the
+engine is built; `parciver play nlhe --hands 1` prints "ready in" some seconds and deals a hand (type `f` to fold,
+`q` to quit).
+
+The test suite: from a fresh clone with the GPU hidden, `pytest` ran 645 tests (66 skipped) in about 22 minutes on
+the developer's 16-thread desktop. For a quick check run `pytest tests/test_play_nlhe.py`. `cargo test --no-default-features --manifest-path engine/Cargo.toml`
+runs the Rust tests.
+
+GPU search additionally needs a CUDA build of PyTorch **before** `pip install -e ".[gpu]"`: install `torch` from
+the index that matches your driver (see pytorch.org); on Windows a plain `pip install torch` gives a CPU-only build.
+On Windows the extra also installs `triton-windows`.
+
+**If something goes wrong**
+
+| you see | cause and fix |
+|---|---|
+| `play nlhe` says "The Rust engine is not built" | run the `maturin develop` line above, inside the venv you installed into |
+| `maturin` says it could not find a virtualenv | activate the venv first (`maturin develop` installs into the active one) |
+| a linker or `cl.exe` error while building (Windows) | install the Visual Studio "Desktop development with C++" build tools, then retry |
+| `play nlhe` says "The blueprint tables are not on this machine" | run `parciver fetch-blueprint` (or pass `--blueprint` and `--abstraction`); `$PARCIVER_HOME` moves the install folder |
+| `fetch-blueprint` or `fetch-nets` ends with "does not match" | the download was damaged: nothing was installed; run it again |
+| `fetch-blueprint` says "Could not download" | no network or no access to GitHub releases; use `--url` with a mirror folder |
+| `scripts/slumbot_run.py` says "no net at" | run `parciver fetch-nets` |
+| `scripts/slumbot_run.py` says `sample_api.py` is missing | see tier 3 above: Slumbot's file is not in this repository |
+| `scripts/slumbot_run.py` refuses a live run | by design: a registered mock run on your net must exist first ([RELEASING.md](RELEASING.md)) |
 
 ## The training dashboard
 

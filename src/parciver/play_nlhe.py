@@ -24,6 +24,7 @@ At your turn type one of::
 """
 from __future__ import annotations
 
+import importlib.util
 import os
 import random
 import re
@@ -128,6 +129,11 @@ def prompt_for(state: S.State, hole, board) -> str:
     return ctx
 
 
+def engine_present() -> bool:
+    """Is the compiled Rust extension importable? (Looked up, not imported.)"""
+    return importlib.util.find_spec("parciver_engine") is not None
+
+
 def load_agent(abstraction: Path, blueprint: Path, search: bool, say: Callable[[str], None]):
     import parciver_engine as pe
 
@@ -219,6 +225,11 @@ def run(hands: int | None = None, seed: int | None = None, peek: bool = False, s
         ask: Callable[[str], str] | None = None, say: Callable[[str], None] = print, agent=None) -> int:
     ask = ask or input
     if agent is None:
+        if not engine_present():  # before any 0.7 GB download: the tables are useless without the engine
+            say("The Rust engine is not built, and `play nlhe` needs it. From the repository folder, in your venv:")
+            say("  pip install maturin")
+            say("  maturin develop --release -m engine/Cargo.toml     (needs a Rust toolchain: https://rustup.rs; ~2 min)")
+            return 2
         found = locate_assets(blueprint, abstraction)
         if found is None:
             say("The blueprint tables are not on this machine. Run:  parciver fetch-blueprint")
