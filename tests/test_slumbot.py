@@ -1,4 +1,3 @@
-# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """The Slumbot client's protocol layer (src/parciver/slumbot.py; records/slumbot/PREREG.md).
 
 The pre-registered parser check: `parse` agrees with `ParseAction` of Slumbot's own `sample_api.py` on every
@@ -21,6 +20,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+pytest.importorskip("parciver_engine")  # payoffs and hand evaluation run in the Rust engine
 from parciver import slumbot as S  # noqa: E402
 
 SAMPLE = Path(os.environ.get("PARCIVER_SLUMBOT_SAMPLE", "C:/tmp/slumbot/sample_api.py"))

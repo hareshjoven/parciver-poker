@@ -1,4 +1,3 @@
-# Copyright (c) 2026 Haresh Joven. MIT License (see LICENSE).
 """Tests for the dashboard producers and viewer server (Phase 3c, pre-B4).
 
 The load-bearing contract is covered by ``test_telemetry.py``; these cover the
@@ -28,7 +27,12 @@ def _load_script(name: str):
     path = ROOT / "scripts" / f"{name}.py"
     spec = importlib.util.spec_from_file_location(f"_script_{name}", path)
     mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
+    try:
+        spec.loader.exec_module(mod)
+    except ModuleNotFoundError as e:  # scripts that import the Rust engine skip on a Python-only install
+        if e.name == "parciver_engine":
+            pytest.skip("needs the Rust engine (parciver_engine)")
+        raise
     return mod
 
 
@@ -53,6 +57,7 @@ def test_replay_target_mix_is_a_distribution():
 
 
 def test_replay_demo_emits_valid_full_scale_log(tmp_path):
+    pytest.importorskip("parciver_engine")
     replay = _load_script("replay_demo")
     replay.run(tmp_path, target_iters=1_000_000, duration=0.1, tick=0.05,
                checkpoint_every=1, fast=False, seed=3)
@@ -87,6 +92,7 @@ def test_train_small_emits_real_convergence(tmp_path):
 
 
 def test_train_small_helpers():
+    pytest.importorskip("parciver_engine")
     train = _load_script("train_small")
     sched = train.geometric_schedule(200, 100000, 10)
     assert sched[0] == 200 and sched[-1] == 100000
