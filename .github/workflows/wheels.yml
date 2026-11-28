@@ -8,8 +8,6 @@ on:
   workflow_dispatch:
   push:
     tags: ["engine-v*"]
-  pull_request:
-    paths: ["engine/**", ".github/workflows/wheels.yml"]
 
 jobs:
   wheels:
