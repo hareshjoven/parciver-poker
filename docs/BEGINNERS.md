@@ -36,7 +36,7 @@ Every step below is a command you type; `parciver doctor` tells you what is read
    ```
    After each hand it shows the probabilities it used. Notice that it is *mixed*: in the same spot it
    sometimes bets and sometimes checks, on purpose, so you cannot read it.
-5. **Play real poker** once you want to. This needs the Rust engine and a one-time ~0.7 GB download; the
+5. **Play real poker** once you want to. This needs the Rust engine and a one-time ~0.7 GB download (1.5 GB on disk); the
    README's [Install](../README.md#install) section has the steps, and `parciver doctor` shows which one you
    are on.
    ```bash
