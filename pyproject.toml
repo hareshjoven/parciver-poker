@@ -47,6 +47,7 @@ packages = ["src/parciver"]
 testpaths = ["tests"]
 addopts = "-q"
 pythonpath = ["src"]
+markers = ["slow: long-running tests (CFR convergence, exact best response, kernel and search comparisons); skip with -m \"not slow\""]
 
 [tool.ruff]
 line-length = 140

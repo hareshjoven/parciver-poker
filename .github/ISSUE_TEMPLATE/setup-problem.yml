@@ -1,0 +1,51 @@
+name: Setup or install problem
+description: Something failed while installing, building the engine, downloading tables or starting a game.
+labels: ["setup"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying parciver. Run **`parciver doctor`** first: it often names the missing piece and the fix.
+        If it does not, the three boxes below are everything needed to reproduce your problem.
+  - type: textarea
+    id: command
+    attributes:
+      label: The command you ran and what you expected
+      placeholder: "parciver play nlhe   (expected: a hand to be dealt)"
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: What happened (paste the full error, not a screenshot)
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `parciver doctor`
+      description: If `parciver` itself will not start, say so and paste `python --version` instead.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Windows 11 / Ubuntu 24.04 / macOS 15"
+    validations:
+      required: true
+  - type: dropdown
+    id: step
+    attributes:
+      label: How far did you get in the README's steps?
+      options:
+        - Could not install the Python package
+        - Kuhn / Leduc work, the Rust engine will not build
+        - Engine built, fetch-blueprint fails
+        - Tables installed, play nlhe fails
+        - GPU / tier 3 (slumbot_run.py)
+        - Something else
+    validations:
+      required: true

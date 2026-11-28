@@ -59,3 +59,17 @@ entry of `assets.json`), create a release tagged `flopnets-v1` with the two `.pt
 run `parciver fetch-nets`. A live Slumbot run additionally needs a registered mock run on the chosen net, committed
 as `records/livesearch/mock_check.json`. The mock run (`--mock`) needs the nets, the blueprint tables and Slumbot's
 `sample_api.py` (not in this repository; see the README).
+
+# Engine wheels (skip the Rust toolchain)
+
+`.github/workflows/wheels.yml` builds the Rust engine (`parciver_engine`) as wheels for Linux and Windows on Python 3.12
+and 3.13, installs each into a clean virtualenv and imports it, then uploads them as workflow artifacts. It publishes
+nothing. The extension is not abi3, so there is one wheel per Python version, and macOS is not built because nothing
+here has been tested on it.
+
+Procedure (maintainer): run the workflow (Actions, "engine wheels", Run workflow, or push a tag `engine-vX`), download
+the artifacts, and attach the wheels to a release, for example
+`gh release upload engine-v1 parciver_engine-*.whl --repo hareshjoven/parciver-poker`. A user then runs
+`pip install parciver_engine-0.1.0-cp312-cp312-win_amd64.whl` instead of `maturin develop`. Only after a release really
+carries wheels should the README and `parciver doctor` point at them. The Windows cp312 wheel was built and installed
+into a fresh venv locally (about 1 MB); the workflow itself has not run on GitHub yet.

@@ -5,6 +5,9 @@ a Rust Monte Carlo CFR blueprint, GPU real-time subgame search on top of it, and
 checks every solver against games with known answers before it is trusted on poker. Developed and measured on
 one consumer desktop (RTX 4070, Ryzen 5800X); see [Scope](#scope-and-honesty) for the few jobs that were not.
 
+**New to poker, or to CFR? Start with [docs/BEGINNERS.md](docs/BEGINNERS.md)**: what this is, a first ten minutes,
+how to read the screen, and a glossary. At any point, `parciver doctor` checks your setup and prints the next command.
+
 **Play it in your terminal** (Python 3.12+; full setup, including the Rust build, is in [Install](#install)):
 
 ```bash
@@ -13,6 +16,7 @@ python -m venv .venv && . .venv/bin/activate        # Windows: .venv\Scripts\act
 pip install -e .                      # Python side, a few seconds
 parciver play kuhn                    # nothing else to install, instant
 parciver play leduc --peek            # watch the exact equilibrium it solved a moment ago
+parciver doctor                       # what works here, what is missing, and the command that fixes each
 ```
 
 and for the real thing, heads-up no-limit hold'em, which also needs the Rust engine (about two minutes to build) and
@@ -116,12 +120,13 @@ parciver fetch-blueprint                            # ~0.7 GB download, verified
 parciver play nlhe
 ```
 
-Check each step: `parciver --version` prints a version; `python -c "import parciver_engine"` prints nothing once the
+Not sure which step you are on? Run `parciver doctor`: it lists what works, what is missing and the command that fixes
+each gap, and changes nothing. Or check each step by hand: `parciver --version` prints a version; `python -c "import parciver_engine"` prints nothing once the
 engine is built; `parciver play nlhe --hands 1` prints "ready in" some seconds and deals a hand (type `f` to fold,
 `q` to quit).
 
 The test suite: from a fresh clone with the GPU hidden, `pytest` ran 645 tests (66 skipped) in about 22 minutes on
-the developer's 16-thread desktop. For a quick check run `pytest tests/test_play_nlhe.py`. `cargo test --no-default-features --manifest-path engine/Cargo.toml`
+the developer's 16-thread desktop. For a faster run, `pytest -m "not slow"` skips the long convergence and search tests (about 5 minutes); for a one-minute check run `pytest tests/test_play_nlhe.py tests/test_doctor.py`. `cargo test --no-default-features --manifest-path engine/Cargo.toml`
 runs the Rust tests.
 
 GPU search additionally needs a CUDA build of PyTorch **before** `pip install -e ".[gpu]"`: install `torch` from
@@ -132,6 +137,7 @@ On Windows the extra also installs `triton-windows`.
 
 | you see | cause and fix |
 |---|---|
+| anything unclear | run `parciver doctor` first; it names the missing piece and its fix, and its output is what an issue report needs |
 | `play nlhe` says "The Rust engine is not built" | run the `maturin develop` line above, inside the venv you installed into |
 | `maturin` says it could not find a virtualenv | activate the venv first (`maturin develop` installs into the active one) |
 | a linker or `cl.exe` error while building (Windows) | install the Visual Studio "Desktop development with C++" build tools, then retry |

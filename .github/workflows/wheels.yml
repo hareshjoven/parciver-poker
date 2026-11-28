@@ -1,0 +1,43 @@
+name: engine wheels
+
+# Builds the Rust engine (the `parciver_engine` Python extension) as ready-made wheels so a beginner can skip the
+# Rust toolchain. Nothing here publishes: a maintainer downloads the artifacts and attaches them to a release by hand
+# (see RELEASING.md, "Engine wheels"). The wheel is built per Python version because the extension is not abi3.
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["engine-v*"]
+  pull_request:
+    paths: ["engine/**", ".github/workflows/wheels.yml"]
+
+jobs:
+  wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Build the wheel
+        uses: PyO3/maturin-action@v1
+        with:
+          manylinux: auto
+          args: --release --interpreter python${{ matrix.python }} -m engine/Cargo.toml -o dist
+      - name: Smoke test (install the wheel into a clean venv and import it)
+        shell: bash
+        run: |
+          python -m venv smoke
+          if [ -d smoke/Scripts ]; then PY=smoke/Scripts/python; else PY=smoke/bin/python; fi
+          $PY -m pip install dist/*.whl
+          $PY -c "import parciver_engine; print('parciver_engine imports:', parciver_engine.__name__)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parciver-engine-${{ matrix.os }}-py${{ matrix.python }}
+          path: dist/*.whl
+          if-no-files-found: error

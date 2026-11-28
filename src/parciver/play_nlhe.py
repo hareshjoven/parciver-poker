@@ -119,6 +119,39 @@ def parse_move(state: S.State, history: str, text: str) -> str | None:
     return f"b{to}"
 
 
+HELP = """\
+  How to play (you act when the prompt appears; all amounts are chips, one big blind = 100):
+    f            fold: give up the hand (only when there is a bet to fold to)
+    c            call the bet, or check if there is none
+    b 600        bet or raise TO 600 chips in total on this street (r 600 works too; so does just 600)
+    h  p         half-pot / pot-sized bet or raise;  a  all in;  q  quit
+  Reading the line that starts with the street name:
+    pot          chips in the middle         to call   what it costs you to stay in
+    behind       chips you still hold        board     the shared cards (none before the flop)
+  Hands, best first: straight flush, four of a kind, full house, flush, straight, three of a kind,
+  two pair, pair, high card. The best five of your two cards and the board win at showdown.
+  The opponent never reads you: it plays a fixed mix of bets, calls and folds. Nothing you type can hurt
+  anything but your own stack, so experiment."""
+
+
+def options_line(state: S.State) -> str:
+    """The legal moves with their actual chip amounts, e.g. 'you can: f fold | c call 50 | b <to> raise to 200-20000 | h half pot = 250 | ...'."""
+    p = state.pos
+    to_call = state.to_call(p)
+    pot = state.total[0] + state.total[1]
+    all_in_to = state.street[p] + (S.STACK - state.total[p])
+    least = min(state.street_last_bet_to + max(state.last_bet_size, S.BB), all_in_to)
+    parts = ["f fold"] if to_call > 0 else []
+    parts.append(f"c call {to_call}" if to_call > 0 else "c check")
+    if S.STACK - state.total[p] > to_call:  # chips left to raise with
+        def sized(frac: float) -> int:
+            return max(least, min(all_in_to, state.street[p] + to_call + int(frac * (pot + to_call))))
+        verb = "raise" if to_call > 0 or state.last_bet_size > 0 or state.st == 0 else "bet"  # the blinds are bets
+        parts += [f"b <to> {verb} to {least}-{all_in_to}" if least < all_in_to else f"b <to> {verb} to {all_in_to}", f"h half pot = {sized(0.5)}", f"p pot = {sized(1.0)}",
+                  f"a all in = {all_in_to}"]
+    return "  you can: " + " | ".join(parts) + " | ? help | q quit"
+
+
 def prompt_for(state: S.State, hole, board) -> str:
     p = state.pos
     pot = state.total[0] + state.total[1]
@@ -173,10 +206,14 @@ def play_hand(agent, rng: random.Random, human: int, ask: Callable[[str], str], 
             lines = describe(h, human) if h else []
             if lines:
                 say("    so far: " + "  |  ".join(lines))
+            say(options_line(s))
             while True:
-                reply = ask("  your move (f / c / b <to> / h / p / a / q)? ")
+                reply = ask("  your move (? for help)? ")
                 if reply.strip().lower() in ("q", "quit", "exit"):
                     return None
+                if reply.strip().lower() in ("?", "help"):
+                    say(HELP)
+                    continue
                 x = parse_move(s, h, reply)
                 if x is not None:
                     try:
@@ -240,6 +277,7 @@ def run(hands: int | None = None, seed: int | None = None, peek: bool = False, s
     say("")
     say("Heads-up no-limit hold'em, blinds 50/100, 20,000-chip stacks (200 bb). Seats alternate.")
     say("The opponent plays a fixed mixed strategy: it will not tilt, bluff-read you or adapt.")
+    say("New to this? Type ? at any prompt for the commands, the hand ranking and what the numbers mean.")
     say("")
     total, played = 0, 0
     while hands is None or played < hands:

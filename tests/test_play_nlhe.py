@@ -83,6 +83,25 @@ def test_fold_with_nothing_to_fold_to_is_explained():
     assert any("no bet to fold to" in ln for ln in lines)
 
 
+def test_the_prompt_lists_the_legal_moves_with_their_chip_amounts():
+    assert P.options_line(S.parse("")) == (
+        "  you can: f fold | c call 50 | b <to> raise to 200-20000 | h half pot = 200 | p pot = 300 | a all in = 20000"
+        " | ? help | q quit")
+    after = S.parse("c")  # the big blind's option: checking is free, nothing to fold to
+    line = P.options_line(after)
+    assert "fold" not in line and "c check" in line and "raise to 200-20000" in line
+    flop = P.options_line(S.parse("ck/"))  # first to act on the flop: no bet yet, so a bet (least one big blind)
+    assert "c check" in flop and "bet to 100-" in flop
+    allin = S.parse(f"b{S.STACK}")  # facing an all-in: only fold or call
+    assert P.options_line(allin).startswith(f"  you can: f fold | c call {S.STACK - S.BB}") and " b <to>" not in P.options_line(allin)
+
+
+def test_question_mark_explains_the_game_and_the_hand_goes_on():
+    rc, lines, _ = session(["?", "help", "f"], Passive(), hands=1, seed=1)
+    text = "\n".join(lines)
+    assert rc == 0 and text.count("How to play") == 2 and "straight flush" in text and any("lose 50 chips" in ln for ln in lines)
+
+
 def test_parse_move_shorthands():
     s = S.parse("")  # the small blind to act: 50 to call, the least raise is to 200
     assert P.parse_move(s, "", "f") == "f"
@@ -228,3 +247,16 @@ def test_fetch_reports_an_unreachable_release_without_a_traceback(tmp_path, monk
     assert assets.fetch((tmp_path / "nowhere").as_uri(), say=msgs.append) == 1
     assert any("Could not download" in m for m in msgs)
     assert not list((tmp_path / "home").glob("*.part"))
+
+
+def test_a_postflop_reraise_lists_the_amounts_the_parser_accepts():
+    """The least raise and the all-in shown must be legal, and one chip outside them must not be."""
+    h = "b300c/kb400"
+    s = S.parse(h)
+    line = P.options_line(s)
+    assert "f fold | c call 400 | b <to> raise to 800-19700" in line and "a all in = 19700" in line
+    S.parse(h + "b800")
+    S.parse(h + "b19700")
+    for bad in ("b799", "b19701"):
+        with pytest.raises(Exception):
+            S.parse(h + bad)

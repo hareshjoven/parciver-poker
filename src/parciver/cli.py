@@ -6,6 +6,7 @@
     parciver fetch-blueprint        # once: ~0.7 GB of tables for the No-Limit game
     parciver play nlhe              # heads-up No-Limit hold'em vs the blueprint (CPU)
     parciver fetch-nets             # optional: the flop value nets of the full GPU configuration (~0.2 GB)
+    parciver doctor                 # what works on this machine, what is missing, and the fix for each
 """
 from __future__ import annotations
 
@@ -23,10 +24,24 @@ def _version() -> str:
         return "dev"
 
 
+START_HERE = """\
+parciver: play poker against a bot solved with Counterfactual Regret Minimization (CFR).
+
+Start here:
+  parciver play kuhn       the smallest poker game: 3 cards, instant, nothing to install
+  parciver play leduc      a slightly bigger one; add --peek to see the bot's exact mixed strategy
+  parciver doctor          check what works on this machine and what to run next
+  parciver play nlhe       real heads-up no-limit hold'em (needs the Rust engine and a one-time download;
+                           `parciver doctor` says what is missing)
+
+Type ? at any No-Limit prompt for the commands and hand rankings.   More: parciver --help, docs/BEGINNERS.md
+"""
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="parciver", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--version", action="version", version=f"parciver {_version()}")
-    sub = ap.add_subparsers(dest="command", required=True)
+    sub = ap.add_subparsers(dest="command")
 
     p = sub.add_parser("play", help="play a solved bot in the terminal")
     p.add_argument("game", choices=sorted(GAMES) + ["nlhe"], help="which game")
@@ -44,8 +59,17 @@ def main(argv: list[str] | None = None) -> int:
     n = sub.add_parser("fetch-nets", help="download the flop value nets (N0, N1) of the full GPU configuration")
     n.add_argument("--url", help="directory URL holding the release's net files (default: the project's release)")
 
+    d = sub.add_parser("doctor", help="check what works on this machine and what to run next")
+    d.add_argument("--verify", action="store_true", help="also hash the installed tables (about a minute)")
+
     a = ap.parse_args(argv)
     try:
+        if a.command is None:
+            print(START_HERE)
+            return 0
+        if a.command == "doctor":
+            from .doctor import run as run_doctor
+            return run_doctor(verify=a.verify)
         if a.command == "fetch-blueprint":
             from .assets import fetch
             return fetch(a.url)

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: New to poker or CFR?
+    url: https://github.com/hareshjoven/parciver-poker/blob/main/docs/BEGINNERS.md
+    about: What this is, a first ten minutes, how to read the screen, and a glossary.
